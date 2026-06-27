@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>מעבר דירה — HomeFlow 🏠</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1f2937; --muted:#6b7280;
+    --line:#e5e7eb; --brand:#4f46e5; --brand-2:#6366f1; --brand-soft:#eef2ff;
+    --green:#16a34a; --green-soft:#dcfce7; --blue:#2563eb; --blue-soft:#dbeafe;
+    --amber:#d97706; --amber-soft:#fef3c7; --gray:#9ca3af; --gray-soft:#f3f4f6;
+    --red:#dc2626; --red-soft:#fee2e2; --yellow:#ca8a04; --shadow:0 6px 24px rgba(17,24,39,.08);
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Rubik',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);
+    -webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  button{font-family:inherit;cursor:pointer}
+  input,select,textarea{font-family:inherit}
+  a{color:var(--brand)}
+  .hidden{display:none !important}
+
+  /* ===== Auth ===== */
+  .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+    background:radial-gradient(1200px 600px at 80% -10%,#e0e7ff 0%,transparent 60%),var(--bg);}
+  .auth-card{background:var(--card);width:100%;max-width:420px;border-radius:20px;box-shadow:var(--shadow);
+    padding:34px 30px;border:1px solid var(--line)}
+  .auth-logo{font-size:40px;text-align:center}
+  .auth-card h1{font-size:23px;margin:6px 0 2px;text-align:center}
+  .auth-card p.sub{color:var(--muted);text-align:center;margin:0 0 22px;font-size:14px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:#374151}
+  .field input,.field select,.field textarea{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:#fafafa;
+    transition:border .15s,box-shadow .15s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brand);
+    box-shadow:0 0 0 3px var(--brand-soft);background:#fff}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;
+    padding:12px 18px;font-size:15px;font-weight:600;background:var(--brand);color:#fff;width:100%;
+    transition:transform .05s,background .15s}
+  .btn:hover{background:var(--brand-2)}
+  .btn:active{transform:translateY(1px)}
+  .btn.secondary{background:var(--brand-soft);color:var(--brand)}
+  .btn.secondary:hover{background:#e0e7ff}
+  .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  .btn.danger{background:var(--red)}
+  .btn.danger:hover{background:#b91c1c}
+  .btn.sm{padding:8px 12px;font-size:13px;width:auto}
+  .switch-line{text-align:center;margin-top:16px;font-size:14px;color:var(--muted)}
+  .switch-line a{cursor:pointer;font-weight:600}
+  .msg{margin-top:14px;padding:11px 13px;border-radius:10px;font-size:13.5px;display:none}
+  .msg.err{background:var(--red-soft);color:#991b1b;display:block}
+  .msg.ok{background:var(--green-soft);color:#166534;display:block}
+  .msg.info{background:var(--blue-soft);color:#1e40af;display:block}
+
+  /* ===== App shell ===== */
+  .app{display:none}
+  .topbar{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;padding:18px 20px 0}
+  .topbar-inner{max-width:1180px;margin:0 auto}
+  .topbar-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .brand{font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px}
+  .topbar .spacer{flex:1}
+  .who{font-size:13px;opacity:.95;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .pill{background:rgba(255,255,255,.18);padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:600}
+  .icon-btn{background:rgba(255,255,255,.16);border:none;color:#fff;border-radius:10px;padding:8px 12px;
+    font-size:13px;font-weight:600;display:inline-flex;gap:6px;align-items:center}
+  .icon-btn:hover{background:rgba(255,255,255,.28)}
+  .hero{max-width:1180px;margin:14px auto 0;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .hero h2{margin:0;font-size:26px;font-weight:800}
+  .hero .count{text-align:center;background:rgba(255,255,255,.15);border-radius:14px;padding:10px 18px;min-width:120px}
+  .hero .count b{display:block;font-size:30px;line-height:1.1}
+  .hero .count span{font-size:12px;opacity:.9}
+  .tabs{max-width:1180px;margin:16px auto 0;display:flex;gap:6px;overflow-x:auto}
+  .tab{background:transparent;border:none;color:rgba(255,255,255,.8);padding:12px 18px;font-size:15px;
+    font-weight:600;border-radius:12px 12px 0 0;white-space:nowrap;position:relative}
+  .tab.active{background:var(--bg);color:var(--brand)}
+  .tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.12)}
+
+  .container{max-width:1180px;margin:0 auto;padding:20px}
+
+  /* ===== Toolbar (search/filters) ===== */
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+  .search{flex:1;min-width:200px;position:relative}
+  .search input{width:100%;padding:11px 40px 11px 14px;border:1px solid var(--line);border-radius:12px;font-size:14px;background:#fff}
+  .search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+  .search::before{content:"🔍";position:absolute;right:13px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.6}
+  .toolbar select{padding:10px 12px;border:1px solid var(--line);border-radius:12px;font-size:13.5px;background:#fff}
+
+  /* ===== Cards / sections ===== */
+  .section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 14px;flex-wrap:wrap}
+  .section-head h3{margin:0;font-size:20px;font-weight:700}
+  .section-head .desc{color:var(--muted);font-size:13.5px}
+
+  .progress-top{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:18px;box-shadow:var(--shadow)}
+  .progress-top .lbl{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:9px}
+  .bar{height:10px;background:var(--gray-soft);border-radius:999px;overflow:hidden}
+  .bar>i{display:block;height:100%;background:linear-gradient(90deg,#4f46e5,#22c55e);border-radius:999px;transition:width .5s}
+
+  /* dashboard cards */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.grid{grid-template-columns:1fr}}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .stat .ico{font-size:26px}
+  .stat .num{font-size:30px;font-weight:800;margin-top:6px}
+  .stat .cap{color:var(--muted);font-size:13px;margin-top:2px}
+  .stat .mini{height:7px;background:var(--gray-soft);border-radius:999px;margin-top:12px;overflow:hidden}
+  .stat .mini>i{display:block;height:100%;border-radius:999px}
+
+  .info-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-top:18px}
+  .info-card h4{margin:0 0 12px;font-size:16px}
+  .contacts{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+  .contact{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fafafe;border:1px solid var(--line);border-radius:12px;font-size:13.5px}
+  .contact b{display:block}
+  .contact a{font-weight:600;text-decoration:none}
+
+  /* ===== Accordion ===== */
+  .acc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+  .acc-head{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer;user-select:none}
+  .acc-head:hover{background:#fafafe}
+  .acc-title{font-size:16px;font-weight:700;flex:1;display:flex;align-items:center;gap:9px}
+  .acc-meta{font-size:12.5px;color:var(--muted);font-weight:600}
+  .chev{transition:transform .25s;font-size:13px;color:var(--muted)}
+  .acc.open .chev{transform:rotate(-180deg)}
+  .acc-mini{width:90px}
+  .acc-mini .bar{height:8px}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .acc.open .acc-body{max-height:6000px}
+  .acc-inner{padding:4px 18px 18px}
+
+  /* task rows */
+  .task{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+  .task:first-child{border-top:none}
+  .task .body{flex:1;min-width:0}
+  .task .ttl{font-weight:500;font-size:14.5px}
+  .task.done .ttl{text-decoration:line-through;color:var(--muted)}
+  .task .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .seg button{background:#fff;border:none;padding:6px 10px;font-size:12.5px;color:var(--muted);border-inline-start:1px solid var(--line)}
+  .seg button:first-child{border-inline-start:none}
+  .seg button.on{color:#fff}
+  .seg button.on.s-done{background:var(--green)}
+  .seg button.on.s-progress{background:var(--blue)}
+  .seg button.on.s-pending{background:var(--amber)}
+  .chip{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px}
+  .chip.p-urgent{background:var(--red-soft);color:#b91c1c}
+  .chip.p-normal{background:var(--amber-soft);color:#92400e}
+  .chip.p-low{background:var(--green-soft);color:#166534}
+  select.prio{border:1px solid var(--line);border-radius:8px;padding:5px 8px;font-size:12px;background:#fff}
+  .note-btn{background:none;border:none;font-size:15px;position:relative}
+  .note-btn .tip{position:absolute;bottom:130%;inset-inline-end:0;background:#1f2937;color:#fff;padding:8px 11px;border-radius:10px;
+    font-size:12px;font-weight:400;width:230px;text-align:start;box-shadow:var(--shadow);display:none;z-index:30;line-height:1.4}
+  .note-btn:hover .tip{display:block}
+  .note-input{margin-top:8px;width:100%;border:1px dashed var(--line);border-radius:10px;padding:8px 10px;font-size:13px;background:#fafafe;resize:vertical;min-height:0;height:36px}
+
+  /* room table */
+  .tbl-wrap{overflow-x:auto;margin-top:6px}
+  table.rooms{width:100%;border-collapse:collapse;font-size:13.5px;min-width:760px}
+  table.rooms th{text-align:start;font-size:12px;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap}
+  table.rooms td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+  table.rooms tr:hover td{background:#fafafe}
+  .item-name{font-weight:600;display:flex;align-items:center;gap:6px}
+  .badge-type{font-size:10.5px;color:var(--muted);background:var(--gray-soft);padding:2px 7px;border-radius:6px;white-space:nowrap}
+  td.row-task .item-name{font-weight:700}
+  tr.is-task td{background:#f8f7ff}
+  .st-select{border:1px solid var(--line);border-radius:9px;padding:6px 7px;font-size:12.5px;background:#fff;min-width:104px;font-weight:600}
+  .st-select.v-done{color:var(--green);border-color:#bbf7d0;background:var(--green-soft)}
+  .st-select.v-progress{color:var(--blue);border-color:#bfdbfe;background:var(--blue-soft)}
+  .st-select.v-pending{color:var(--amber);border-color:#fde68a;background:var(--amber-soft)}
+  .st-select.v-na{color:var(--gray)}
+  .cost-cell{white-space:nowrap;font-variant-numeric:tabular-nums}
+  .del-row{background:none;border:none;color:var(--red);font-size:15px;opacity:.55}
+  .del-row:hover{opacity:1}
+  .add-row{margin-top:12px}
+
+  /* timeline */
+  .tl-task{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-top:1px solid var(--line);cursor:pointer}
+  .tl-task:first-child{border-top:none}
+  .tl-check{width:22px;height:22px;border-radius:7px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;
+    font-size:13px;color:#fff;flex-shrink:0;margin-top:1px;transition:.15s}
+  .tl-task.done .tl-check{background:var(--green);border-color:var(--green)}
+  .tl-task .tl-ttl{font-size:14.5px}
+  .tl-task.done .tl-ttl{text-decoration:line-through;color:var(--muted)}
+
+  /* modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(17,24,39,.5);display:none;align-items:center;justify-content:center;padding:18px;z-index:60}
+  .modal-bg.show{display:flex}
+  .modal{background:#fff;border-radius:18px;max-width:540px;width:100%;max-height:90vh;overflow:auto;box-shadow:var(--shadow)}
+  .modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}
+  .modal-head h3{margin:0;font-size:18px}
+  .modal-body{padding:20px}
+  .x{background:none;border:none;font-size:22px;color:var(--muted);line-height:1}
+  .mem{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+  .mem:first-child{border-top:none}
+  .mem .av{width:34px;height:34px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700}
+  .mem .info{flex:1;min-width:0}
+  .mem .info small{color:var(--muted)}
+  .role-tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+  .role-manager{background:#ede9fe;color:#6d28d9}
+  .role-full{background:var(--blue-soft);color:#1d4ed8}
+  .role-limited{background:var(--gray-soft);color:#4b5563}
+  .pending-tag{font-size:10.5px;color:var(--amber);font-weight:600}
+  .add-mem{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .add-mem input{flex:1;min-width:140px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px}
+  .add-mem select{padding:10px;border:1px solid var(--line);border-radius:10px}
+
+  .empty{text-align:center;color:var(--muted);padding:50px 20px}
+  .empty .big{font-size:42px}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:#1f2937;color:#fff;
+    padding:12px 20px;border-radius:12px;font-size:14px;box-shadow:var(--shadow);opacity:0;transition:.3s;z-index:80}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+  .loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:90;flex-direction:column;gap:14px}
+  .spinner{width:42px;height:42px;border:4px solid var(--brand-soft);border-top-color:var(--brand);border-radius:50%;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- ============ LOADING ============ -->
+<div class="loading" id="loading"><div class="spinner"></div><div style="color:var(--muted);font-size:14px">טוען…</div></div>
+
+<!-- ============ AUTH ============ -->
+<div class="auth-wrap hidden" id="authView">
+  <div class="auth-card">
+    <div class="auth-logo">🏠</div>
+    <h1 id="authTitle">התחברות</h1>
+    <p class="sub" id="authSub">ניהול מעבר הדירה שלכם — במקום אחד</p>
+
+    <div class="field"><label>אימייל</label><input type="email" id="authEmail" placeholder="name@example.com" autocomplete="email" /></div>
+    <div class="field"><label>סיסמה</label><input type="password" id="authPass" placeholder="לפחות 6 תווים" autocomplete="current-password" /></div>
+
+    <button class="btn" id="authBtn">התחברות</button>
+    <div class="msg" id="authMsg"></div>
+    <div class="switch-line" id="authSwitch">אין לכם חשבון? <a id="toSignup">הרשמה</a></div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="app" id="app">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-row">
+        <div class="brand">🏠 HomeFlow</div>
+        <div class="spacer"></div>
+        <div class="who">
+          <span class="pill" id="roleBadge">—</span>
+          <span id="userEmailLbl"></span>
+          <button class="icon-btn" id="membersBtn">👥 חברים</button>
+          <button class="icon-btn" id="logoutBtn">יציאה ⏏</button>
+        </div>
+      </div>
+      <div class="hero">
+        <div>
+          <h2 id="projTitle">מעבר דירה</h2>
+          <div style="opacity:.92;font-size:14px" id="projSub">נווה עוז, פתח תקווה → פסגת אפק ב', ראש העין</div>
+        </div>
+        <div class="count"><b id="countDays">—</b><span>ימים למעבר · 13/08/2026</span></div>
+      </div>
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="dashboard">📊 לוח בקרה</button>
+        <button class="tab" data-tab="tasks">📋 לוח משימות</button>
+        <button class="tab" data-tab="rooms">🛋️ מעקב חדרים</button>
+        <button class="tab" data-tab="timeline">🗓️ לוח זמנים</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="toolbar" id="toolbar">
+      <div class="search"><input type="text" id="searchInput" placeholder="חיפוש חופשי בכל המשימות והפריטים…" /></div>
+      <select id="statusFilter">
+        <option value="all">כל הסטטוסים</option>
+        <option value="done">✅ הושלם</option>
+        <option value="progress">🔄 בתהליך</option>
+        <option value="pending">⏳ ממתין</option>
+      </select>
+      <select id="priorityFilter">
+        <option value="all">כל העדיפויות</option>
+        <option value="urgent">🔴 דחוף</option>
+        <option value="normal">🟡 רגיל</option>
+        <option value="low">🟢 נמוך</option>
+      </select>
+      <button class="btn ghost sm" id="resetBtn">♻️ איפוס הכול</button>
+    </div>
+
+    <div id="tab-dashboard"></div>
+    <div id="tab-tasks" class="hidden"></div>
+    <div id="tab-rooms" class="hidden"></div>
+    <div id="tab-timeline" class="hidden"></div>
+  </div>
+</div>
+
+<!-- members modal -->
+<div class="modal-bg" id="memberModal">
+  <div class="modal">
+    <div class="modal-head"><h3>👥 חברי הפרויקט</h3><button class="x" id="closeMembers">×</button></div>
+    <div class="modal-body" id="memberBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* =================== CONFIG =================== */
+const SUPABASE_URL = "https://zaikfsmkogejrtqdmbll.supabase.co";
+const SUPABASE_KEY = "sb_publishable_DJ332mc6g_ue0C3ZbxNZCQ_gjciJXqd";
+const MOVE_DATE = "2026-08-13";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* =================== STATUS DICTIONARIES =================== */
+const TASK_ST = {
+  done:{lbl:"✅ הושלם",cls:"s-done"},
+  progress:{lbl:"🔄 בתהליך",cls:"s-progress"},
+  pending:{lbl:"⏳ ממתין",cls:"s-pending"}
+};
+const TASK_ST_ORDER = ["pending","progress","done"];
+const PRIO = {urgent:"🔴 דחוף",normal:"🟡 רגיל",low:"🟢 נמוך"};
+const FIELD_ST = {
+  done:"✅ הושלם",
+  progress:"🔄 בדרך",
+  pending:"⏳ ממתין",
+  na:"➖ לא רלוונטי"
+};
+
+/* =================== DEFAULT SEED DATA =================== */
+const SEED_TASKS = [
+  // category, title, status, priority, notes
+  [`🏢 בירוקרטיה ומוסדות`,`צילום מונים (גז, חשמל, מים) ביום קבלת המפתח — 30/07`,`pending`,`urgent`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`צילום הדירה ביום קבלת המפתח — 30/07`,`pending`,`urgent`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`פתיחת חשבון מים — תאגיד מי עין אפק (1-800-350-303)`,`pending`,`normal`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`רישום לארנונה — עיריית ראש העין (03-9411169 / Gvia@rosh.org.il)`,`pending`,`normal`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`העברת חשבון חשמל`,`pending`,`normal`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`העברת חשבון גז — לבדוק: גז מרכזי או בלונים?`,`pending`,`normal`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`קריאת מונה חשמל סופית בדירה הישנה — 13/08`,`pending`,`urgent`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`תשלום חשבון חשמל אחרון לדירה הישנה`,`pending`,`normal`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`אחרי המעבר: עדכון כתובת בתעודת זהות / בנק / קופת חולים`,`pending`,`low`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`החלפת סניף מכבי — דקל`,`pending`,`low`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`החלפת סניף כללית — תומר`,`pending`,`low`,``],
+  [`🏢 בירוקרטיה ומוסדות`,`מעבר לסניף הבנק הבינלאומי בראש העין`,`pending`,`low`,``],
+
+  [`📞 תקשורת ושירותים`,`פרטנר — לוודא עם ליז שהקו בדירה החדשה פעיל ומוכן להתקנה`,`done`,`normal`,`אושר: כן`],
+  [`📞 תקשורת ושירותים`,`פרטנר — לתאם התקנת 2 ממירים`,`pending`,`normal`,`ליז: 052-4861013`],
+  [`📞 תקשורת ושירותים`,`פרטנר — הפעלת 2 קווי סלולר חדשים`,`pending`,`normal`,``],
+  [`📞 תקשורת ושירותים`,`ביטול מנוי טלוויזיה פריטי`,`pending`,`low`,``],
+
+  [`🔑 הדירה הישנה`,`עדכון שרון (בעל הבית) על העזיבה`,`done`,`normal`,`בוצע`],
+  [`🔑 הדירה הישנה`,`מסירת המפתחות לשרון`,`pending`,`normal`,``],
+  [`🔑 הדירה הישנה`,`איסוף צ׳קים שנותרו משרון + צ׳ק פיקדון`,`pending`,`normal`,``],
+  [`🔑 הדירה הישנה`,`תיקוני קירות / שפכטל — יוסף חנני (13/08)`,`pending`,`normal`,``],
+
+  [`💰 כספים`,`הכנת 12 צ׳קים לשכירות עבור לירון ואורטל`,`done`,`normal`,`בוצע`],
+  [`💰 כספים`,`העברה בנקאית של 18,300 ₪ ללירון ואורטל`,`done`,`normal`,`בוצע`],
+  [`💰 כספים`,`הכנת 2 צ׳קים חסרים`,`done`,`normal`,`בוצע`],
+  [`💰 כספים`,`העברה בנקאית חודשית מספטמבר 2026 עד יוני 2027`,`pending`,`normal`,``],
+
+  [`🧹 ניקיון ולוגיסטיקה לפני המעבר`,`ניקיון הדירה החדשה — 30/07`,`pending`,`normal`,``],
+  [`🧹 ניקיון ולוגיסטיקה לפני המעבר`,`ריסוס מזיקים — 02/08, 08:30–09:00`,`pending`,`normal`,`אלדד: 052-4261252, 380 ₪. לא להיכנס שעתיים אחרי הריסוס; לשטוף משטחים אחרי יומיים`],
+  [`🧹 ניקיון ולוגיסטיקה לפני המעבר`,`ניקוי פילטר מזגן`,`pending`,`low`,``],
+  [`🧹 ניקיון ולוגיסטיקה לפני המעבר`,`ניקוי חורי ניקוז וסיפונים`,`pending`,`low`,``],
+
+  [`🏋️ פנאי ובריאות`,`העברת מנוי חדר כושר — דניאלה (Go Active קריית אונו → ראש העין), 27/07`,`pending`,`normal`,``],
+
+  [`🔒 ביטחון ובטיחות`,`ביטוח דירה — לדבר עם אהבה ב-28/07`,`pending`,`normal`,`לפתוח פוליסה חדשה, לבטל את הישנה ב-13/08`],
+  [`🔒 ביטחון ובטיחות`,`גלאי עשן — לבדוק במחסן של ההורים`,`pending`,`low`,``],
+  [`🔒 ביטחון ובטיחות`,`החלפת צילינדרים למנעולים (דירה + מחסן)`,`pending`,`normal`,`לשאול את אורטל אם היא רוצה מפתח חדש`],
+  [`🔒 ביטחון ובטיחות`,`שכפול מפתחות — 6 עותקים`,`pending`,`low`,``],
+
+  [`📦 אריזה ולוגיסטיקת מעבר`,`תכנון ימי אריזה`,`done`,`normal`,`בוצע`],
+  [`📦 אריזה ולוגיסטיקת מעבר`,`אריזה — הסרת מזוזות ממשקופים`,`pending`,`normal`,``],
+  [`📦 אריזה ולוגיסטיקת מעבר`,`הכנת ארגז/מזוודה ליום-יומיים הראשונים אחרי המעבר`,`pending`,`normal`,``],
+  [`📦 אריזה ולוגיסטיקת מעבר`,`סידור מחסן ההורים (2 סופ״ש לפני המעבר — 19–20/07 + 26–27/07)`,`pending`,`normal`,``],
+  [`📦 אריזה ולוגיסטיקת מעבר`,`תיאום אספקת תנור, מדיח ומקרר — לקבוע תאריך`,`pending`,`urgent`,`אבי סופר: 077-8010102`],
+  [`📦 אריזה ולוגיסטיקת מעבר`,`מעבר ראשי — סשה — לסגור תאריך ושעה`,`pending`,`urgent`,`סשה: 054-7255775`],
+  [`📦 אריזה ולוגיסטיקת מעבר`,`איסוף 14 כיסאות מתקפלים מפנדה סטייל בספטמבר`,`pending`,`low`,``]
+];
+
+const SEED_ROOMS = [
+  // room, item, type, purchase, arrival, install, supplier, cost, notes
+  [`🚪 כניסה`,`שטיח כניסה`,`item`,`pending`,`na`,`na`,`Max Stock`,``,``],
+  [`🚪 כניסה`,`מזוזה`,`installation`,`pending`,`pending`,`pending`,``,``,`צריך 3 חדשות`],
+  [`🚪 כניסה`,`מצלמת עינית לדלת`,`item+install`,`done`,`progress`,`pending`,`KSP`,`380 ₪`,`בדרך להורים`],
+  [`🚪 כניסה`,`מפצלי מתח`,`item`,`done`,`progress`,`na`,`Alon Computers`,`152 ₪`,`בדרך להורים`],
+  [`🚪 כניסה`,`טלפון בית`,`item`,`done`,`progress`,`na`,`KSP`,`146 ₪`,`בדרך להורים`],
+  [`🚪 כניסה`,`שעון קיר`,`item`,`done`,`done`,`na`,`Take it`,`30 ₪`,`אצל ההורים`],
+  [`🚪 כניסה`,`פריקת ארגזים — כניסה`,`task`,`na`,`na`,`pending`,``,``,``],
+
+  [`🛋️ סלון`,`ספה`,`furniture`,`na`,`done`,`pending`,``,``,`מועברת מהדירה הישנה`],
+  [`🛋️ סלון`,`שולחן סלון`,`furniture`,`na`,`done`,`pending`,``,``,`מועבר מהדירה הישנה`],
+  [`🛋️ סלון`,`שטיח`,`furniture`,`na`,`done`,`pending`,``,``,`מועבר מההורים`],
+  [`🛋️ סלון`,`וילון (מרקם)`,`installation`,`pending`,`pending`,`pending`,``,`~1000 ₪ סה״כ`,``],
+  [`🛋️ סלון`,`מנורת סלון`,`item+install`,`done`,`progress`,`pending`,`KSP`,`624 ₪ (כולל מטבח)`,`בדרך להורים`],
+  [`🛋️ סלון`,`כורסה (טורקיז)`,`furniture`,`done`,`progress`,`pending`,`Take it`,`799 ₪ + 100 משלוח`,`לאסוף אחרי המעבר מרמי ואופרה`],
+  [`🛋️ סלון`,`סוויצ׳ר לדוד`,`installation`,`done`,`done`,`pending`,`KSP`,`176 ₪`,`צריך חשמלאי`],
+  [`🛋️ סלון`,`פריקת ארגזים — סלון`,`task`,`na`,`na`,`pending`,``,``,``],
+
+  [`🍳 מטבח`,`מנורה בינונית`,`installation`,`done`,`progress`,`pending`,`KSP`,`(כלול)`,`בדרך להורים`],
+  [`🍳 מטבח`,`מנורה גדולה`,`installation`,`done`,`progress`,`pending`,`KSP`,`(כלול)`,`בדרך להורים`],
+  [`🍳 מטבח`,`תנור`,`appliance`,`done`,`progress`,`pending`,`אבי סופר`,`2,200 ₪`,`לתאם אספקה`],
+  [`🍳 מטבח`,`מקרר`,`appliance`,`done`,`progress`,`pending`,`אבי סופר`,`5,700 ₪`,`לתאם אספקה + היפוך דלת`],
+  [`🍳 מטבח`,`מדיח כלים`,`appliance`,`done`,`progress`,`pending`,`אבי סופר`,`3,500 ₪`,`לתאם אספקה`],
+  [`🍳 מטבח`,`התקנת מסנן מים (תמי 4)`,`installation`,`pending`,`na`,`pending`,``,``,``],
+  [`🍳 מטבח`,`שולחן פינת אוכל (קונסולה)`,`furniture`,`done`,`progress`,`pending`,`Panda Style`,`1,450 + 450 משלוח`,`לתאם אספקה`],
+  [`🍳 מטבח`,`14 כיסאות נערמים`,`furniture`,`done`,`progress`,`pending`,`Panda Style`,`2,100 ₪`,`איסוף עצמי בספטמבר`],
+  [`🍳 מטבח`,`מזנון / יחידת טלוויזיה`,`furniture`,`done`,`progress`,`pending`,`Panda Style`,`1,700 + 200 משלוח`,``],
+  [`🍳 מטבח`,`ארון מקפיא + מיקרוגל`,`furniture`,`done`,`pending`,`pending`,`נגרייה`,`2,600 ₪`,`אבא לאסוף`],
+  [`🍳 מטבח`,`אי מטבח`,`furniture`,`pending`,`na`,`pending`,`מחסני חשמל`,`1,645 ₪`,`לאישור`],
+  [`🍳 מטבח`,`2 כיסאות בר`,`furniture`,`pending`,`na`,`pending`,`Take it`,`398 ₪`,`אבא לטפל`],
+  [`🍳 מטבח`,`פס LED מתחת לארונות מטבח`,`installation`,`pending`,`na`,`pending`,``,``,`למדוד קודם`],
+  [`🍳 מטבח`,`פריקת ארגזים — מטבח`,`task`,`na`,`na`,`pending`,``,``,``],
+
+  [`🛏️ חדר שינה`,`מיטה זוגית + 2 שידות`,`furniture`,`done`,`progress`,`pending`,`רהיטי העיר`,`2,700 + 450 הרכבה`,``],
+  [`🛏️ חדר שינה`,`ארון בגדים`,`furniture`,`pending`,`na`,`pending`,`קש קטר`,`2,800 ₪`,`לאישור הזמנה`],
+  [`🛏️ חדר שינה`,`שידת איפור`,`furniture`,`pending`,`na`,`pending`,`Super-Pharm`,`746 ₪`,`לאישור הזמנה`],
+  [`🛏️ חדר שינה`,`מנורה תלויה`,`installation`,`done`,`done`,`pending`,`מחסני תאורה`,`379 ₪`,`אצלנו`],
+  [`🛏️ חדר שינה`,`2 מנורות שידה`,`item+install`,`done`,`progress`,`pending`,`AliExpress`,`57 ₪`,`תומר הזמין`],
+  [`🛏️ חדר שינה`,`פס LED מתחת למיטה`,`item`,`done`,`done`,`na`,`מחסני תאורה`,`150 ₪`,`אצלנו`],
+  [`🛏️ חדר שינה`,`וילון (דוגמת עלים)`,`installation`,`pending`,`na`,`pending`,``,`(כלול בוילונות)`,``],
+  [`🛏️ חדר שינה`,`טלוויזיה`,`item+install`,`pending`,`na`,`pending`,`מחסני חשמל`,`~900 ₪`,`אמא להביא הצעת מחיר`],
+  [`🛏️ חדר שינה`,`זרוע לטלוויזיה`,`item+install`,`pending`,`na`,`pending`,`IVORY`,`49 ₪`,`אבא לקנות`],
+  [`🛏️ חדר שינה`,`פריקת ארגזים — חדר שינה`,`task`,`na`,`na`,`pending`,``,``,``],
+
+  [`🚿 חדר רחצה הורים`,`מתלה מגבות / מסילת יוקרה`,`installation`,`done`,`na`,`pending`,`פרזול חצי חינם`,`500 ₪ (שני החדרים)`,`אבא להתקין`],
+  [`🚿 חדר רחצה הורים`,`מושב אסלה`,`installation`,`pending`,`na`,`pending`,``,``,`אבא לטפל`],
+  [`🚿 חדר רחצה הורים`,`מתקן בידה`,`installation`,`done`,`done`,`pending`,`KSP`,`116 ₪`,`אצל ההורים`],
+  [`🚿 חדר רחצה הורים`,`מנורה`,`installation`,`pending`,`na`,`pending`,``,``,`לבדוק`],
+  [`🚿 חדר רחצה הורים`,`ראש מקלחת`,`item`,`done`,`na`,`pending`,`AliExpress`,`96 ₪`,``],
+
+  [`🚿 חדר רחצה אורחים`,`מתלה מגבות / מסילת יוקרה`,`installation`,`done`,`na`,`pending`,`פרזול חצי חינם`,`(כלול)`,`אבא להתקין`],
+  [`🚿 חדר רחצה אורחים`,`מושב אסלה`,`installation`,`pending`,`na`,`pending`,``,``,`אבא לטפל`],
+  [`🚿 חדר רחצה אורחים`,`מתקן בידה`,`installation`,`done`,`done`,`pending`,`KSP`,`(כלול)`,`אצל ההורים`],
+  [`🚿 חדר רחצה אורחים`,`מנורה`,`installation`,`pending`,`na`,`pending`,``,``,`לבדוק`],
+  [`🚿 חדר רחצה אורחים`,`ראש מקלחת`,`item`,`done`,`na`,`pending`,`AliExpress`,`(כלול)`,``],
+
+  [`🧺 חדר כביסה`,`ארון מעל מכונת כביסה`,`furniture`,`done`,`done`,`pending`,`IKEA`,`495 ₪`,`אצל ההורים`],
+  [`🧺 חדר כביסה`,`ארון מעל מייבש`,`furniture`,`done`,`done`,`pending`,`IKEA`,`495 ₪`,`אצל ההורים`],
+  [`🧺 חדר כביסה`,`מתקן כביסה נשלף (מעלה/מוריד)`,`item+install`,`pending`,`na`,`pending`,``,``,``],
+  [`🧺 חדר כביסה`,`מתקן ייבוש כביסה גדול`,`item`,`done`,`done`,`na`,`IKEA`,`125 ₪`,`אצל ההורים`],
+  [`🧺 חדר כביסה`,`מנורה`,`installation`,`pending`,`na`,`pending`,``,``,`לבדוק`],
+  [`🧺 חדר כביסה`,`פריקת ארגזים — חדר כביסה`,`task`,`na`,`na`,`pending`,``,``,``],
+
+  [`🛡️ ממ״ד`,`ארון בגדים`,`furniture`,`pending`,`na`,`pending`,`קש קטר`,`1,800 ₪`,`לאישור הזמנה`],
+  [`🛡️ ממ״ד`,`מנורה`,`installation`,`done`,`progress`,`pending`,`KSP`,`152 ₪`,`בדרך להורים`],
+  [`🛡️ ממ״ד`,`שולחן עבודה + מסך + מדפסת`,`installation`,`done`,`done`,`pending`,``,``,`אצל ההורים`],
+  [`🛡️ ממ״ד`,`זרוע למסך כפול`,`installation`,`done`,`progress`,`pending`,`Express`,`195 ₪`,`בדרך להורים`],
+  [`🛡️ ממ״ד`,`וילון (לבן)`,`installation`,`pending`,`na`,`pending`,``,`(כלול)`,``],
+  [`🛡️ ממ״ד`,`פריקת ארגזים — ממ״ד`,`task`,`na`,`na`,`pending`,``,``,``],
+
+  [`🌿 מרפסת`,`סט ריהוט גן`,`furniture`,`done`,`progress`,`pending`,`ACE`,`677 + 120 משלוח`,`לנסות לתאם ליום חמישי`],
+  [`🌿 מרפסת`,`גריל חשמלי`,`item`,`done`,`done`,`na`,`מחסני חשמל`,`149 ₪`,`אצל ההורים`],
+  [`🌿 מרפסת`,`כיסוי לגריל`,`item`,`done`,`na`,`na`,`AliExpress`,`20 ₪`,``],
+  [`🌿 מרפסת`,`צמח בזיליקום`,`item`,`pending`,`na`,`na`,``,``,``],
+
+  [`📦 מחסן`,`ארון לבן`,`furniture`,`pending`,`na`,`pending`,`IKEA`,``,`להרכיב`],
+  [`📦 מחסן`,`ווים/מתלים לאחסון`,`item`,`pending`,`na`,`pending`,``,``,``],
+  [`📦 מחסן`,`פריקת ארגזים — מחסן`,`task`,`na`,`na`,`pending`,``,``,``]
+];
+
+const SEED_TIMELINE = [
+  // week, title
+  [`שבוע 22–27 ביוני`,`קש קטר — הזמנת ארון לחדר שינה`],
+  [`שבוע 22–27 ביוני`,`פנדה סטייל — הזמנת קונסולה + יחידת טלוויזיה + כיסאות נערמים`],
+  [`שבוע 22–27 ביוני`,`פרטנר — דחיית/תיאום מחדש של ההתקנה עם ליז`],
+  [`שבוע 22–27 ביוני`,`להזכיר לאמא לדבר עם סשה + לסגור את השעה`],
+
+  [`שבוע 5–11 ביולי`,`קש קטר — אישור הזמנת הארון`],
+
+  [`שבוע 12–18 ביולי`,`Max Stock — שעון קיר, מוטות וילון, שטיח כניסה`],
+
+  [`שבוע 19–25 ביולי`,`19 ביולי — לעבור על רשימת מחסני חשמל ולקנות מה שחסר`],
+  [`שבוע 19–25 ביולי`,`תיאום אספקת תנור, מדיח, מקרר (אבי סופר)`],
+  [`שבוע 19–25 ביולי`,`הזמנה: ישיבה למרפסת, שידת איפור, יחידת טלוויזיה`],
+  [`שבוע 19–25 ביולי`,`סידור מחסן ההורים (יומיים)`],
+  [`שבוע 19–25 ביולי`,`לוודא שכל ההתקנות מתואמות`],
+
+  [`שבוע 26–27 ביולי`,`27 ביולי — העברת מנויי חדר כושר (דניאלה: Go Active)`],
+  [`שבוע 26–27 ביולי`,`28 ביולי — ביטוח דירה (אהבה)`],
+  [`שבוע 26–27 ביולי`,`30 ביולי — קבלת מפתח! צילום מונים + צילום דירה + ניקיון`],
+
+  [`שבוע 28 ביולי – 1 באוגוסט`,`30 ביולי — ניקיון הדירה החדשה`],
+  [`שבוע 28 ביולי – 1 באוגוסט`,`30 ביולי — פתיחת חשבון מים + רישום לארנונה`],
+  [`שבוע 28 ביולי – 1 באוגוסט`,`המשך סידור מחסן ההורים`],
+
+  [`שבוע 2–8 באוגוסט`,`2 באוגוסט — ריסוס מזיקים (08:30–09:00, אלדד 052-4261252)`],
+  [`שבוע 2–8 באוגוסט`,`ימי אריזה — הסרת מזוזות`],
+  [`שבוע 2–8 באוגוסט`,`משימות אבא: ניקוי סיפונים, מושבי אסלה, מתלי מגבות, בידה, ארונות כביסה, פילטר מזגן, חורי ניקוז`],
+  [`שבוע 2–8 באוגוסט`,`הכנת ארגז/מזוודה לימים הראשונים`],
+
+  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — יום המעבר! מעבר עם סשה`],
+  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — קריאת מונה חשמל סופית בדירה הישנה (יוסף חנני)`],
+  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — מסירת מפתחות לשרון + איסוף צ׳קים שנותרו`],
+  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — הפעלת 2 קווי פרטנר`],
+  [`שבוע 9–13 באוגוסט`,`14–15 באוגוסט — פריקה וסידור`],
+  [`שבוע 9–13 באוגוסט`,`שפכטל ותיקוני קירות — יוסף חנני`],
+
+  [`אחרי המעבר`,`עדכון כתובת: תעודת זהות, בנק, קופת חולים`],
+  [`אחרי המעבר`,`בדיקת מונה חשמל חכם (סלקום)`],
+  [`אחרי המעבר`,`הרשמה לאפליקציית הבניין`],
+  [`אחרי המעבר`,`הסדרת תו חניה`],
+  [`אחרי המעבר`,`תשלומים ראשונים: חשמל, ועד בית, גז, מים, ארנונה`],
+  [`אחרי המעבר`,`איסוף הכורסה מרמי ואופרה`],
+  [`אחרי המעבר`,`איסוף 14 כיסאות מתקפלים מפנדה סטייל (ספטמבר)`]
+];
+
+const CONTACTS = [
+  [`סשה (הובלות)`,`054-7255775`],[`אלדד (הדברה)`,`052-4261252`],[`ליז (פרטנר)`,`052-4861013`],
+  [`אבי סופר (מוצרי חשמל)`,`077-8010102`],[`פנדה סטייל (ריהוט)`,`050-3489899`],[`רהיטי העיר`,`073-3948726`],
+  [`תאגיד מי עין אפק`,`1-800-350-303`],[`ארנונה ראש העין`,`03-9411169`]
+];
+
+/* =================== STATE =================== */
+const S = {
+  user:null, projectId:null, project:null, role:"limited",
+  members:[], tasks:[], rooms:[], timeline:[], myProjects:[],
+  tab:"dashboard", search:"", fStatus:"all", fPrio:"all",
+  authMode:"login", channel:null
+};
+const $ = id => document.getElementById(id);
+const esc = s => (s==null?"":String(s)).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2200);}
+const cacheKey = ()=>`homeflow_cache_${S.projectId}`;
+function canEdit(){return S.role==="manager"||S.role==="full";}
+function isManager(){return S.role==="manager";}
+
+/* =================== AUTH FLOW =================== */
+async function init(){
+  const {data:{session}} = await sb.auth.getSession();
+  if(session){ await afterLogin(session); }
+  else { showAuth(); }
+  $("loading").classList.add("hidden");
+}
+function showAuth(){
+  $("app").style.display="none";
+  $("authView").classList.remove("hidden");
+}
+function setAuthMode(mode){
+  S.authMode=mode;
+  $("authTitle").textContent = mode==="login"?"התחברות":"הרשמה";
+  $("authBtn").textContent = mode==="login"?"התחברות":"יצירת חשבון";
+  $("authSwitch").innerHTML = mode==="login"
+    ? `אין לכם חשבון? <a id="toSignup">הרשמה</a>`
+    : `כבר רשומים? <a id="toLogin">התחברות</a>`;
+  $("authPass").setAttribute("autocomplete", mode==="login"?"current-password":"new-password");
+  wireAuthSwitch();
+  $("authMsg").className="msg";
+}
+function wireAuthSwitch(){
+  const su=$("toSignup"), li=$("toLogin");
+  if(su) su.onclick=()=>setAuthMode("signup");
+  if(li) li.onclick=()=>setAuthMode("login");
+}
+function authMsg(text,kind){const m=$("authMsg");m.textContent=text;m.className="msg "+kind;}
+
+$("authBtn").onclick = async ()=>{
+  const email=$("authEmail").value.trim().toLowerCase();
+  const pass=$("authPass").value;
+  if(!email||!pass){authMsg("יש למלא אימייל וסיסמה","err");return;}
+  $("authBtn").disabled=true;
+  try{
+    if(S.authMode==="login"){
+      const {data,error}=await sb.auth.signInWithPassword({email,password:pass});
+      if(error)throw error;
+      await afterLogin(data.session);
+    }else{
+      if(pass.length<6){authMsg("הסיסמה חייבת להכיל לפחות 6 תווים","err");$("authBtn").disabled=false;return;}
+      const {data,error}=await sb.auth.signUp({email,password:pass});
+      if(error)throw error;
+      if(data.session){ await afterLogin(data.session); }
+      else { authMsg("נשלח אליכם אימייל לאימות החשבון. לאחר האישור — התחברו כאן.","ok"); setAuthMode("login"); }
+    }
+  }catch(e){
+    authMsg(translateAuthErr(e.message),"err");
+  }finally{$("authBtn").disabled=false;}
+};
+function translateAuthErr(m){
+  m=m||"";
+  if(/Invalid login/i.test(m))return"אימייל או סיסמה שגויים";
+  if(/already registered/i.test(m))return"האימייל כבר רשום — נסו להתחבר";
+  if(/Email not confirmed/i.test(m))return"החשבון טרם אומת — בדקו את תיבת המייל";
+  if(/rate limit/i.test(m))return"יותר מדי ניסיונות — נסו שוב בעוד רגע";
+  return m;
+}
+
+async function afterLogin(session){
+  S.user=session.user;
+  try{ await sb.rpc("claim_memberships"); }catch(e){}
+  $("authView").classList.add("hidden");
+  $("app").style.display="block";
+  $("userEmailLbl").textContent=S.user.email;
+  await loadProjects();
+}
+
+$("logoutBtn").onclick = async ()=>{
+  if(S.channel){ sb.removeChannel(S.channel); S.channel=null; }
+  await sb.auth.signOut();
+  S.projectId=null; S.user=null;
+  location.reload();
+};
+
+/* =================== PROJECTS =================== */
+async function loadProjects(){
+  const {data,error}=await sb.from("project_members")
+    .select("project_id, role, projects(id,name,move_date)")
+    .eq("user_id",S.user.id);
+  if(error){toast("שגיאה בטעינת פרויקטים");console.error(error);return;}
+  S.myProjects=(data||[]).filter(r=>r.projects);
+  if(S.myProjects.length===0){ await createDefaultProject(); return; }
+  const row=S.myProjects[0];
+  S.projectId=row.project_id; S.role=row.role; S.project=row.projects;
+  await enterProject();
+}
+async function createDefaultProject(){
+  const {data,error}=await sb.rpc("create_project",{p_name:"מעבר דירה",p_move_date:MOVE_DATE});
+  if(error){toast("שגיאה ביצירת פרויקט");console.error(error);return;}
+  S.projectId=data; S.role="manager";
+  S.project={id:data,name:"מעבר דירה",move_date:MOVE_DATE};
+  await seedDefaults();
+  await enterProject();
+}
+async function seedDefaults(){
+  const pid=S.projectId;
+  const tasks=SEED_TASKS.map((t,i)=>({project_id:pid,category:t[0],title:t[1],status:t[2],priority:t[3],notes:t[4],sort_order:i}));
+  const rooms=SEED_ROOMS.map((r,i)=>({project_id:pid,room:r[0],item:r[1],type:r[2],purchase_status:r[3],arrival_status:r[4],install_status:r[5],supplier:r[6],cost:r[7],notes:r[8],sort_order:i}));
+  const tl=SEED_TIMELINE.map((w,i)=>({project_id:pid,week:w[0],title:w[1],done:false,sort_order:i}));
+  await sb.from("tasks").insert(tasks);
+  await sb.from("room_items").insert(rooms);
+  await sb.from("timeline_items").insert(tl);
+}
+async function enterProject(){
+  S.project = S.project || {};
+  $("projTitle").textContent = (S.project.name||"מעבר דירה");
+  renderRoleBadge();
+  loadFromCache();
+  await loadData();
+  subscribeRealtime();
+  updateCountdown();
+  $("resetBtn").classList.toggle("hidden",!isManager());
+}
+function renderRoleBadge(){
+  const map={manager:"מנהל הפרויקט",full:"הרשאה מלאה",limited:"הרשאה מוגבלת"};
+  $("roleBadge").textContent="🔑 "+(map[S.role]||S.role);
+}
+
+/* =================== DATA LOAD / CACHE =================== */
+function loadFromCache(){
+  try{
+    const c=JSON.parse(localStorage.getItem(cacheKey())||"null");
+    if(c){S.tasks=c.tasks||[];S.rooms=c.rooms||[];S.timeline=c.timeline||[];renderActive();}
+  }catch(e){}
+}
+function saveCache(){
+  try{localStorage.setItem(cacheKey(),JSON.stringify({tasks:S.tasks,rooms:S.rooms,timeline:S.timeline,ts:Date.now()}));}catch(e){}
+}
+async function loadData(){
+  const pid=S.projectId;
+  const [t,r,tl,m]=await Promise.all([
+    sb.from("tasks").select("*").eq("project_id",pid).order("sort_order"),
+    sb.from("room_items").select("*").eq("project_id",pid).order("sort_order"),
+    sb.from("timeline_items").select("*").eq("project_id",pid).order("sort_order"),
+    sb.from("project_members").select("*").eq("project_id",pid).order("created_at")
+  ]);
+  if(t.data)S.tasks=t.data;
+  if(r.data)S.rooms=r.data;
+  if(tl.data)S.timeline=tl.data;
+  if(m.data)S.members=m.data;
+  saveCache();
+  renderActive();
+}
+function subscribeRealtime(){
+  if(S.channel)sb.removeChannel(S.channel);
+  S.channel=sb.channel("proj-"+S.projectId)
+    .on("postgres_changes",{event:"*",schema:"public",filter:`project_id=eq.${S.projectId}`,table:"tasks"},debouncedReload)
+    .on("postgres_changes",{event:"*",schema:"public",filter:`project_id=eq.${S.projectId}`,table:"room_items"},debouncedReload)
+    .on("postgres_changes",{event:"*",schema:"public",filter:`project_id=eq.${S.projectId}`,table:"timeline_items"},debouncedReload)
+    .subscribe();
+}
+let _rt;
+function debouncedReload(){clearTimeout(_rt);_rt=setTimeout(loadData,400);}
+
+/* =================== COUNTDOWN =================== */
+function updateCountdown(){
+  const target=new Date(MOVE_DATE+"T00:00:00");
+  const now=new Date(); now.setHours(0,0,0,0);
+  const days=Math.round((target-now)/86400000);
+  $("countDays").textContent = days>=0?days:"✓";
+}
+
+/* =================== FILTER HELPERS =================== */
+function matchSearch(text){return !S.search || (text||"").toLowerCase().includes(S.search);}
+function taskVisible(t){
+  if(S.fStatus!=="all" && t.status!==S.fStatus)return false;
+  if(S.fPrio!=="all" && t.priority!==S.fPrio)return false;
+  return matchSearch(t.title+" "+t.category+" "+(t.notes||""));
+}
+function roomItemVisible(it){
+  if(S.fStatus!=="all"){
+    const set=[it.purchase_status,it.arrival_status,it.install_status];
+    if(!set.includes(S.fStatus))return false;
+  }
+  return matchSearch(it.item+" "+it.room+" "+(it.supplier||"")+" "+(it.notes||""));
+}
+function tlVisible(it){
+  if(S.fStatus==="done"&&!it.done)return false;
+  if((S.fStatus==="pending"||S.fStatus==="progress")&&it.done)return false;
+  return matchSearch(it.title+" "+it.week);
+}
+
+/* =================== RENDER: shell =================== */
+function renderActive(){
+  if(S.tab==="dashboard")renderDashboard();
+  if(S.tab==="tasks")renderTasks();
+  if(S.tab==="rooms")renderRooms();
+  if(S.tab==="timeline")renderTimeline();
+}
+function progressBar(pct){return `<div class="bar"><i style="width:${pct}%"></i></div>`;}
+
+/* ---------- Dashboard ---------- */
+function itemFullyDone(it){
+  const fields=["purchase_status","arrival_status","install_status"].map(f=>it[f]);
+  const applicable=fields.filter(v=>v!=="na");
+  if(applicable.length===0)return false;
+  return applicable.every(v=>v==="done");
+}
+function renderDashboard(){
+  const tot=S.tasks.length, done=S.tasks.filter(t=>t.status==="done").length;
+  const taskPct=tot?Math.round(done/tot*100):0;
+  // ordered items: those whose arrival is applicable
+  const arrivable=S.rooms.filter(r=>r.arrival_status!=="na");
+  const arrived=arrivable.filter(r=>r.arrival_status==="done").length;
+  const arrivePct=arrivable.length?Math.round(arrived/arrivable.length*100):0;
+  // installations
+  const installable=S.rooms.filter(r=>r.install_status!=="na");
+  const installed=installable.filter(r=>r.install_status==="done").length;
+  const instPct=installable.length?Math.round(installed/installable.length*100):0;
+  const target=new Date(MOVE_DATE+"T00:00:00");const now=new Date();now.setHours(0,0,0,0);
+  const days=Math.round((target-now)/86400000);
+
+  const tlDone=S.timeline.filter(t=>t.done).length;
+  const overall=Math.round(((taskPct+arrivePct+instPct)/3));
+
+  $("tab-dashboard").innerHTML=`
+    <div class="progress-top">
+      <div class="lbl"><span>📊 התקדמות כללית</span><span>${overall}%</span></div>
+      ${progressBar(overall)}
+    </div>
+    <div class="grid">
+      <div class="stat"><div class="ico">✅</div><div class="num">${taskPct}%</div><div class="cap">השלמת משימות (${done}/${tot})</div>
+        <div class="mini"><i style="width:${taskPct}%;background:var(--green)"></i></div></div>
+      <div class="stat"><div class="ico">📦</div><div class="num">${arrived}/${arrivable.length}</div><div class="cap">פריטים שהגיעו</div>
+        <div class="mini"><i style="width:${arrivePct}%;background:var(--blue)"></i></div></div>
+      <div class="stat"><div class="ico">🔧</div><div class="num">${installed}/${installable.length}</div><div class="cap">התקנות שתואמו/הושלמו</div>
+        <div class="mini"><i style="width:${instPct}%;background:var(--brand)"></i></div></div>
+      <div class="stat"><div class="ico">⏳</div><div class="num">${days>=0?days:"✓"}</div><div class="cap">ימים למעבר · 13/08/2026</div>
+        <div class="mini"><i style="width:${Math.max(0,Math.min(100,100-days/1.2))}%;background:var(--amber)"></i></div></div>
+    </div>
+
+    <div class="info-card">
+      <h4>🗓️ סקירה מהירה</h4>
+      <div class="contacts">
+        <div class="contact"><span style="font-size:20px">📋</span><div><b>${S.tasks.length} משימות</b><small>${done} הושלמו · ${S.tasks.filter(t=>t.status==="progress").length} בתהליך</small></div></div>
+        <div class="contact"><span style="font-size:20px">🛋️</span><div><b>${S.rooms.length} פריטים ב-${new Set(S.rooms.map(r=>r.room)).size} חדרים</b><small>${S.rooms.filter(itemFullyDone).length} הושלמו במלואם</small></div></div>
+        <div class="contact"><span style="font-size:20px">🗓️</span><div><b>${tlDone}/${S.timeline.length} משימות בלו״ז</b><small>סומנו כבוצעו</small></div></div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h4>📞 אנשי קשר</h4>
+      <div class="contacts">
+        ${CONTACTS.map(c=>`<div class="contact"><span style="font-size:18px">📱</span><div><b>${esc(c[0])}</b><a href="tel:${esc(c[1].replace(/[^0-9+]/g,''))}">${esc(c[1])}</a></div></div>`).join("")}
+      </div>
+    </div>`;
+}
+
+/* ---------- Tasks ---------- */
+function renderTasks(){
+  const cats=[...new Set(S.tasks.map(t=>t.category))];
+  let html=topProgress("📋 לוח משימות","משימות לפי קטגוריה",
+    S.tasks.length?Math.round(S.tasks.filter(t=>t.status==="done").length/S.tasks.length*100):0);
+  let any=false;
+  cats.forEach((cat,ci)=>{
+    const items=S.tasks.filter(t=>t.category===cat);
+    const vis=items.filter(taskVisible);
+    if(vis.length===0)return;
+    any=true;
+    const dn=items.filter(t=>t.status==="done").length;
+    const pct=Math.round(dn/items.length*100);
+    html+=`<div class="acc open" data-acc>
+      <div class="acc-head" data-toggle>
+        <span class="chev">▼</span>
+        <span class="acc-title">${esc(cat)}</span>
+        <span class="acc-meta">${dn}/${items.length}</span>
+        <span class="acc-mini">${progressBar(pct)}</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">
+        ${vis.map(renderTaskRow).join("")}
+      </div></div>
+    </div>`;
+  });
+  if(!any)html+=emptyState();
+  $("tab-tasks").innerHTML=html;
+}
+function renderTaskRow(t){
+  const noteTip=t.notes?`<button class="note-btn" tabindex="-1">💬<span class="tip">${esc(t.notes)}</span></button>`:"";
+  const seg=TASK_ST_ORDER.map(k=>`<button class="${t.status===k?"on "+TASK_ST[k].cls:""}" data-status="${k}">${TASK_ST[k].lbl}</button>`).join("");
+  const prioSel=`<select class="prio" data-prio ${canEdit()?"":"disabled"}>
+    ${Object.keys(PRIO).map(p=>`<option value="${p}" ${t.priority===p?"selected":""}>${PRIO[p]}</option>`).join("")}</select>`;
+  const noteEditor=canEdit()?`<textarea class="note-input" data-note placeholder="הערה…">${esc(t.notes||"")}</textarea>`:"";
+  return `<div class="task ${t.status==="done"?"done":""}" data-task="${t.id}">
+    <div class="body">
+      <div class="ttl">${esc(t.title)} ${noteTip}</div>
+      <div class="controls">
+        <span class="seg" data-seg>${seg}</span>
+        ${prioSel}
+        <span class="chip p-${t.priority}">${PRIO[t.priority]}</span>
+      </div>
+      ${noteEditor}
+    </div>
+  </div>`;
+}
+
+/* ---------- Rooms ---------- */
+function renderRooms(){
+  const rooms=[...new Set(S.rooms.map(r=>r.room))];
+  const totalDone=S.rooms.filter(itemFullyDone).length;
+  let html=topProgress("🛋️ מעקב חדרים","התקנות, ריהוט ופריקה",
+    S.rooms.length?Math.round(totalDone/S.rooms.length*100):0);
+  let any=false;
+  rooms.forEach(room=>{
+    const items=S.rooms.filter(r=>r.room===room);
+    const vis=items.filter(roomItemVisible);
+    if(vis.length===0)return;
+    any=true;
+    const dn=items.filter(itemFullyDone).length;
+    const pct=Math.round(dn/items.length*100);
+    html+=`<div class="acc open" data-acc>
+      <div class="acc-head" data-toggle>
+        <span class="chev">▼</span>
+        <span class="acc-title">${esc(room)}</span>
+        <span class="acc-meta">${dn}/${items.length}</span>
+        <span class="acc-mini">${progressBar(pct)}</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="tbl-wrap"><table class="rooms">
+          <thead><tr>
+            <th>פריט</th><th>סוג</th><th>רכישה</th><th>הגעה</th><th>התקנה/הרכבה</th><th>ספק</th><th>עלות</th><th>הערות</th>${canEdit()?"<th></th>":""}
+          </tr></thead>
+          <tbody>${vis.map(renderRoomRow).join("")}</tbody>
+        </table></div>
+        ${canEdit()?`<button class="btn secondary sm add-row" data-addroom="${esc(room)}">➕ הוספת פריט</button>`:""}
+      </div></div>
+    </div>`;
+  });
+  if(!any)html+=emptyState();
+  $("tab-rooms").innerHTML=html;
+}
+function stSelect(it,field){
+  const val=it[field];
+  return `<select class="st-select v-${val}" data-field="${field}">
+    ${Object.keys(FIELD_ST).map(k=>`<option value="${k}" ${val===k?"selected":""}>${FIELD_ST[k]}</option>`).join("")}
+  </select>`;
+}
+function renderRoomRow(it){
+  const isTask=it.type==="task";
+  const noteCell = canEdit()
+    ? `<input class="note-input" style="height:32px;min-width:120px" data-rnote value="${esc(it.notes||"")}" placeholder="הערה…" />`
+    : (it.notes?`<button class="note-btn" tabindex="-1">💬<span class="tip">${esc(it.notes)}</span></button>`:"—");
+  return `<tr class="${isTask?"is-task":""}" data-room="${it.id}">
+    <td class="${isTask?"row-task":""}"><div class="item-name">${isTask?"📦":""} ${esc(it.item)}</div></td>
+    <td><span class="badge-type">${esc(it.type)}</span></td>
+    <td>${stSelect(it,"purchase_status")}</td>
+    <td>${stSelect(it,"arrival_status")}</td>
+    <td>${stSelect(it,"install_status")}</td>
+    <td>${esc(it.supplier||"—")}</td>
+    <td class="cost-cell">${esc(it.cost||"—")}</td>
+    <td>${noteCell}</td>
+    ${canEdit()?`<td><button class="del-row" data-delroom>🗑</button></td>`:""}
+  </tr>`;
+}
+
+/* ---------- Timeline ---------- */
+function renderTimeline(){
+  const weeks=[...new Set(S.timeline.map(t=>t.week))];
+  let html=topProgress("🗓️ לוח זמנים","משימות לפי תאריך — לחיצה מסמנת כבוצע",
+    S.timeline.length?Math.round(S.timeline.filter(t=>t.done).length/S.timeline.length*100):0);
+  let any=false;
+  weeks.forEach(week=>{
+    const items=S.timeline.filter(t=>t.week===week);
+    const vis=items.filter(tlVisible);
+    if(vis.length===0)return;
+    any=true;
+    const dn=items.filter(t=>t.done).length;
+    const pct=Math.round(dn/items.length*100);
+    html+=`<div class="acc open" data-acc>
+      <div class="acc-head" data-toggle>
+        <span class="chev">▼</span>
+        <span class="acc-title">${esc(week)}</span>
+        <span class="acc-meta">${dn}/${items.length}</span>
+        <span class="acc-mini">${progressBar(pct)}</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">
+        ${vis.map(t=>`<div class="tl-task ${t.done?"done":""}" data-tl="${t.id}">
+          <div class="tl-check">${t.done?"✓":""}</div>
+          <div class="tl-ttl">${esc(t.title)}</div>
+        </div>`).join("")}
+      </div></div>
+    </div>`;
+  });
+  if(!any)html+=emptyState();
+  $("tab-timeline").innerHTML=html;
+}
+
+function topProgress(title,desc,pct){
+  return `<div class="section-head"><div><h3>${title}</h3><div class="desc">${desc}</div></div></div>
+    <div class="progress-top"><div class="lbl"><span>התקדמות</span><span>${pct}%</span></div>${progressBar(pct)}</div>`;
+}
+function emptyState(){return `<div class="empty"><div class="big">🔍</div><div>לא נמצאו תוצאות לחיפוש/סינון הנוכחי</div></div>`;}
+
+/* =================== EVENT DELEGATION =================== */
+// Tabs
+$("tabs").addEventListener("click",e=>{
+  const b=e.target.closest(".tab"); if(!b)return;
+  S.tab=b.dataset.tab;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t===b));
+  ["dashboard","tasks","rooms","timeline"].forEach(n=>$("tab-"+n).classList.toggle("hidden",n!==S.tab));
+  renderActive();
+});
+// Filters
+$("searchInput").addEventListener("input",e=>{S.search=e.target.value.trim().toLowerCase();renderActive();});
+$("statusFilter").addEventListener("change",e=>{S.fStatus=e.target.value;renderActive();});
+$("priorityFilter").addEventListener("change",e=>{S.fPrio=e.target.value;renderActive();});
+
+// Accordion toggle (whole container)
+$("app").addEventListener("click",e=>{
+  const tog=e.target.closest("[data-toggle]");
+  if(tog){tog.closest("[data-acc]").classList.toggle("open");}
+});
+
+// Tasks interactions
+$("tab-tasks").addEventListener("click",async e=>{
+  const seg=e.target.closest("[data-seg] button");
+  if(seg){
+    const row=e.target.closest("[data-task]");const id=row.dataset.task;
+    const st=seg.dataset.status;
+    await updateTask(id,{status:st});
+  }
+});
+$("tab-tasks").addEventListener("change",async e=>{
+  const row=e.target.closest("[data-task]");if(!row)return;const id=row.dataset.task;
+  if(e.target.matches("[data-prio]"))await updateTask(id,{priority:e.target.value});
+});
+$("tab-tasks").addEventListener("blur",async e=>{
+  if(e.target.matches("[data-note]")){
+    const row=e.target.closest("[data-task]");const id=row.dataset.task;
+    const t=S.tasks.find(x=>x.id===id);
+    if(t && (t.notes||"")!==e.target.value)await updateTask(id,{notes:e.target.value});
+  }
+},true);
+
+async function updateTask(id,patch){
+  const t=S.tasks.find(x=>x.id===id);if(!t)return;
+  Object.assign(t,patch);saveCache();
+  if(S.tab==="tasks")renderTasks();
+  const {error}=await sb.from("tasks").update(patch).eq("id",id);
+  if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
+}
+
+// Rooms interactions
+$("tab-rooms").addEventListener("change",async e=>{
+  const tr=e.target.closest("[data-room]");if(!tr)return;const id=tr.dataset.room;
+  if(e.target.matches("[data-field]")){
+    const f=e.target.dataset.field;
+    await updateRoom(id,{[f]:e.target.value});
+  }
+});
+$("tab-rooms").addEventListener("blur",async e=>{
+  if(e.target.matches("[data-rnote]")){
+    const tr=e.target.closest("[data-room]");const id=tr.dataset.room;
+    const it=S.rooms.find(x=>x.id===id);
+    if(it&&(it.notes||"")!==e.target.value)await updateRoom(id,{notes:e.target.value});
+  }
+},true);
+$("tab-rooms").addEventListener("click",async e=>{
+  const del=e.target.closest("[data-delroom]");
+  if(del){
+    const tr=e.target.closest("[data-room]");const id=tr.dataset.room;
+    const it=S.rooms.find(x=>x.id===id);
+    if(confirm(`למחוק את "${it.item}"?`)){
+      S.rooms=S.rooms.filter(x=>x.id!==id);saveCache();renderRooms();
+      const {error}=await sb.from("room_items").delete().eq("id",id);
+      if(error){toast("מחיקה נכשלה");loadData();}
+    }
+  }
+  const add=e.target.closest("[data-addroom]");
+  if(add){ await addRoomItem(add.dataset.addroom); }
+});
+async function updateRoom(id,patch){
+  const it=S.rooms.find(x=>x.id===id);if(!it)return;
+  Object.assign(it,patch);saveCache();
+  // update only the changed select color without full rerender for snappiness
+  if(S.tab==="rooms")renderRooms();
+  const {error}=await sb.from("room_items").update(patch).eq("id",id);
+  if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
+}
+async function addRoomItem(room){
+  const name=prompt("שם הפריט החדש:");if(!name)return;
+  const sort=Math.max(0,...S.rooms.map(r=>r.sort_order||0))+1;
+  const row={project_id:S.projectId,room,item:name,type:"item",purchase_status:"pending",arrival_status:"pending",install_status:"pending",supplier:"",cost:"",notes:"",sort_order:sort};
+  const {data,error}=await sb.from("room_items").insert(row).select().single();
+  if(error){toast("הוספה נכשלה");return;}
+  S.rooms.push(data);saveCache();renderRooms();
+}
+
+// Timeline interactions
+$("tab-timeline").addEventListener("click",async e=>{
+  const row=e.target.closest("[data-tl]");if(!row)return;const id=row.dataset.tl;
+  const t=S.timeline.find(x=>x.id===id);if(!t)return;
+  t.done=!t.done;saveCache();renderTimeline();
+  const {error}=await sb.from("timeline_items").update({done:t.done}).eq("id",id);
+  if(error){toast("שמירה נכשלה");loadData();}
+});
+
+/* =================== MEMBERS =================== */
+$("membersBtn").onclick=()=>{renderMembers();$("memberModal").classList.add("show");};
+$("closeMembers").onclick=()=>$("memberModal").classList.remove("show");
+$("memberModal").addEventListener("click",e=>{if(e.target===$("memberModal"))$("memberModal").classList.remove("show");});
+
+function renderMembers(){
+  const roleMap={manager:["מנהל","role-manager"],full:["מלא","role-full"],limited:["מוגבל","role-limited"]};
+  let html=S.members.map(m=>{
+    const r=roleMap[m.role]||["—","role-limited"];
+    const initial=(m.email||"?").charAt(0).toUpperCase();
+    const pending=m.user_id?"":`<span class="pending-tag">· ממתין להרשמה</span>`;
+    const canRemove=isManager()&&m.role!=="manager";
+    const roleControl = isManager()&&m.role!=="manager"
+      ? `<select class="st-select" data-memrole="${m.id}">
+           <option value="full" ${m.role==="full"?"selected":""}>הרשאה מלאה</option>
+           <option value="limited" ${m.role==="limited"?"selected":""}>הרשאה מוגבלת</option>
+         </select>`
+      : `<span class="role-tag ${r[1]}">${r[0]}</span>`;
+    return `<div class="mem">
+      <div class="av">${esc(initial)}</div>
+      <div class="info"><b>${esc(m.email)}</b> ${pending}<br><small>${m.role==="manager"?"מנהל הפרויקט":""}</small></div>
+      ${roleControl}
+      ${canRemove?`<button class="del-row" data-memdel="${m.id}">🗑</button>`:""}
+    </div>`;
+  }).join("");
+
+  if(isManager()){
+    html+=`<div class="add-mem">
+      <input type="email" id="newMemEmail" placeholder="אימייל של חבר חדש" />
+      <select id="newMemRole"><option value="limited">הרשאה מוגבלת</option><option value="full">הרשאה מלאה</option></select>
+      <button class="btn sm" id="addMemBtn">➕ הוספה</button>
+    </div>
+    <p style="color:var(--muted);font-size:12.5px;margin-top:10px">המוזמן יקבל גישה לאחר שיירשם עם אותו אימייל. <b>הרשאה מוגבלת</b> = עדכון סטטוסים בלבד · <b>הרשאה מלאה</b> = הוספה ועריכה של פריטים.</p>`;
+  }else{
+    html+=`<p style="color:var(--muted);font-size:13px;margin-top:12px">רק מנהל הפרויקט יכול להוסיף או להסיר חברים.</p>`;
+  }
+  $("memberBody").innerHTML=html;
+
+  if(isManager()){
+    $("addMemBtn").onclick=addMember;
+    $("memberBody").querySelectorAll("[data-memrole]").forEach(sel=>{
+      sel.onchange=async()=>{
+        const {error}=await sb.from("project_members").update({role:sel.value}).eq("id",sel.dataset.memrole);
+        if(error)toast("עדכון נכשל");else{toast("עודכן");await loadData();renderMembers();}
+      };
+    });
+    $("memberBody").querySelectorAll("[data-memdel]").forEach(btn=>{
+      btn.onclick=async()=>{
+        if(!confirm("להסיר חבר זה מהפרויקט?"))return;
+        const {error}=await sb.from("project_members").delete().eq("id",btn.dataset.memdel);
+        if(error)toast("הסרה נכשלה");else{toast("הוסר");await loadData();renderMembers();}
+      };
+    });
+  }
+}
+async function addMember(){
+  const email=$("newMemEmail").value.trim().toLowerCase();
+  const role=$("newMemRole").value;
+  if(!email){toast("יש להזין אימייל");return;}
+  const {error}=await sb.from("project_members").insert({project_id:S.projectId,email,role,user_id:null});
+  if(error){toast(/duplicate/i.test(error.message)?"החבר כבר קיים":"הוספה נכשלה");return;}
+  $("newMemEmail").value="";
+  toast("נוסף בהצלחה");
+  await loadData();renderMembers();
+}
+
+/* =================== RESET =================== */
+$("resetBtn").onclick=async()=>{
+  if(!isManager())return;
+  if(!confirm("פעולה זו תמחק את כל המשימות, הפריטים והלו״ז הנוכחיים ותשחזר את ברירת המחדל. להמשיך?"))return;
+  $("loading").classList.remove("hidden");
+  await Promise.all([
+    sb.from("tasks").delete().eq("project_id",S.projectId),
+    sb.from("room_items").delete().eq("project_id",S.projectId),
+    sb.from("timeline_items").delete().eq("project_id",S.projectId)
+  ]);
+  await seedDefaults();
+  localStorage.removeItem(cacheKey());
+  await loadData();
+  $("loading").classList.add("hidden");
+  toast("שוחזר לברירת המחדל");
+};
+
+/* =================== START =================== */
+setAuthMode("login");
+wireAuthSwitch();
+sb.auth.onAuthStateChange((event)=>{ if(event==="SIGNED_OUT"){showAuth();} });
+init();
+</script>
+</body>
+</html>
