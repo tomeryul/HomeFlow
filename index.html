@@ -13,45 +13,34 @@
     --line:#e5e7eb; --brand:#4f46e5; --brand-2:#6366f1; --brand-soft:#eef2ff;
     --green:#16a34a; --green-soft:#dcfce7; --blue:#2563eb; --blue-soft:#dbeafe;
     --amber:#d97706; --amber-soft:#fef3c7; --gray:#9ca3af; --gray-soft:#f3f4f6;
-    --red:#dc2626; --red-soft:#fee2e2; --yellow:#ca8a04; --shadow:0 6px 24px rgba(17,24,39,.08);
-    --radius:16px;
+    --red:#dc2626; --red-soft:#fee2e2; --gold:#f4c542; --teal:#0d9488;
+    --shadow:0 6px 24px rgba(17,24,39,.08); --radius:16px;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{
-    font-family:'Rubik',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);
-    -webkit-font-smoothing:antialiased;line-height:1.5;
-  }
+  body{font-family:'Rubik',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
   button{font-family:inherit;cursor:pointer}
   input,select,textarea{font-family:inherit}
   a{color:var(--brand)}
   .hidden{display:none !important}
 
   /* ===== Auth ===== */
-  .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
-    background:radial-gradient(1200px 600px at 80% -10%,#e0e7ff 0%,transparent 60%),var(--bg);}
-  .auth-card{background:var(--card);width:100%;max-width:420px;border-radius:20px;box-shadow:var(--shadow);
-    padding:34px 30px;border:1px solid var(--line)}
+  .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(1200px 600px at 80% -10%,#e0e7ff 0%,transparent 60%),var(--bg)}
+  .auth-card{background:var(--card);width:100%;max-width:420px;border-radius:20px;box-shadow:var(--shadow);padding:34px 30px;border:1px solid var(--line)}
   .auth-logo{font-size:40px;text-align:center}
   .auth-card h1{font-size:23px;margin:6px 0 2px;text-align:center}
   .auth-card p.sub{color:var(--muted);text-align:center;margin:0 0 22px;font-size:14px}
   .field{margin-bottom:14px}
   .field label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:#374151}
-  .field input,.field select,.field textarea{
-    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:#fafafa;
-    transition:border .15s,box-shadow .15s}
-  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brand);
-    box-shadow:0 0 0 3px var(--brand-soft);background:#fff}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;
-    padding:12px 18px;font-size:15px;font-weight:600;background:var(--brand);color:#fff;width:100%;
-    transition:transform .05s,background .15s}
+  .field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:#fafafa;transition:border .15s,box-shadow .15s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft);background:#fff}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;padding:12px 18px;font-size:15px;font-weight:600;background:var(--brand);color:#fff;width:100%;transition:transform .05s,background .15s}
   .btn:hover{background:var(--brand-2)}
   .btn:active{transform:translateY(1px)}
   .btn.secondary{background:var(--brand-soft);color:var(--brand)}
   .btn.secondary:hover{background:#e0e7ff}
   .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
   .btn.danger{background:var(--red)}
-  .btn.danger:hover{background:#b91c1c}
   .btn.sm{padding:8px 12px;font-size:13px;width:auto}
   .switch-line{text-align:center;margin-top:16px;font-size:14px;color:var(--muted)}
   .switch-line a{cursor:pointer;font-weight:600}
@@ -60,7 +49,7 @@
   .msg.ok{background:var(--green-soft);color:#166534;display:block}
   .msg.info{background:var(--blue-soft);color:#1e40af;display:block}
 
-  /* ===== App shell ===== */
+  /* ===== Shell ===== */
   .app{display:none}
   .topbar{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;padding:18px 20px 0}
   .topbar-inner{max-width:1180px;margin:0 auto}
@@ -69,23 +58,23 @@
   .topbar .spacer{flex:1}
   .who{font-size:13px;opacity:.95;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .pill{background:rgba(255,255,255,.18);padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:600}
-  .icon-btn{background:rgba(255,255,255,.16);border:none;color:#fff;border-radius:10px;padding:8px 12px;
-    font-size:13px;font-weight:600;display:inline-flex;gap:6px;align-items:center}
+  .icon-btn{background:rgba(255,255,255,.16);border:none;color:#fff;border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600;display:inline-flex;gap:6px;align-items:center}
   .icon-btn:hover{background:rgba(255,255,255,.28)}
   .hero{max-width:1180px;margin:14px auto 0;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .hero h2{margin:0;font-size:26px;font-weight:800}
-  .hero .count{text-align:center;background:rgba(255,255,255,.15);border-radius:14px;padding:10px 18px;min-width:120px}
-  .hero .count b{display:block;font-size:30px;line-height:1.1}
-  .hero .count span{font-size:12px;opacity:.9}
+  .counts{display:flex;gap:10px}
+  .count{text-align:center;background:rgba(255,255,255,.15);border-radius:14px;padding:9px 16px;min-width:104px}
+  .count b{display:block;font-size:26px;line-height:1.1}
+  .count span{font-size:11.5px;opacity:.92}
+  .count.gold{background:rgba(244,197,66,.28);box-shadow:inset 0 0 0 1.5px rgba(244,197,66,.7)}
+  .count.gold b{color:#fde68a}
   .tabs{max-width:1180px;margin:16px auto 0;display:flex;gap:6px;overflow-x:auto}
-  .tab{background:transparent;border:none;color:rgba(255,255,255,.8);padding:12px 18px;font-size:15px;
-    font-weight:600;border-radius:12px 12px 0 0;white-space:nowrap;position:relative}
+  .tab{background:transparent;border:none;color:rgba(255,255,255,.8);padding:12px 16px;font-size:14.5px;font-weight:600;border-radius:12px 12px 0 0;white-space:nowrap}
   .tab.active{background:var(--bg);color:var(--brand)}
   .tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.12)}
-
   .container{max-width:1180px;margin:0 auto;padding:20px}
 
-  /* ===== Toolbar (search/filters) ===== */
+  /* ===== Toolbar ===== */
   .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
   .search{flex:1;min-width:200px;position:relative}
   .search input{width:100%;padding:11px 40px 11px 14px;border:1px solid var(--line);border-radius:12px;font-size:14px;background:#fff}
@@ -93,35 +82,31 @@
   .search::before{content:"🔍";position:absolute;right:13px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.6}
   .toolbar select{padding:10px 12px;border:1px solid var(--line);border-radius:12px;font-size:13.5px;background:#fff}
 
-  /* ===== Cards / sections ===== */
   .section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 14px;flex-wrap:wrap}
   .section-head h3{margin:0;font-size:20px;font-weight:700}
   .section-head .desc{color:var(--muted);font-size:13.5px}
-
   .progress-top{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:18px;box-shadow:var(--shadow)}
   .progress-top .lbl{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:9px}
   .bar{height:10px;background:var(--gray-soft);border-radius:999px;overflow:hidden}
   .bar>i{display:block;height:100%;background:linear-gradient(90deg,#4f46e5,#22c55e);border-radius:999px;transition:width .5s}
 
-  /* dashboard cards */
+  /* dashboard */
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
   @media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:480px){.grid{grid-template-columns:1fr}}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
   .stat .ico{font-size:26px}
-  .stat .num{font-size:30px;font-weight:800;margin-top:6px}
+  .stat .num{font-size:28px;font-weight:800;margin-top:6px}
   .stat .cap{color:var(--muted);font-size:13px;margin-top:2px}
   .stat .mini{height:7px;background:var(--gray-soft);border-radius:999px;margin-top:12px;overflow:hidden}
   .stat .mini>i{display:block;height:100%;border-radius:999px}
-
   .info-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-top:18px}
   .info-card h4{margin:0 0 12px;font-size:16px}
   .contacts{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
   .contact{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fafafe;border:1px solid var(--line);border-radius:12px;font-size:13.5px}
-  .contact b{display:block}
-  .contact a{font-weight:600;text-decoration:none}
+  .contact b{display:block}.contact a{font-weight:600;text-decoration:none}
 
-  /* ===== Accordion ===== */
+  /* accordion */
   .acc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
   .acc-head{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer;user-select:none}
   .acc-head:hover{background:#fafafe}
@@ -129,13 +114,19 @@
   .acc-meta{font-size:12.5px;color:var(--muted);font-weight:600}
   .chev{transition:transform .25s;font-size:13px;color:var(--muted)}
   .acc.open .chev{transform:rotate(-180deg)}
-  .acc-mini{width:90px}
-  .acc-mini .bar{height:8px}
+  .acc-mini{width:90px}.acc-mini .bar{height:8px}
   .acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
-  .acc.open .acc-body{max-height:6000px}
+  .acc.open .acc-body{max-height:8000px}
   .acc-inner{padding:4px 18px 18px}
 
-  /* task rows */
+  /* tasks old/new */
+  .apt{border-radius:var(--radius);padding:4px 0 2px;margin-bottom:22px}
+  .apt-banner{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;padding:13px 18px;border-radius:14px;margin-bottom:14px;color:#fff}
+  .apt-old .apt-banner{background:linear-gradient(135deg,#ef4444,#dc2626)}
+  .apt-new .apt-banner{background:linear-gradient(135deg,#22c55e,#16a34a)}
+  .apt-banner .cnt{margin-inline-start:auto;background:rgba(255,255,255,.25);padding:3px 11px;border-radius:999px;font-size:13px}
+  .apt-old .acc{border-inline-start:4px solid #ef4444}
+  .apt-new .acc{border-inline-start:4px solid #22c55e}
   .task{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
   .task:first-child{border-top:none}
   .task .body{flex:1;min-width:0}
@@ -146,41 +137,54 @@
   .seg button{background:#fff;border:none;padding:6px 10px;font-size:12.5px;color:var(--muted);border-inline-start:1px solid var(--line)}
   .seg button:first-child{border-inline-start:none}
   .seg button.on{color:#fff}
-  .seg button.on.s-done{background:var(--green)}
-  .seg button.on.s-progress{background:var(--blue)}
-  .seg button.on.s-pending{background:var(--amber)}
+  .seg button.on.s-done{background:var(--green)}.seg button.on.s-progress{background:var(--blue)}.seg button.on.s-pending{background:var(--amber)}
   .chip{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px}
-  .chip.p-urgent{background:var(--red-soft);color:#b91c1c}
-  .chip.p-normal{background:var(--amber-soft);color:#92400e}
-  .chip.p-low{background:var(--green-soft);color:#166534}
+  .chip.p-urgent{background:var(--red-soft);color:#b91c1c}.chip.p-normal{background:var(--amber-soft);color:#92400e}.chip.p-low{background:var(--green-soft);color:#166534}
   select.prio{border:1px solid var(--line);border-radius:8px;padding:5px 8px;font-size:12px;background:#fff}
   .note-btn{background:none;border:none;font-size:15px;position:relative}
-  .note-btn .tip{position:absolute;bottom:130%;inset-inline-end:0;background:#1f2937;color:#fff;padding:8px 11px;border-radius:10px;
-    font-size:12px;font-weight:400;width:230px;text-align:start;box-shadow:var(--shadow);display:none;z-index:30;line-height:1.4}
+  .note-btn .tip{position:absolute;bottom:130%;inset-inline-end:0;background:#1f2937;color:#fff;padding:8px 11px;border-radius:10px;font-size:12px;font-weight:400;width:230px;text-align:start;box-shadow:var(--shadow);display:none;z-index:30;line-height:1.4}
   .note-btn:hover .tip{display:block}
   .note-input{margin-top:8px;width:100%;border:1px dashed var(--line);border-radius:10px;padding:8px 10px;font-size:13px;background:#fafafe;resize:vertical;min-height:0;height:36px}
 
-  /* room table */
+  /* tables (shop / install) */
   .tbl-wrap{overflow-x:auto;margin-top:6px}
-  table.rooms{width:100%;border-collapse:collapse;font-size:13.5px;min-width:760px}
-  table.rooms th{text-align:start;font-size:12px;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap}
-  table.rooms td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
-  table.rooms tr:hover td{background:#fafafe}
-  .item-name{font-weight:600;display:flex;align-items:center;gap:6px}
-  .badge-type{font-size:10.5px;color:var(--muted);background:var(--gray-soft);padding:2px 7px;border-radius:6px;white-space:nowrap}
-  td.row-task .item-name{font-weight:700}
-  tr.is-task td{background:#f8f7ff}
-  .st-select{border:1px solid var(--line);border-radius:9px;padding:6px 7px;font-size:12.5px;background:#fff;min-width:104px;font-weight:600}
-  .st-select.v-done{color:var(--green);border-color:#bbf7d0;background:var(--green-soft)}
-  .st-select.v-progress{color:var(--blue);border-color:#bfdbfe;background:var(--blue-soft)}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:680px}
+  table.tbl th{text-align:start;font-size:12px;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap}
+  table.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+  table.tbl tr:hover td{background:#fafafe}
+  .item-name{font-weight:600;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .link-ic{margin-inline-start:4px;text-decoration:none;font-size:13px}
+  .ord{margin-inline-start:4px;font-size:10.5px;color:var(--muted);background:var(--gray-soft);padding:1px 6px;border-radius:6px;white-space:nowrap}
+  .price{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+  .st-select{border:1px solid var(--line);border-radius:9px;padding:6px 8px;font-size:12.5px;background:#fff;font-weight:600;min-width:104px}
+  .st-select.v-done,.st-select.v-arrived{color:var(--green);border-color:#bbf7d0;background:var(--green-soft)}
+  .st-select.v-transit,.st-select.v-ordered{color:var(--blue);border-color:#bfdbfe;background:var(--blue-soft)}
+  .st-select.v-coordinated{color:var(--teal);border-color:#99f6e4;background:#ccfbf1}
   .st-select.v-pending{color:var(--amber);border-color:#fde68a;background:var(--amber-soft)}
-  .st-select.v-na{color:var(--gray)}
-  .cost-cell{white-space:nowrap;font-variant-numeric:tabular-nums}
-  .del-row{background:none;border:none;color:var(--red);font-size:15px;opacity:.55}
-  .del-row:hover{opacity:1}
+  .mini-input{border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:12.5px;background:#fff;min-width:78px}
+  .del-row{background:none;border:none;color:var(--red);font-size:15px;opacity:.55}.del-row:hover{opacity:1}
   .add-row{margin-top:12px}
-  .link-ic{margin-inline-start:6px;text-decoration:none;font-size:13px}
-  .ord{margin-inline-start:6px;font-size:10.5px;color:var(--muted);background:var(--gray-soft);padding:1px 6px;border-radius:6px;white-space:nowrap}
+
+  /* budget */
+  .bud-hero{background:linear-gradient(135deg,#111827,#1f2937);color:#fff;border-radius:18px;padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+  .bud-hero .tot b{font-size:34px;font-weight:800}
+  .bud-hero .tot span{opacity:.7;font-size:13px;display:block}
+  .bud-split{display:flex;gap:22px;flex-wrap:wrap}
+  .bud-split div b{font-size:20px;font-weight:700;display:block}
+  .bud-split div span{opacity:.7;font-size:12.5px}
+  .bud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:820px){.bud-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.bud-grid{grid-template-columns:1fr}}
+  .bud-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;cursor:pointer;transition:.15s}
+  .bud-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(17,24,39,.12)}
+  .bud-card .ttl{font-size:14.5px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+  .bud-card .amt{font-size:22px;font-weight:800;margin:8px 0 4px}
+  .bud-card .sub{font-size:12px;color:var(--muted)}
+  .bud-card .bar{margin-top:11px;height:8px}
+  .bud-detail{margin-top:11px;border-top:1px dashed var(--line);padding-top:10px;display:none}
+  .bud-card.open .bud-detail{display:block}
+  .bud-line{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 0;gap:8px}
+  .bud-line .nm{color:#374151}.bud-line .pr{font-weight:600;white-space:nowrap}
 
   /* grocery */
   .gro-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;align-items:start}
@@ -194,14 +198,24 @@
   .gro-item.on .box{background:var(--green);border-color:var(--green)}
   .gro-item.on .nm{text-decoration:line-through;color:var(--muted)}
 
-  /* timeline */
-  .tl-task{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-top:1px solid var(--line);cursor:pointer}
-  .tl-task:first-child{border-top:none}
-  .tl-check{width:22px;height:22px;border-radius:7px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;
-    font-size:13px;color:#fff;flex-shrink:0;margin-top:1px;transition:.15s}
+  /* timeline vertical */
+  .tl{position:relative;padding-inline-start:8px}
+  .tl-week{position:relative;padding-inline-start:34px;padding-bottom:8px;margin-bottom:10px}
+  .tl-week::before{content:"";position:absolute;inset-inline-start:9px;top:26px;bottom:-10px;width:2px;background:var(--line)}
+  .tl-week:last-child::before{display:none}
+  .tl-node{position:absolute;inset-inline-start:0;top:3px;width:20px;height:20px;border-radius:50%;border:3px solid var(--brand);background:#fff;z-index:1}
+  .tl-node.full{background:var(--green);border-color:var(--green)}
+  .tl-node.part{background:var(--amber);border-color:var(--amber)}
+  .tl-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:13px 16px}
+  .tl-card h4{margin:0 0 4px;font-size:15.5px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .tl-card h4 .m{font-size:12px;color:var(--muted);font-weight:600}
+  .tl-task{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
+  .tl-task:first-of-type{border-top:none}
+  .tl-check{width:21px;height:21px;border-radius:7px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex-shrink:0;margin-top:1px;transition:.15s}
   .tl-task.done .tl-check{background:var(--green);border-color:var(--green)}
-  .tl-task .tl-ttl{font-size:14.5px}
+  .tl-task .tl-ttl{font-size:14px;flex:1}
   .tl-task.done .tl-ttl{text-decoration:line-through;color:var(--muted)}
+  .tl-badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--brand-soft);color:var(--brand);white-space:nowrap;margin-top:1px}
 
   /* modal */
   .modal-bg{position:fixed;inset:0;background:rgba(17,24,39,.5);display:none;align-items:center;justify-content:center;padding:18px;z-index:60}
@@ -214,21 +228,16 @@
   .mem{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
   .mem:first-child{border-top:none}
   .mem .av{width:34px;height:34px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700}
-  .mem .info{flex:1;min-width:0}
-  .mem .info small{color:var(--muted)}
+  .mem .info{flex:1;min-width:0}.mem .info small{color:var(--muted)}
   .role-tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
-  .role-manager{background:#ede9fe;color:#6d28d9}
-  .role-full{background:var(--blue-soft);color:#1d4ed8}
-  .role-limited{background:var(--gray-soft);color:#4b5563}
+  .role-manager{background:#ede9fe;color:#6d28d9}.role-full{background:var(--blue-soft);color:#1d4ed8}.role-limited{background:var(--gray-soft);color:#4b5563}
   .pending-tag{font-size:10.5px;color:var(--amber);font-weight:600}
   .add-mem{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
   .add-mem input{flex:1;min-width:140px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px}
   .add-mem select{padding:10px;border:1px solid var(--line);border-radius:10px}
 
-  .empty{text-align:center;color:var(--muted);padding:50px 20px}
-  .empty .big{font-size:42px}
-  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:#1f2937;color:#fff;
-    padding:12px 20px;border-radius:12px;font-size:14px;box-shadow:var(--shadow);opacity:0;transition:.3s;z-index:80}
+  .empty{text-align:center;color:var(--muted);padding:50px 20px}.empty .big{font-size:42px}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:#1f2937;color:#fff;padding:12px 20px;border-radius:12px;font-size:14px;box-shadow:var(--shadow);opacity:0;transition:.3s;z-index:80}
   .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
   .loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:90;flex-direction:column;gap:14px}
   .spinner{width:42px;height:42px;border:4px solid var(--brand-soft);border-top-color:var(--brand);border-radius:50%;animation:spin 1s linear infinite}
@@ -237,26 +246,23 @@
 </head>
 <body>
 
-<!-- ============ LOADING ============ -->
 <div class="loading" id="loading"><div class="spinner"></div><div style="color:var(--muted);font-size:14px">טוען…</div></div>
 
-<!-- ============ AUTH ============ -->
+<!-- AUTH -->
 <div class="auth-wrap hidden" id="authView">
   <div class="auth-card">
     <div class="auth-logo">🏠</div>
     <h1 id="authTitle">התחברות</h1>
-    <p class="sub" id="authSub">ניהול מעבר הדירה שלכם — במקום אחד</p>
-
+    <p class="sub">ניהול מעבר הדירה שלכם — במקום אחד</p>
     <div class="field"><label>אימייל</label><input type="email" id="authEmail" placeholder="name@example.com" autocomplete="email" /></div>
     <div class="field"><label>סיסמה</label><input type="password" id="authPass" placeholder="לפחות 6 תווים" autocomplete="current-password" /></div>
-
     <button class="btn" id="authBtn">התחברות</button>
     <div class="msg" id="authMsg"></div>
     <div class="switch-line" id="authSwitch">אין לכם חשבון? <a id="toSignup">הרשמה</a></div>
   </div>
 </div>
 
-<!-- ============ APP ============ -->
+<!-- APP -->
 <div class="app" id="app">
   <div class="topbar">
     <div class="topbar-inner">
@@ -273,23 +279,28 @@
       <div class="hero">
         <div>
           <h2 id="projTitle">מעבר דירה</h2>
-          <div style="opacity:.92;font-size:14px" id="projSub">נווה עוז, פתח תקווה → פסגת אפק ב', ראש העין</div>
+          <div style="opacity:.92;font-size:14px">נווה עוז, פתח תקווה → פסגת אפק ב', ראש העין</div>
         </div>
-        <div class="count"><b id="countDays">—</b><span>ימים למעבר · 13/08/2026</span></div>
+        <div class="counts">
+          <div class="count gold"><b id="countKeys">—</b><span>ימים למפתח · 30/07</span></div>
+          <div class="count"><b id="countMove">—</b><span>ימים למעבר · 13/08</span></div>
+        </div>
       </div>
       <div class="tabs" id="tabs">
         <button class="tab active" data-tab="dashboard">📊 לוח בקרה</button>
-        <button class="tab" data-tab="tasks">📋 לוח משימות</button>
-        <button class="tab" data-tab="rooms">🛋️ מעקב חדרים</button>
+        <button class="tab" data-tab="tasks">📋 משימות</button>
+        <button class="tab" data-tab="install">🚚 הובלות והתקנות</button>
+        <button class="tab" data-tab="shop">🛒 קניות</button>
+        <button class="tab" data-tab="grocery">🥦 קניות לסופר</button>
+        <button class="tab" data-tab="budget">💰 תקציב</button>
         <button class="tab" data-tab="timeline">🗓️ לוח זמנים</button>
-        <button class="tab" data-tab="grocery">🛒 קניות לסופר</button>
       </div>
     </div>
   </div>
 
   <div class="container">
     <div class="toolbar" id="toolbar">
-      <div class="search"><input type="text" id="searchInput" placeholder="חיפוש חופשי בכל המשימות והפריטים…" /></div>
+      <div class="search"><input type="text" id="searchInput" placeholder="חיפוש חופשי בכל הלשוניות…" /></div>
       <select id="statusFilter">
         <option value="all">כל הסטטוסים</option>
         <option value="done">✅ הושלם</option>
@@ -304,23 +315,22 @@
       </select>
       <button class="btn ghost sm" id="resetBtn">♻️ איפוס הכול</button>
     </div>
-
     <div id="tab-dashboard"></div>
     <div id="tab-tasks" class="hidden"></div>
-    <div id="tab-rooms" class="hidden"></div>
-    <div id="tab-timeline" class="hidden"></div>
+    <div id="tab-install" class="hidden"></div>
+    <div id="tab-shop" class="hidden"></div>
     <div id="tab-grocery" class="hidden"></div>
+    <div id="tab-budget" class="hidden"></div>
+    <div id="tab-timeline" class="hidden"></div>
   </div>
 </div>
 
-<!-- members modal -->
 <div class="modal-bg" id="memberModal">
   <div class="modal">
     <div class="modal-head"><h3>👥 חברי הפרויקט</h3><button class="x" id="closeMembers">×</button></div>
     <div class="modal-body" id="memberBody"></div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -329,183 +339,200 @@
 const SUPABASE_URL = "https://zaikfsmkogejrtqdmbll.supabase.co";
 const SUPABASE_KEY = "sb_publishable_DJ332mc6g_ue0C3ZbxNZCQ_gjciJXqd";
 const MOVE_DATE = "2026-08-13";
+const KEYS_DATE = "2026-07-30";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* =================== STATUS DICTIONARIES =================== */
-const TASK_ST = {
-  done:{lbl:"✅ הושלם",cls:"s-done"},
-  progress:{lbl:"🔄 בתהליך",cls:"s-progress"},
-  pending:{lbl:"⏳ ממתין",cls:"s-pending"}
-};
+/* =================== DICTIONARIES =================== */
+const TASK_ST = {done:{lbl:"✅ הושלם",cls:"s-done"},progress:{lbl:"🔄 בתהליך",cls:"s-progress"},pending:{lbl:"⏳ ממתין",cls:"s-pending"}};
 const TASK_ST_ORDER = ["pending","progress","done"];
 const PRIO = {urgent:"🔴 דחוף",normal:"🟡 רגיל",low:"🟢 נמוך"};
-const FIELD_ST = {
-  done:"✅ הושלם",
-  progress:"🔄 בדרך",
-  pending:"⏳ ממתין",
-  na:"➖ לא רלוונטי"
-};
+const SHOP_ST = {pending:"⏳ ממתין",ordered:"🛒 הוזמן",arrived:"📦 הגיע",done:"✅ הותקן"};
+const INST_ST = {pending:"⏳ ממתין",coordinated:"🤝 תואם",transit:"🚚 בדרך",done:"✅ בוצע"};
+const APT = {old:{lbl:"🔴 דירה ישנה — לסגור ולעזוב",cls:"apt-old"},new:{lbl:"🟢 דירה חדשה — להקים ולסדר",cls:"apt-new"}};
+const OLD_CATS = ["🏠 שרון (בעל הבית)","⚡ חשמל (דירה ישנה)","🔧 תיקונים","📦 אריזה"];
+const NEW_CATS = ["🏢 בירוקרטיה ושירותים","💰 כספים וביטוח","📞 תקשורת","🧹 ניקיון והכנה","🔒 ביטחון ובטיחות","🛠️ התקנות ומשימות אבא"];
 
-/* =================== DEFAULT SEED DATA (imported from spreadsheet) =================== */
-const SEED_ROOMS = [
-  [`🚪 כללי וכניסה`,`אקדח להתזה לצינור מים`,`item`,`pending`,`na`,`na`,``,``,``,``,``],
-  [`🚪 כללי וכניסה`,`רשתות לכיורים`,`item`,`pending`,`na`,`na`,``,``,``,``,``],
-  [`🚪 כללי וכניסה`,`ארון נעליים`,`furniture`,`pending`,`na`,`pending`,``,``,``,``,``],
-  [`🚪 כללי וכניסה`,`מגני ברקים`,`item`,`done`,`progress`,`na`,`Alon computers`,`152 ₪`,`https://www.alon-computers.co.il/items/3322715?gad_source=1&gad_campaignid=17178602865&gclid=CjwKCAjw6f3RBhApEiwAMaCqWc8or_5Fefcj_l_BZgwi0REan2htXDPOIktZect_SgQ0iuQDkwN_uRoC2uoQAvD_BwE`,``,`מחיר כולל משלוח`],
-  [`🚪 כללי וכניסה`,`שעון קיר`,`item`,`done`,`done`,`na`,`Take it`,`30 ₪`,``,``,``],
-  [`🚪 כללי וכניסה`,`מזוזות`,`item`,`pending`,`na`,`na`,``,``,`צריך 3 חדשות, שני קלפים בטוח יש`,``,``],
-  [`🛋️ סלון`,`Switcher לדוד`,`installation`,`done`,`done`,`pending`,`KSP`,`176.27 ₪`,`https://ksp.co.il/web/item/355834`,`604206`,``],
-  [`🚪 כללי וכניסה`,`גלאי עשן`,`item`,`pending`,`done`,`na`,``,``,``,``,`יש במחסן אצל ההורים`],
-  [`🚪 כללי וכניסה`,`מצלמה לעינית של הדלת`,`item`,`done`,`done`,`na`,`KSP`,`380 ₪`,``,`604206`,``],
-  [`🚪 כללי וכניסה`,`שטיח כניסה לבית`,`item`,`pending`,`na`,`na`,`מקס סטוק`,``,``,``,``],
-  [`🛋️ סלון`,`וילונות`,`item`,`pending`,`na`,`na`,``,`1000 ₪`,``,``,``],
-  [`🛋️ סלון`,`מנורות לסלון + מטבח`,`installation`,`done`,`progress`,`pending`,`KSP`,`624 ₪`,`https://ksp.co.il/web/item/464648`,`34044129`,``],
-  [`🚪 כללי וכניסה`,`טלפון לבית`,`item`,`done`,`progress`,`na`,`KSP`,`146 ₪`,`https://ksp.co.il/web/item/52132`,`34044129`,``],
-  [`📦 מחסן`,`מתלים למחסן`,`item`,`pending`,`na`,`na`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`מתלה כביסה גדול`,`installation`,`done`,`done`,`pending`,`איקאה`,`125 ₪`,`https://www.ikea.com/il/he/p/mulig-drying-rack-in-outdoor-white-50228755/`,``,``],
-  [`🌿 מרפסת`,`עציץ בזיליקום (מרפסת)`,`item`,`pending`,`na`,`na`,``,``,``,``,``],
-  [`🚪 כללי וכניסה`,`14 כיסאות מתקפלים`,`furniture`,`done`,`progress`,`pending`,`פנדה סטייל`,`2100 ₪`,`https://www.pandastyle.co.il/product/%d7%9b%d7%9c%d7%9c%d7%99/%d7%9e%d7%91%d7%a6%d7%a2-%d7%9b%d7%99%d7%a1%d7%90%d7%95%d7%aa-%d7%9c%d7%a8%d7%95%d7%9b%d7%a9%d7%99%d7%9d-%d7%a7%d7%95%d7%a0%d7%a1%d7%95%d7%9c%d7%94-%d7%9b%d7%99%d7%a1%d7%90-%d7%a0%d7%a2/`,`07/040544`,`איסוף עצמאי בספטמבר כשיגיע`],
-  [`🍳 מטבח`,`דיספנסרים`,`item`,`done`,`done`,`na`,`Take it`,`20 ₪`,``,``,``],
-  [`🍳 מטבח`,`מגבות מטבח`,`item`,`done`,`done`,`na`,`איקאה`,`98 ₪`,`https://www.ikea.com/il/he/p/roedspaetta-tea-towel-white-90618564/`,``,``],
-  [`🍳 מטבח`,`תנור`,`appliance`,`done`,`progress`,`pending`,`אבי סופר`,`2200 ₪`,`https://www.payngo.co.il/appliances/home-appliances/ovens/built-in-oven/369723.html`,`2164873`,`אחרי הנחה של אבי סופר`],
-  [`🍳 מטבח`,`מקרר`,`appliance`,`done`,`progress`,`pending`,`אבי סופר`,`5700 ₪`,`https://www.soferavi.co.il/%D7%9E%D7%95%D7%A6%D7%A8%D7%99%D7%9D/%d7%9e%d7%a7%d7%a8%d7%a8-%d7%9e%d7%a7%d7%a4%d7%99%d7%90-%d7%aa%d7%97%d7%aa%d7%95%d7%9f-%d7%90%d7%9c-%d7%92%d7%99-gm-859rwc-%d7%9c%d7%91%d7%9f/`,``,`אחרי הנחה של אבי סופר · הובלה/הרכבה: 570 ₪ · תשלום להובלה והרכבה במועד הגעה`],
-  [`🍳 מטבח`,`מדיח`,`appliance`,`done`,`progress`,`pending`,`אבי סופר`,`3500 ₪`,`https://www.payngo.co.il/appliances/home-appliances/dish-washers/brands/bosch/364053.html`,`2164873`,`אחרי הנחה של אבי סופר`],
-  [`🍳 מטבח`,`אי למטבח`,`furniture`,`pending`,`na`,`pending`,`מחסני חשמל`,`1645 ₪`,`https://www.payngo.co.il/319082.html`,``,``],
-  [`🍳 מטבח`,`2 כיסאות בר`,`furniture`,`pending`,`na`,`pending`,`Take it`,`398 ₪`,`https://www.take-it.co.il/product/%D7%9B%D7%A1%D7%90-%D7%91%D7%A8-%D7%93%D7%92%D7%9D-7227`,``,``],
-  [`🍳 מטבח`,`קונסולת פינת אוכל`,`furniture`,`done`,`progress`,`pending`,`פנדה סטייל`,`1450 ₪`,`https://www.pandastyle.co.il/product/%d7%a7%d7%95%d7%a0%d7%a1%d7%95%d7%9c%d7%94-%d7%a0%d7%a4%d7%aa%d7%97%d7%aa-%d7%9c%d7%a4%d7%99%d7%a0%d7%aa-%d7%90%d7%95%d7%9b%d7%9c/%d7%a7%d7%95%d7%a0%d7%a1%d7%95%d7%9c%d7%94-%d7%a0%d7%a4%d7%aa%d7%97%d7%aa-%d7%9c%d7%a4%d7%99%d7%a0%d7%aa-%d7%90%d7%95%d7%9b%d7%9c-3-%d7%9e%d7%98%d7%a8-%d7%93%d7%92%d7%9d-%d7%9c%d7%95%d7%a8%d7%93-3/`,`07/040544`,`הובלה והרכבה 450 ₪ · הובלה/הרכבה: 450 ₪ · תשלום להובלה והרכבה במועד הגעה`],
-  [`🍳 מטבח`,`ארון למקפיא + מיקרוגל`,`furniture`,`done`,`progress`,`pending`,`נגריה`,`2600 ₪`,``,``,``],
-  [`🛋️ סלון`,`שידת טלוויזיה`,`furniture`,`done`,`progress`,`pending`,`פנדה סטייל`,`1700 ₪`,`https://www.pandastyle.co.il/product/%d7%9e%d7%96%d7%a0%d7%95%d7%a0%d7%99%d7%9d/%d7%9e%d7%96%d7%a0%d7%95%d7%9f-%d7%9c%d7%a1%d7%9c%d7%95%d7%9f-%d7%93%d7%92%d7%9d-%d7%a9%d7%95%d7%95%d7%99%d7%99%d7%a5-%d7%90%d7%9c%d7%95%d7%9f-%d7%9e%d7%a9%d7%95%d7%9c%d7%91/`,`07/040544`,`הובלה והרכבה 200 ₪ · הובלה/הרכבה: 200 ₪ · תשלום להובלה והרכבה במועד הגעה`],
-  [`🍳 מטבח`,`לדים למטבח מתחת לארון`,`installation`,`pending`,`na`,`pending`,``,``,``,``,``],
-  [`🛋️ סלון`,`כורסת אירוח דגם 8710 צבע תכלת`,`furniture`,`done`,`progress`,`pending`,`Take it`,`799 ₪`,`https://www.take-it.co.il/product/%D7%9B%D7%95%D7%A8%D7%A1%D7%AA-%D7%90%D7%99%D7%A8%D7%95%D7%97-%D7%93%D7%92%D7%9D-8710-%D7%A6%D7%91%D7%A2-%D7%99%D7%A8%D7%95%D7%A7`,`1-6-2940`,`700 + 100 ₪ הובלה- שולם / לאחר מעבר דירה להביא מרמי ועפרה`],
-  [`🛋️ סלון`,`4 מילויים כריות גדולות לספות`,`item`,`pending`,`na`,`na`,``,``,``,``,``],
-  [`🛋️ סלון`,`כיסויי כריות חדשות בצבעים שמתאימים לתכלת`,`item`,`progress`,`na`,`na`,`שיין`,`128 ₪`,`https://il.shein.com/1PS-2PSLightBluePillowcaseWithoutPillowInsert,BohemianStyleDecorativeTexturedCoarseLinenFabric,LuxuryPillowcaseMadeOfCoarseLinenCraft,SuitableForSofa,LivingRoom,Bedroom,Floor,Bench,Car,Office,CafeAndOtherLeisureAreasDecoration,PillowcaseWithoutShedding,WithoutPilling,SuitableForAllSeasons-p-34338762-cat-1947.html?share_from=null&url_from=GM71044300045&cdn_rsite=ak&ref=www&rep=dir&ret=il`,``,``],
-  [`🍳 מטבח`,`מתקן ייבוש כלים`,`item`,`pending`,`na`,`na`,``,``,``,``,``],
-  [`🍳 מטבח`,`צלחות`,`item`,`done`,`progress`,`na`,`אמזון`,`300 ₪`,``,``,``],
-  [`🍳 מטבח`,`סכום`,`item`,`done`,`done`,`na`,`איקאה`,`500 ₪`,`https://www.ikea.com/il/he/p/martorp-30-piece-cutlery-set-stainless-steel-30167507/`,``,``],
-  [`🛏️ חדר שינה`,`מיטה + שידות`,`furniture`,`done`,`progress`,`pending`,`רהיטי הסיטי`,`2700 ₪`,`https://www.rcity.co.il/product/%d7%9e%d7%99%d7%98%d7%94-%d7%93%d7%92%d7%9d-%d7%a0%d7%94%d7%95%d7%a8%d7%90%d7%99-%d7%a9%d7%9e%d7%a0%d7%aa-%d7%90%d7%a8%d7%92%d7%96-%d7%9e%d7%a6%d7%a2%d7%99%d7%9d-%d7%95%d7%9e%d7%96%d7%a8%d7%9f/?shem=rimspwouoe,`,``,`450 ₪ למובילים, כולל התקנה · הובלה/הרכבה: 450 ₪ · תשלום להובלה והרכבה במועד הגעה`],
-  [`🛏️ חדר שינה`,`לדים למתחת למיטה זוגית`,`installation`,`done`,`done`,`pending`,`מחסני תאורה`,`150 ₪`,`https://www.lighting.co.il/75308001`,``,``],
-  [`🛏️ חדר שינה`,`מנורת תלייה`,`installation`,`done`,`done`,`pending`,`מחסני תאורה`,`379 ₪`,`https://www.lighting.co.il/%D7%AA%D7%90%D7%95%D7%A8%D7%AA-%D7%A4%D7%A0%D7%99%D7%9D/%D7%9E%D7%A0%D7%95%D7%A8%D7%95%D7%AA-%D7%AA%D7%9C%D7%99%D7%94/carltonreces#size=12671&color=12959`,``,``],
-  [`🛏️ חדר שינה`,`מנורות לשידות`,`installation`,`done`,`progress`,`pending`,`אלי אקספרס`,`57.16 ₪`,`https://he.aliexpress.com/item/1005006293567790.html?invitationCode=WjZzZFhmL3hFSnh5VHBGZHgvclZicW0zcVMyeFBybGRsclFQNndUbXRSND0&srcSns=sns_WhatsApp&spreadType=socialShare&social_params=6000457372929&bizType=ProductDetail&spreadCode=WjZzZFhmL3hFSnh5VHBGZHgvclZicW0zcVMyeFBybGRsclFQNndUbXRSND0&aff_fcid=0c74f30ba0c54b29ac5ae0336d02ed1c-1782571659416-06592-_c3UXMwSl&tt=MG&aff_fsk=_c3UXMwSl&aff_platform=default&sk=_c3UXMwSl&aff_trace_key=0c74f30ba0c54b29ac5ae0336d02ed1c-1782571659416-06592-_c3UXMwSl&shareId=6000457372929&businessType=ProductDetail&platform=AE&terminal_id=1e571d7271924df5a1fcb4041ef0338b&afSmartRedirect=y&gatewayAdapt=glo2isr`,``,``],
-  [`🛏️ חדר שינה`,`ארון בגדים`,`furniture`,`pending`,`na`,`pending`,`קש. כתר`,`2800 ₪`,`https://www.keter.biz/details.aspx?name=322026`,``,``],
-  [`🛏️ חדר שינה`,`שידת איפור`,`furniture`,`pending`,`na`,`pending`,`סופר פארם`,`746 ₪`,`https://shop.super-pharm.co.il/home/furniture/vanity-desks/%D7%9E%D7%90%D7%A8%D7%96-%D7%A9%D7%99%D7%93%D7%AA-%D7%90%D7%99%D7%A4%D7%95%D7%A8-%D7%A2%D7%9D-%D7%9E%D7%A8%D7%90%D7%94-%D7%95%D7%AA%D7%90%D7%95%D7%A8%D7%AA-%D7%9C%D7%93-%D7%A8%D7%95%D7%97%D7%91-106-%D7%A1%D7%9E-%D7%93%D7%92%D7%9D-RSM-2063-%D7%9E%D7%91%D7%99%D7%AA-ROSSO-ITALY-%D7%9C%D7%91%D7%9F-%D7%95%D7%94%D7%93%D7%95%D7%9D-%D7%91%D7%93-%D7%99%D7%95%D7%A7%D7%A8%D7%AA%D7%99-%D7%93%D7%92%D7%9D-RSM-3014-%D7%A9%D7%9E%D7%A0%D7%AA-%D7%9E%D7%91%D7%99%D7%AA-ROSSO-ITALY/p/mp-00396572`,``,``],
-  [`🛏️ חדר שינה`,`טלוויזיה`,`item`,`pending`,`na`,`na`,`מחסני חשמל`,`900 ₪`,`https://www.payngo.co.il/360268.html`,``,``],
-  [`🛏️ חדר שינה`,`זרוע לטלוויזיה`,`installation`,`pending`,`na`,`pending`,`IVORY`,`49 ₪`,`https://www.ivory.co.il/catalog.php?id=113003`,``,``],
-  [`🛡️ ממ״ד`,`ארון בגדים`,`furniture`,`pending`,`na`,`pending`,`קש. כתר`,`1800 ₪`,``,``,``],
-  [`🛡️ ממ״ד`,`מנורה לממד`,`installation`,`done`,`progress`,`pending`,`KSP`,`152 ₪`,`https://ksp.co.il/web/item/199636`,`34044129`,``],
-  [`🛡️ ממ״ד`,`מתקן מתלה ל-2 מסכי מחשב- אמא`,`installation`,`done`,`progress`,`pending`,`אקספרס קולונע ביתי`,`195 ₪`,`https://expresshatkanot.co.il/%D7%96%D7%A8%D7%95%D7%A2-%D7%A9%D7%95%D7%9C%D7%97%D7%A0%D7%99%D7%AA-%D7%90%D7%A8%D7%92%D7%95%D7%A0%D7%95%D7%9E%D7%99%D7%AA-%D7%9C-2-%D7%9E%D7%A1%D7%9B%D7%99-%D7%9E%D7%97%D7%A9%D7%91-%D7%93%D7%92%D7%9D-F160-NB.htm?gad_source=1&gad_campaignid=22097721545&gclid=CjwKCAjw6f3RBhApEiwAMaCqWTsRjd4MTXDhwEg9dI35E9hXHS8lGMmccgAj_buIBA_c90rPAJqRhRoC19kQAvD_BwE`,`85627`,``],
-  [`🛡️ ממ״ד`,`מסך מחשב`,`item`,`done`,`done`,`na`,`ASUS`,``,``,``,``],
-  [`🌿 מרפסת`,`ריהוט חוץ`,`furniture`,`done`,`progress`,`pending`,`ACE`,`677 ₪`,`https://www.ace.co.il/catalog/product/view/id/424204/s/6001495/?utm_source=InforuMail&utm_medium=email&utm_campaign=ace_order_email_automatic_new_04.02.25&upixel=4un360e1hfl000002h09102n0g6tpg`,`5004612805`,`120 ₪ הובלה · הובלה/הרכבה: 120 ₪ · תשלום להובלה במועד הגעה`],
-  [`🌿 מרפסת`,`מנגל חשמלי`,`item`,`done`,`done`,`na`,`מחסני חשמל`,`149 ₪`,`https://www.payngo.co.il/home-electric-products/gas-grill/electric-grill/349914.html`,`2010764868`,``],
-  [`🌿 מרפסת`,`כיסוי למנגל חשמלי- אמא`,`item`,`done`,`progress`,`na`,`אלי אקספרס`,`20 ₪`,``,``,``],
-  [`🚿 חדר רחצה הורים`,`מנורות לאמבטיה`,`installation`,`pending`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה אורחים`,`מנורות לאמבטיה`,`installation`,`pending`,`na`,`pending`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`מנורה לחדר שירות`,`installation`,`pending`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה הורים`,`מוטות פינוק`,`installation`,`pending`,`na`,`pending`,`פירזול חצי חינם`,`500 ₪`,``,``,``],
-  [`🚿 חדר רחצה אורחים`,`מוטות פינוק`,`installation`,`pending`,`na`,`pending`,`פירזול חצי חינם`,`500 ₪`,``,``,``],
-  [`🚿 חדר רחצה הורים`,`טושי אמבטיה`,`installation`,`done`,`progress`,`pending`,`אלי אקספרס`,`96 ₪`,``,``,``],
-  [`🚿 חדר רחצה אורחים`,`טושי אמבטיה`,`installation`,`done`,`progress`,`pending`,`אלי אקספרס`,`96 ₪`,``,``,``],
-  [`🚿 חדר רחצה הורים`,`מושבי אסלה`,`item`,`pending`,`na`,`na`,``,``,``,``,``],
-  [`🚿 חדר רחצה אורחים`,`מושבי אסלה`,`item`,`pending`,`na`,`na`,``,``,``,``,``],
-  [`🚿 חדר רחצה הורים`,`בידה`,`installation`,`done`,`done`,`pending`,`KSP`,`116 ₪`,`https://ksp.co.il/web/item/268096`,`604206`,``],
-  [`🚿 חדר רחצה אורחים`,`בידה`,`installation`,`done`,`done`,`pending`,`KSP`,`116 ₪`,`https://ksp.co.il/web/item/268096`,`604206`,``],
-  [`🧺 חדר כביסה`,`ארון שירות לחדר כביסה מעל מכונת כביסה`,`furniture`,`done`,`done`,`pending`,`איקאה`,`495 ₪`,`https://www.ikea.com/il/he/p/nysjoen-cabinet-for-washing-machine-white-10496477/`,``,``],
-  [`🧺 חדר כביסה`,`ארון שירות לחדר כביסה מעל מייבש`,`furniture`,`done`,`done`,`pending`,`איקאה`,`495 ₪`,`https://www.ikea.com/il/he/p/nysjoen-cabinet-for-washing-machine-white-10496477/`,``,``],
-  [`🧺 חדר כביסה`,`מתלה כביסה שעולה ויורד`,`installation`,`pending`,`na`,`pending`,``,``,``,``,``],
-  [`📦 מחסן`,`הרכבת ארון לבן מאיקאה`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🍳 מטבח`,`התקנת תמי 4`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🍳 מטבח`,`סידור לדים במטבח`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🍳 מטבח`,`הרכבת ארון מקפיא + מיקרוגל`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🍳 מטבח`,`הגעת 2 כיסאות בר למטבח`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🍳 מטבח`,`פירוק ארגזים`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🛋️ סלון`,`ספה (הובלה מהבית)`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🛋️ סלון`,`שטיח (הובלה מההורים)`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🛋️ סלון`,`שולחן קפה (הובלה מהבית)`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🛋️ סלון`,`הרכבת מנורה`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🛏️ חדר שינה`,`הגעה והרכבת ארון בגדים`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🛏️ חדר שינה`,`הגעה והרכבת חדר שינה- מיטה + 2 שידות איפור`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🛏️ חדר שינה`,`הגעה והרכבת שידת איפור`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🛏️ חדר שינה`,`פירוק ארגזים`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה הורים`,`הרכבת בידה`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה הורים`,`הרכבת מושב אסלה`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה הורים`,`הרכבת טוש`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה הורים`,`הרכבת מוט פינוק`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה הורים`,`פירוק ארגזים`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🛡️ ממ״ד`,`הרכבת שולחן עבודה + מסך + מדפסת`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה אורחים`,`הרכבת בידה`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה אורחים`,`הרכבת מושב אסלה`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה אורחים`,`הרכבת טוש`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🚿 חדר רחצה אורחים`,`הרכבת מוט פינוק`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`מתלה כביסה בחדר שירות (שעולה ויורד)`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`התקנת מנורות- מטבח`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`התקנת מנורות- סלון`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`התקנת מנורות אמבטיה`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`התקנת מנורה- חדר שינה`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`התקנת מנורה- ממ"ד`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`פירוק ארגזים- חדר שירות`,`task`,`na`,`na`,`pending`,``,``,``,``,``],
-  [`🧺 חדר כביסה`,`הרכבת שידת איפור`,`task`,`na`,`na`,`pending`,``,``,``,``,``]
+const CONTACTS = [
+  [`סשה (הובלות)`,`054-7255775`],[`אלדד (הדברה)`,`052-4261252`],[`ליז (פרטנר)`,`052-4861013`],
+  [`אבי סופר (מוצרי חשמל)`,`077-8010102`],[`פנדה סטייל (ריהוט)`,`050-3489899`],[`רהיטי העיר`,`073-3948726`],
+  [`תאגיד מי עין אפק`,`1-800-350-303`],[`ארנונה ראש העין`,`03-9411169`]
+];
+
+/* =================== SEED DATA =================== */
+const SEED_SHOP = [
+  [`🛋️ סלון ומבואה`,`אקדח להתזה לצינור מים`,``,``,``,`0`,`pending`,`📦 שונות`,``],
+  [`🛋️ סלון ומבואה`,`רשתות לכיורים`,``,``,``,`0`,`pending`,`📦 שונות`,``],
+  [`🛋️ סלון ומבואה`,`ארון נעליים`,``,``,``,`0`,`pending`,`🛋️ ריהוט`,``],
+  [`🛋️ סלון ומבואה`,`מגני ברקים`,`Alon computers`,`https://www.alon-computers.co.il/items/3322715?gad_source=1&gad_campaignid=17178602865&gclid=CjwKCAjw6f3RBhApEiwAMaCqWc8or_5Fefcj_l_BZgwi0REan2htXDPOIktZect_SgQ0iuQDkwN_uRoC2uoQAvD_BwE`,``,`152`,`ordered`,`🔧 אלקטרוניקה ובית חכם`,`מחיר כולל משלוח`],
+  [`🛋️ סלון ומבואה`,`שעון קיר`,`Take it`,``,``,`30`,`arrived`,`📦 שונות`,``],
+  [`🛋️ סלון ומבואה`,`מזוזות`,``,`צריך 3 חדשות, שני קלפים בטוח יש`,``,`0`,`pending`,`📦 שונות`,``],
+  [`🛋️ סלון ומבואה`,`Switcher לדוד`,`KSP`,`https://ksp.co.il/web/item/355834`,`604206`,`176.27`,`arrived`,`🔧 אלקטרוניקה ובית חכם`,``],
+  [`🛋️ סלון ומבואה`,`גלאי עשן`,``,``,``,`0`,`arrived`,`📦 שונות`,`יש במחסן אצל ההורים`],
+  [`🛋️ סלון ומבואה`,`מצלמה לעינית של הדלת`,`KSP`,``,`604206`,`380`,`arrived`,`🔧 אלקטרוניקה ובית חכם`,``],
+  [`🛋️ סלון ומבואה`,`שטיח כניסה לבית`,`מקס סטוק`,``,``,`0`,`pending`,`🪟 טקסטיל ווילונות`,``],
+  [`🛋️ סלון ומבואה`,`וילונות`,``,``,``,`1000`,`pending`,`🪟 טקסטיל ווילונות`,``],
+  [`🛋️ סלון ומבואה`,`מנורות לסלון + מטבח`,`KSP`,`https://ksp.co.il/web/item/464648`,`34044129`,`624`,`ordered`,`💡 תאורה`,``],
+  [`🛋️ סלון ומבואה`,`טלפון לבית`,`KSP`,`https://ksp.co.il/web/item/52132`,`34044129`,`146`,`ordered`,`🔧 אלקטרוניקה ובית חכם`,``],
+  [`🌿 מרפסת ומחסן`,`מתלים למחסן`,``,``,``,`0`,`pending`,`📦 שונות`,``],
+  [`🚿 אמבטיה ושירות`,`מתלה כביסה גדול`,`איקאה`,`https://www.ikea.com/il/he/p/mulig-drying-rack-in-outdoor-white-50228755/`,``,`125`,`arrived`,`🔧 אלקטרוניקה ובית חכם`,``],
+  [`🌿 מרפסת ומחסן`,`עציץ בזיליקום (מרפסת)`,``,``,``,`0`,`pending`,`📦 שונות`,``],
+  [`🛋️ סלון ומבואה`,`14 כיסאות מתקפלים`,`פנדה סטייל`,`https://www.pandastyle.co.il/product/%d7%9b%d7%9c%d7%9c%d7%99/%d7%9e%d7%91%d7%a6%d7%a2-%d7%9b%d7%99%d7%a1%d7%90%d7%95%d7%aa-%d7%9c%d7%a8%d7%95%d7%9b%d7%a9%d7%99%d7%9d-%d7%a7%d7%95%d7%a0%d7%a1%d7%95%d7%9c%d7%94-%d7%9b%d7%99%d7%a1%d7%90-%d7%a0%d7%a2/`,`07/040544`,`2100`,`ordered`,`🛋️ ריהוט`,`איסוף עצמאי בספטמבר כשיגיע`],
+  [`🍳 מטבח ופינת אוכל`,`דיספנסרים`,`Take it`,``,``,`20`,`arrived`,`🍽️ מטבח וכלים`,``],
+  [`🍳 מטבח ופינת אוכל`,`מגבות מטבח`,`איקאה`,`https://www.ikea.com/il/he/p/roedspaetta-tea-towel-white-90618564/`,``,`98`,`arrived`,`🍽️ מטבח וכלים`,``],
+  [`🍳 מטבח ופינת אוכל`,`תנור`,`אבי סופר`,`https://www.payngo.co.il/appliances/home-appliances/ovens/built-in-oven/369723.html`,`2164873`,`2200`,`ordered`,`🔌 מוצרי חשמל`,`אחרי הנחה של אבי סופר`],
+  [`🍳 מטבח ופינת אוכל`,`מקרר`,`אבי סופר`,`https://www.soferavi.co.il/%D7%9E%D7%95%D7%A6%D7%A8%D7%99%D7%9D/%d7%9e%d7%a7%d7%a8%d7%a8-%d7%9e%d7%a7%d7%a4%d7%99%d7%90-%d7%aa%d7%97%d7%aa%d7%95%d7%9f-%d7%90%d7%9c-%d7%92%d7%99-gm-859rwc-%d7%9c%d7%91%d7%9f/`,``,`5700`,`ordered`,`🔌 מוצרי חשמל`,`אחרי הנחה של אבי סופר`],
+  [`🍳 מטבח ופינת אוכל`,`מדיח`,`אבי סופר`,`https://www.payngo.co.il/appliances/home-appliances/dish-washers/brands/bosch/364053.html`,`2164873`,`3500`,`ordered`,`🔌 מוצרי חשמל`,`אחרי הנחה של אבי סופר`],
+  [`🍳 מטבח ופינת אוכל`,`אי למטבח`,`מחסני חשמל`,`https://www.payngo.co.il/319082.html`,``,`1645`,`pending`,`🔌 מוצרי חשמל`,``],
+  [`🍳 מטבח ופינת אוכל`,`2 כיסאות בר`,`Take it`,`https://www.take-it.co.il/product/%D7%9B%D7%A1%D7%90-%D7%91%D7%A8-%D7%93%D7%92%D7%9D-7227`,``,`398`,`pending`,`🛋️ ריהוט`,``],
+  [`🍳 מטבח ופינת אוכל`,`קונסולת פינת אוכל`,`פנדה סטייל`,`https://www.pandastyle.co.il/product/%d7%a7%d7%95%d7%a0%d7%a1%d7%95%d7%9c%d7%94-%d7%a0%d7%a4%d7%aa%d7%97%d7%aa-%d7%9c%d7%a4%d7%99%d7%a0%d7%aa-%d7%90%d7%95%d7%9b%d7%9c/%d7%a7%d7%95%d7%a0%d7%a1%d7%95%d7%9c%d7%94-%d7%a0%d7%a4%d7%aa%d7%97%d7%aa-%d7%9c%d7%a4%d7%99%d7%a0%d7%aa-%d7%90%d7%95%d7%9b%d7%9c-3-%d7%9e%d7%98%d7%a8-%d7%93%d7%92%d7%9d-%d7%9c%d7%95%d7%a8%d7%93-3/`,`07/040544`,`1450`,`ordered`,`🛋️ ריהוט`,`הובלה והרכבה 450 ₪`],
+  [`🍳 מטבח ופינת אוכל`,`ארון למקפיא + מיקרוגל`,`נגריה`,``,``,`2600`,`ordered`,`🛋️ ריהוט`,``],
+  [`🍳 מטבח ופינת אוכל`,`שידת טלוויזיה`,`פנדה סטייל`,`https://www.pandastyle.co.il/product/%d7%9e%d7%96%d7%a0%d7%95%d7%a0%d7%99%d7%9d/%d7%9e%d7%96%d7%a0%d7%95%d7%9f-%d7%9c%d7%a1%d7%9c%d7%95%d7%9f-%d7%93%d7%92%d7%9d-%d7%a9%d7%95%d7%95%d7%99%d7%99%d7%a5-%d7%90%d7%9c%d7%95%d7%9f-%d7%9e%d7%a9%d7%95%d7%9c%d7%91/`,`07/040544`,`1700`,`ordered`,`🔌 מוצרי חשמל`,`הובלה והרכבה 200 ₪`],
+  [`🍳 מטבח ופינת אוכל`,`לדים למטבח מתחת לארון`,``,``,``,`0`,`pending`,`💡 תאורה`,``],
+  [`🍳 מטבח ופינת אוכל`,`כורסת אירוח דגם 8710 צבע תכלת`,`Take it`,`https://www.take-it.co.il/product/%D7%9B%D7%95%D7%A8%D7%A1%D7%AA-%D7%90%D7%99%D7%A8%D7%95%D7%97-%D7%93%D7%92%D7%9D-8710-%D7%A6%D7%91%D7%A2-%D7%99%D7%A8%D7%95%D7%A7`,`1-6-2940`,`799`,`ordered`,`🛋️ ריהוט`,`700 + 100 ₪ הובלה- שולם / לאחר מעבר דירה להביא מרמי ועפרה`],
+  [`🍳 מטבח ופינת אוכל`,`4 מילויים כריות גדולות לספות`,``,``,``,`0`,`pending`,`🪟 טקסטיל ווילונות`,``],
+  [`🍳 מטבח ופינת אוכל`,`כיסויי כריות חדשות בצבעים שמתאימים לתכלת`,`שיין`,`https://il.shein.com/1PS-2PSLightBluePillowcaseWithoutPillowInsert,BohemianStyleDecorativeTexturedCoarseLinenFabric,LuxuryPillowcaseMadeOfCoarseLinenCraft,SuitableForSofa,LivingRoom,Bedroom,Floor,Bench,Car,Office,CafeAndOtherLeisureAreasDecoration,PillowcaseWithoutShedding,WithoutPilling,SuitableForAllSeasons-p-34338762-cat-1947.html?share_from=null&url_from=GM71044300045&cdn_rsite=ak&ref=www&rep=dir&ret=il`,``,`128`,`ordered`,`🪟 טקסטיל ווילונות`,``],
+  [`🍳 מטבח ופינת אוכל`,`מתקן ייבוש כלים`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,``],
+  [`🍳 מטבח ופינת אוכל`,`צלחות`,`אמזון`,``,``,`300`,`ordered`,`🍽️ מטבח וכלים`,``],
+  [`🍳 מטבח ופינת אוכל`,`סכום`,`איקאה`,`https://www.ikea.com/il/he/p/martorp-30-piece-cutlery-set-stainless-steel-30167507/`,``,`500`,`arrived`,`🍽️ מטבח וכלים`,``],
+  [`🛏️ חדר שינה`,`מיטה + שידות`,`רהיטי הסיטי`,`https://www.rcity.co.il/product/%d7%9e%d7%99%d7%98%d7%94-%d7%93%d7%92%d7%9d-%d7%a0%d7%94%d7%95%d7%a8%d7%90%d7%99-%d7%a9%d7%9e%d7%a0%d7%aa-%d7%90%d7%a8%d7%92%d7%96-%d7%9e%d7%a6%d7%a2%d7%99%d7%9d-%d7%95%d7%9e%d7%96%d7%a8%d7%9f/?shem=rimspwouoe,`,``,`2700`,`ordered`,`🛋️ ריהוט`,`450 ₪ למובילים, כולל התקנה`],
+  [`🛏️ חדר שינה`,`לדים למתחת למיטה זוגית`,`מחסני תאורה`,`https://www.lighting.co.il/75308001`,``,`150`,`arrived`,`💡 תאורה`,``],
+  [`🛏️ חדר שינה`,`מנורת תלייה`,`מחסני תאורה`,`https://www.lighting.co.il/%D7%AA%D7%90%D7%95%D7%A8%D7%AA-%D7%A4%D7%A0%D7%99%D7%9D/%D7%9E%D7%A0%D7%95%D7%A8%D7%95%D7%AA-%D7%AA%D7%9C%D7%99%D7%94/carltonreces#size=12671&color=12959`,``,`379`,`arrived`,`💡 תאורה`,``],
+  [`🛏️ חדר שינה`,`מנורות לשידות`,`אלי אקספרס`,`https://he.aliexpress.com/item/1005006293567790.html?invitationCode=WjZzZFhmL3hFSnh5VHBGZHgvclZicW0zcVMyeFBybGRsclFQNndUbXRSND0&srcSns=sns_WhatsApp&spreadType=socialShare&social_params=6000457372929&bizType=ProductDetail&spreadCode=WjZzZFhmL3hFSnh5VHBGZHgvclZicW0zcVMyeFBybGRsclFQNndUbXRSND0&aff_fcid=0c74f30ba0c54b29ac5ae0336d02ed1c-1782571659416-06592-_c3UXMwSl&tt=MG&aff_fsk=_c3UXMwSl&aff_platform=default&sk=_c3UXMwSl&aff_trace_key=0c74f30ba0c54b29ac5ae0336d02ed1c-1782571659416-06592-_c3UXMwSl&shareId=6000457372929&businessType=ProductDetail&platform=AE&terminal_id=1e571d7271924df5a1fcb4041ef0338b&afSmartRedirect=y&gatewayAdapt=glo2isr`,``,`57.16`,`ordered`,`💡 תאורה`,``],
+  [`🛏️ חדר שינה`,`ארון בגדים`,`קש. כתר`,`https://www.keter.biz/details.aspx?name=322026`,``,`2800`,`pending`,`🛋️ ריהוט`,``],
+  [`🛏️ חדר שינה`,`שידת איפור`,`סופר פארם`,`https://shop.super-pharm.co.il/home/furniture/vanity-desks/%D7%9E%D7%90%D7%A8%D7%96-%D7%A9%D7%99%D7%93%D7%AA-%D7%90%D7%99%D7%A4%D7%95%D7%A8-%D7%A2%D7%9D-%D7%9E%D7%A8%D7%90%D7%94-%D7%95%D7%AA%D7%90%D7%95%D7%A8%D7%AA-%D7%9C%D7%93-%D7%A8%D7%95%D7%97%D7%91-106-%D7%A1%D7%9E-%D7%93%D7%92%D7%9D-RSM-2063-%D7%9E%D7%91%D7%99%D7%AA-ROSSO-ITALY-%D7%9C%D7%91%D7%9F-%D7%95%D7%94%D7%93%D7%95%D7%9D-%D7%91%D7%93-%D7%99%D7%95%D7%A7%D7%A8%D7%AA%D7%99-%D7%93%D7%92%D7%9D-RSM-3014-%D7%A9%D7%9E%D7%A0%D7%AA-%D7%9E%D7%91%D7%99%D7%AA-ROSSO-ITALY/p/mp-00396572`,``,`746`,`pending`,`🛋️ ריהוט`,``],
+  [`🛏️ חדר שינה`,`טלוויזיה`,`מחסני חשמל`,`https://www.payngo.co.il/360268.html`,``,`900`,`pending`,`🔌 מוצרי חשמל`,``],
+  [`🛏️ חדר שינה`,`זרוע לטלוויזיה`,`IVORY`,`https://www.ivory.co.il/catalog.php?id=113003`,``,`49`,`pending`,`🔌 מוצרי חשמל`,``],
+  [`🛡️ ממ״ד`,`ארון בגדים`,`קש. כתר`,``,``,`1800`,`pending`,`🛋️ ריהוט`,``],
+  [`🛡️ ממ״ד`,`מנורה לממד`,`KSP`,`https://ksp.co.il/web/item/199636`,`34044129`,`152`,`ordered`,`💡 תאורה`,``],
+  [`🛡️ ממ״ד`,`מתקן מתלה ל-2 מסכי מחשב- אמא`,`אקספרס קולונע ביתי`,`https://expresshatkanot.co.il/%D7%96%D7%A8%D7%95%D7%A2-%D7%A9%D7%95%D7%9C%D7%97%D7%A0%D7%99%D7%AA-%D7%90%D7%A8%D7%92%D7%95%D7%A0%D7%95%D7%9E%D7%99%D7%AA-%D7%9C-2-%D7%9E%D7%A1%D7%9B%D7%99-%D7%9E%D7%97%D7%A9%D7%91-%D7%93%D7%92%D7%9D-F160-NB.htm?gad_source=1&gad_campaignid=22097721545&gclid=CjwKCAjw6f3RBhApEiwAMaCqWTsRjd4MTXDhwEg9dI35E9hXHS8lGMmccgAj_buIBA_c90rPAJqRhRoC19kQAvD_BwE`,`85627`,`195`,`ordered`,`🔧 אלקטרוניקה ובית חכם`,``],
+  [`🛡️ ממ״ד`,`מסך מחשב`,`ASUS`,``,``,`0`,`arrived`,`🔌 מוצרי חשמל`,``],
+  [`🌿 מרפסת ומחסן`,`ריהוט חוץ`,`ACE`,`https://www.ace.co.il/catalog/product/view/id/424204/s/6001495/?utm_source=InforuMail&utm_medium=email&utm_campaign=ace_order_email_automatic_new_04.02.25&upixel=4un360e1hfl000002h09102n0g6tpg`,`5004612805`,`677`,`ordered`,`🛋️ ריהוט`,`120 ₪ הובלה`],
+  [`🌿 מרפסת ומחסן`,`מנגל חשמלי`,`מחסני חשמל`,`https://www.payngo.co.il/home-electric-products/gas-grill/electric-grill/349914.html`,`2010764868`,`149`,`arrived`,`🔌 מוצרי חשמל`,``],
+  [`🌿 מרפסת ומחסן`,`כיסוי למנגל חשמלי- אמא`,`אלי אקספרס`,``,``,`20`,`ordered`,`🔌 מוצרי חשמל`,``],
+  [`🚿 אמבטיה ושירות`,`2 מנורות לאמבטיה`,``,``,``,`0`,`pending`,`💡 תאורה`,``],
+  [`🚿 אמבטיה ושירות`,`מנורה לחדר שירות`,``,``,``,`0`,`pending`,`💡 תאורה`,``],
+  [`🚿 אמבטיה ושירות`,`2 מוטות פינוק`,`פירזול חצי חינם`,``,``,`500`,`pending`,`🚿 אמבטיה`,``],
+  [`🚿 אמבטיה ושירות`,`2 טושי אמבטיה`,`אלי אקספרס`,``,``,`96`,`ordered`,`🚿 אמבטיה`,``],
+  [`🚿 אמבטיה ושירות`,`2 מושבי אסלה`,``,``,``,`0`,`pending`,`📦 שונות`,``],
+  [`🚿 אמבטיה ושירות`,`2 בידה`,`KSP`,`https://ksp.co.il/web/item/268096`,`604206`,`116`,`arrived`,`🚿 אמבטיה`,``],
+  [`🚿 אמבטיה ושירות`,`ארון שירות לחדר כביסה מעל מכונת כביסה`,`איקאה`,`https://www.ikea.com/il/he/p/nysjoen-cabinet-for-washing-machine-white-10496477/`,``,`495`,`arrived`,`🛋️ ריהוט`,``],
+  [`🚿 אמבטיה ושירות`,`ארון שירות לחדר כביסה מעל מייבש`,`איקאה`,`https://www.ikea.com/il/he/p/nysjoen-cabinet-for-washing-machine-white-10496477/`,``,`495`,`arrived`,`🛋️ ריהוט`,``],
+  [`🚿 אמבטיה ושירות`,`מתלה כביסה שעולה ויורד`,``,``,``,`0`,`pending`,`🔧 אלקטרוניקה ובית חכם`,``],
+  [`🍳 מטבח ופינת אוכל`,`כפות הגשה`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
+  [`🍳 מטבח ופינת אוכל`,`מתקן לייבוש כלים`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
+  [`🍳 מטבח ופינת אוכל`,`תבניות אינגליש קייק`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
+  [`🍳 מטבח ופינת אוכל`,`מפה לשולחן 3 מטר`,``,``,``,`0`,`pending`,`📦 שונות`,`לרכישה`],
+  [`🛋️ סלון ומבואה`,`מפה קטנה לשולחן קפה`,``,``,``,`0`,`pending`,`📦 שונות`,`לרכישה`],
+  [`🍳 מטבח ופינת אוכל`,`קלף לבצק`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
+  [`🍳 מטבח ופינת אוכל`,`קנקן מים גדול`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
+  [`🍳 מטבח ופינת אוכל`,`מגן להבה עם ידית מתקפלת`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
+  [`🍳 מטבח ופינת אוכל`,`מגבות מטבח עם לולאה`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
+  [`🍳 מטבח ופינת אוכל`,`פלפליה ומלחיה`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
+  [`🛋️ סלון ומבואה`,`מילויים לכריות`,``,``,``,`0`,`pending`,`🪟 טקסטיל ווילונות`,`לרכישה`]
+];
+
+const SEED_INSTALL = [
+  [`הובלה ראשית`,`סשה`,`054-7255775`,`13/08`,``,`pending`,`2000`,`2000 ₪ · תשלום במועד`,`המעבר הראשי`],
+  [`ריהוט חוץ`,`ACE`,`ווצפ- 054-1510885`,`לנסות לתאם ליום חמישי`,``,`pending`,`120`,`120 ₪ · תשלום להובלה במועד הגעה`,``],
+  [`הדברה`,`אלדד`,`052-4261252`,`2026-08-02 00:00:00`,`08:30-09:00`,`coordinated`,`0`,`380 ₪ · תשלום במועד הגעה`,`אחרי ריסוס לא להיות בדירה שעתיים. שטיפה אחרי יומיים.`],
+  [`מיטה + שידות`,`רהיטי הסיטי`,`073-3948726`,``,``,`pending`,`450`,`450 ₪ · תשלום להובלה והרכבה במועד הגעה`,``],
+  [`מקרר`,`אבי סופר`,`077-8010102`,``,``,`pending`,`570`,`570 ₪ · תשלום להובלה והרכבה במועד הגעה`,``],
+  [`מדיח`,`אבי סופר`,`077-8010102`,``,``,`pending`,`0`,``,``],
+  [`תנור`,`אבי סופר`,`077-8010102`,``,``,`pending`,`0`,``,``],
+  [`פרטנר- התקנת 2 ממירים`,`פרטנר`,`052-4861013`,``,``,`pending`,`0`,``,`ליז אשת הקשר`],
+  [`פרטנר- טלפונים ניידים`,`פרטנר`,`052-4861013`,``,``,`pending`,`0`,``,`ליז אשת הקשר`],
+  [`הובלה`,`סשה`,`054-7255775`,``,``,`pending`,`0`,``,``],
+  [`כורסא מעוצבת`,`Take it`,``,``,``,`pending`,`100`,`שולם מראש · הובלה שולמה מראש`,``],
+  [`קונסולת פינת אוכל`,`פנדה סטייל`,`050-3489899`,``,``,`pending`,`450`,`450 ₪ · תשלום להובלה והרכבה במועד הגעה`,``],
+  [`שידת טלוויזיה`,`פנדה סטייל`,`050-3489899`,``,``,`pending`,`200`,`200 ₪ · תשלום להובלה והרכבה במועד הגעה`,``],
+  [`אי למטבח`,``,``,``,``,`pending`,`0`,``,``],
+  [`כיסאות לאי מטבח`,``,``,``,``,`pending`,`0`,``,``],
+  [`שידת איפור`,``,``,``,``,`pending`,`0`,``,``]
 ];
 
 const SEED_TASKS = [
-  [`💰 כספים`,`לקבוע עם אורטל מדידה של כמה דברים`,`done`,`normal`,``],
-  [`💰 כספים`,`מציאת פנקסי צ'יקים`,`done`,`normal`,``],
-  [`🏢 בירוקרטיה ומוסדות`,`צילום מונים- גז חשמל ומים ביום קבלת מפתח`,`pending`,`urgent`,``],
-  [`📦 אריזה ולוגיסטיקה`,`למדוד: / מקרר  / מחסן  / ארון שירות במטבח  / ארון שירות בחדר שירות / תאורת קשת בחדר שינה- גובה חלון / רוחב לארונות אמבטיה / לספור מנורות / לבדוק אם יש מזוזות`,`done`,`normal`,``],
-  [`🔑 הדירה הישנה`,`חתימה על חוזה`,`done`,`normal`,``],
-  [`🔒 ביטחון ובטיחות`,`צילום דירה בעת קבלת המפתח`,`pending`,`urgent`,``],
-  [`🧹 ניקיון והכנה`,`לקבוע ריסוס ל-02/08/2026`,`done`,`urgent`,``],
-  [`🔑 הדירה הישנה`,`הודעה לשרון על עזיבה`,`done`,`normal`,``],
-  [`📦 אריזה ולוגיסטיקה`,`לתאם הובלה עם סשה`,`progress`,`urgent`,`21/06- לתאם סופית`],
-  [`💰 כספים`,`הכנת 12 צ'קים לשכירות ללירון ואורטל`,`done`,`normal`,``],
-  [`🔒 ביטחון ובטיחות`,`ביטוח דירה`,`progress`,`urgent`,`לדבר עם אהובה ב-28/07 ליצור פוליסה חדשה ולהפסיק את הקודמת ב-13/08/2026`],
-  [`💰 כספים`,`העברת 18,300 ₪ ללירון ואורטל`,`done`,`normal`,``],
-  [`📋 משימות כלליות`,`מדידת מקפיא- תומר`,`progress`,`normal`,`רוחב 55 סנטימטר  / עומק 57.5 סנטימטר / גובה 82.5 סנטימטרים`],
-  [`💰 כספים`,`הכנת 2 צ'קים חסרים`,`done`,`normal`,``],
-  [`🏢 בירוקרטיה ומוסדות`,`לאריזה / 3 לורדים שחורים / 2 לורדים אדומים / חבילת מדבקות קטנות מאבא`,`pending`,`normal`,``],
-  [`🏢 בירוקרטיה ומוסדות`,`העברה בנקאית כל חודש החל מספטמבר 2026 עד יוני 2027`,`pending`,`normal`,``],
-  [`📞 תקשורת ושירותים`,`לשאול את ליז מפרטנר - האם הקו בדירה שלי פעיל ומוכן להתקנה, או שצריך קודם הפעלת תשתית?`,`pending`,`normal`,``],
-  [`🔑 הדירה הישנה`,`לקחת משרון צ'קים שנותרו + צ'ק פיקדון אם יש`,`pending`,`normal`,``],
-  [`🏋️ פנאי ובריאות`,`27.07.2026- לדבר עם דניאלה מגו אקטיב קרית אונו להעביר מנויים שלי ושל תומר לגו אקטיב ראש העין`,`pending`,`normal`,``],
-  [`🔒 ביטחון ובטיחות`,`לתת לשרון מפתח`,`pending`,`urgent`,``],
-  [`📋 משימות כלליות`,`לעשות סדר בבגדי ילדים`,`pending`,`normal`,``],
-  [`🔑 הדירה הישנה`,`תיקונים ביוסף חנני- 12-13/06`,`pending`,`normal`,``],
-  [`🔒 ביטחון ובטיחות`,`מההורים-  / פיירקסים / ארון תכשיטים / שטיח / 2 גלאי עשן / אורית! / מעמד לפן`,`pending`,`normal`,``],
-  [`📦 אריזה ולוגיסטיקה`,`להביא לבית סולם קטן`,`pending`,`normal`,``],
-  [`📦 אריזה ולוגיסטיקה`,`לסדר מחסן אצל ההורים בסופ"ש של לפני מעבר`,`pending`,`normal`,``],
-  [`🔒 ביטחון ובטיחות`,`מפתחות מההורים של הבית`,`pending`,`normal`,``],
-  [`📋 משימות כלליות`,`הכנת רשימת משימות על פי חדר`,`pending`,`normal`,``],
-  [`💰 כספים`,`לדבר עם אורטל- לוודא שהחשבון על שמנו פעיל מיום הכניסה ושאין נתק. לבדוק שעון חכם מול סלקום`,`pending`,`normal`,``],
-  [`🏢 בירוקרטיה ומוסדות`,`19.07- שבועיים לפני מעבר לקנות כמה דברים- לעבור על רשימה ממחסני חשמל`,`pending`,`normal`,``],
-  [`🏢 בירוקרטיה ומוסדות`,`גז- לברר אם יש גז מרכזי או בלונים מי הספק?`,`pending`,`normal`,``],
-  [`📦 אריזה ולוגיסטיקה`,`לתכנן ימי אריזה`,`done`,`normal`,``],
-  [`🏢 בירוקרטיה ומוסדות`,`קריאת מונה חשמל סופית ביוסף חנני- 13/08`,`pending`,`urgent`,``],
-  [`🏢 בירוקרטיה ומוסדות`,`התקנה של סוויצ'ר לדוד- להזמין חשמלאי`,`pending`,`normal`,``],
-  [`🔒 ביטחון ובטיחות`,`להחליף צילנדירים לדירה + למחסן`,`pending`,`normal`,``],
-  [`🔒 ביטחון ובטיחות`,`לשכפל מפתחות`,`pending`,`normal`,``],
-  [`📦 אריזה ולוגיסטיקה`,`למדוד ארונות מטבח ואז לקנות לדים לארונות מטבח`,`pending`,`normal`,``],
-  [`📋 משימות כלליות`,`לתכנן ארון בגדים`,`pending`,`normal`,``],
-  [`📋 משימות כלליות`,`אחרי שהמקרר מגיע להתקשר לשירות לקוחות להזמין טכנאי שיבוא להחליף את הצד של הדלת של המקרר`,`pending`,`normal`,``],
-  [`🧹 ניקיון והכנה`,`ריסוס`,`pending`,`urgent`,``],
-  [`📦 אריזה ולוגיסטיקה`,`הגעת הובלה`,`pending`,`urgent`,``],
-  [`🧹 ניקיון והכנה`,`לנקות פילטר במזגן`,`pending`,`normal`,``],
-  [`📋 משימות כלליות`,`להרכיב סוויצ'ר`,`pending`,`normal`,``],
-  [`🔒 ביטחון ובטיחות`,`להחליף צילנדירים לדירה + מחסן- לשאול את אורטל אם רוצים מפתח חדש`,`pending`,`normal`,``],
-  [`🔒 ביטחון ובטיחות`,`לשכפל מפתחות - 6 מפתחות`,`pending`,`normal`,``],
-  [`📋 משימות כלליות`,`שטיח כניסה לבית`,`pending`,`normal`,``],
-  [`📞 תקשורת ושירותים`,`פרטנר- התקנת אינטרנט`,`pending`,`normal`,``],
-  [`📋 משימות כלליות`,`הגעת 14 כיסאות אירוח`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`כפות הגשה`,`pending`,`normal`,``],
-  [`🛒 לרכוש (סטוק)`,`מילויים לכריות`,`pending`,`normal`,``],
-  [`🛠️ משימות אבא`,`סולם צהוב מסבא וסבתא ולהעביר אליהם את הסולם האפור`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`מתקן לייבוש כלים`,`pending`,`normal`,``],
-  [`🛠️ משימות אבא`,`לקחת את הברז ניל עם שתי יציאות מהמחסן`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`תבניות אינגליש קייק`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`מפה לשולחן 3 מטר`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`מפה קטנה לשולחן קפה`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`קלף לבצק`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`קנקן מים גדול`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`מגן להבה עם ידית מתקפלת`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`מגבות מטבח עם לולאה`,`pending`,`normal`,``],
-  [`🛒 לרכוש (מרכזה)`,`פלפליה ומלחיה`,`pending`,`normal`,``]
+  [`new`,`💰 כספים וביטוח`,`לקבוע עם אורטל מדידה של כמה דברים`,`done`,`normal`,``],
+  [`new`,`💰 כספים וביטוח`,`מציאת פנקסי צ'יקים`,`done`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`צילום מונים- גז חשמל ומים ביום קבלת מפתח`,`pending`,`urgent`,``],
+  [`old`,`📦 אריזה`,`למדוד: / מקרר  / מחסן  / ארון שירות במטבח  / ארון שירות בחדר שירות / תאורת קשת בחדר שינה- גובה חלון / רוחב לארונות אמבטיה / לספור מנורות / לבדוק אם יש מזוזות`,`done`,`normal`,``],
+  [`old`,`🏠 שרון (בעל הבית)`,`חתימה על חוזה`,`done`,`normal`,``],
+  [`new`,`🔒 ביטחון ובטיחות`,`צילום דירה בעת קבלת המפתח`,`pending`,`urgent`,``],
+  [`new`,`🧹 ניקיון והכנה`,`לקבוע ריסוס ל-02/08/2026`,`done`,`urgent`,``],
+  [`old`,`🏠 שרון (בעל הבית)`,`הודעה לשרון על עזיבה`,`done`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`לתאם הובלה עם סשה`,`progress`,`urgent`,`21/06- לתאם סופית`],
+  [`new`,`💰 כספים וביטוח`,`הכנת 12 צ'קים לשכירות ללירון ואורטל`,`done`,`normal`,``],
+  [`new`,`💰 כספים וביטוח`,`ביטוח דירה`,`progress`,`urgent`,`לדבר עם אהובה ב-28/07 ליצור פוליסה חדשה ולהפסיק את הקודמת ב-13/08/2026`],
+  [`new`,`💰 כספים וביטוח`,`העברת 18,300 ₪ ללירון ואורטל`,`done`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`מדידת מקפיא- תומר`,`progress`,`normal`,`רוחב 55 סנטימטר  / עומק 57.5 סנטימטר / גובה 82.5 סנטימטרים`],
+  [`new`,`💰 כספים וביטוח`,`הכנת 2 צ'קים חסרים`,`done`,`normal`,``],
+  [`old`,`📦 אריזה`,`לאריזה / 3 לורדים שחורים / 2 לורדים אדומים / חבילת מדבקות קטנות מאבא`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`העברה בנקאית כל חודש החל מספטמבר 2026 עד יוני 2027`,`pending`,`normal`,``],
+  [`new`,`📞 תקשורת`,`לשאול את ליז מפרטנר - האם הקו בדירה שלי פעיל ומוכן להתקנה, או שצריך קודם הפעלת תשתית?`,`pending`,`normal`,``],
+  [`old`,`🏠 שרון (בעל הבית)`,`לקחת משרון צ'קים שנותרו + צ'ק פיקדון אם יש`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`27.07.2026- לדבר עם דניאלה מגו אקטיב קרית אונו להעביר מנויים שלי ושל תומר לגו אקטיב ראש העין`,`pending`,`normal`,``],
+  [`old`,`🏠 שרון (בעל הבית)`,`לתת לשרון מפתח`,`pending`,`urgent`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`לעשות סדר בבגדי ילדים`,`pending`,`normal`,``],
+  [`old`,`🔧 תיקונים`,`תיקונים ביוסף חנני- 12-13/06`,`pending`,`normal`,``],
+  [`new`,`🔒 ביטחון ובטיחות`,`מההורים-  / פיירקסים / ארון תכשיטים / שטיח / 2 גלאי עשן / אורית! / מעמד לפן`,`pending`,`normal`,``],
+  [`old`,`📦 אריזה`,`להביא לבית סולם קטן`,`pending`,`normal`,``],
+  [`old`,`📦 אריזה`,`לסדר מחסן אצל ההורים בסופ"ש של לפני מעבר`,`pending`,`normal`,``],
+  [`new`,`🔒 ביטחון ובטיחות`,`מפתחות מההורים של הבית`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`הכנת רשימת משימות על פי חדר`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`לדבר עם אורטל- לוודא שהחשבון על שמנו פעיל מיום הכניסה ושאין נתק. לבדוק שעון חכם מול סלקום`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`19.07- שבועיים לפני מעבר לקנות כמה דברים- לעבור על רשימה ממחסני חשמל`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`גז- לברר אם יש גז מרכזי או בלונים מי הספק?`,`pending`,`normal`,``],
+  [`old`,`📦 אריזה`,`לתכנן ימי אריזה`,`done`,`normal`,``],
+  [`old`,`⚡ חשמל (דירה ישנה)`,`קריאת מונה חשמל סופית ביוסף חנני- 13/08`,`pending`,`urgent`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנה של סוויצ'ר לדוד- להזמין חשמלאי`,`pending`,`normal`,``],
+  [`old`,`📦 אריזה`,`להחליף צילנדירים לדירה + למחסן`,`pending`,`normal`,``],
+  [`new`,`🔒 ביטחון ובטיחות`,`לשכפל מפתחות`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`למדוד ארונות מטבח ואז לקנות לדים לארונות מטבח`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`לתכנן ארון בגדים`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`אחרי שהמקרר מגיע להתקשר לשירות לקוחות להזמין טכנאי שיבוא להחליף את הצד של הדלת של המקרר`,`pending`,`normal`,``],
+  [`new`,`🧹 ניקיון והכנה`,`ריסוס`,`pending`,`urgent`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הגעת הובלה`,`pending`,`urgent`,``],
+  [`new`,`🧹 ניקיון והכנה`,`לנקות פילטר במזגן`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`להרכיב סוויצ'ר`,`pending`,`normal`,``],
+  [`old`,`📦 אריזה`,`להחליף צילנדירים לדירה + מחסן- לשאול את אורטל אם רוצים מפתח חדש`,`pending`,`normal`,``],
+  [`new`,`🔒 ביטחון ובטיחות`,`לשכפל מפתחות - 6 מפתחות`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`שטיח כניסה לבית`,`pending`,`normal`,``],
+  [`new`,`📞 תקשורת`,`פרטנר- התקנת אינטרנט`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`הגעת 14 כיסאות אירוח`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת ארון לבן מאיקאה`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת תמי 4`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת ארון מקפיא + מיקרוגל`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`פירוק ארגזים`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת מנורה`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת בידה`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת מושב אסלה`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת טוש`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת מוט פינוק`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת שולחן עבודה + מסך + מדפסת`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`מתלה כביסה בחדר שירות (שעולה ויורד)`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורות- מטבח`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורות- סלון`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורות אמבטיה`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורה- חדר שינה`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורה- ממ"ד`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`פירוק ארגזים- חדר שירות`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת שידת איפור`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`סולם צהוב מסבא וסבתא ולהעביר אליהם את הסולם האפור`,`pending`,`normal`,``],
+  [`new`,`🛠️ התקנות ומשימות אבא`,`לקחת את הברז ניל עם שתי יציאות מהמחסן`,`pending`,`normal`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) חניה`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) אפליקציה של הבניין`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) לבדוק אם יש שעון חכם למונה חשמל ואז לבקש מסלקום חשמל`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום חשמל`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום ועד`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום גז`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום מים`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום ארנונה`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) שיוך סניף קופת חולים- תומר כללית`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) שיוך סניף קופת חולים- דקל מכבי`,`pending`,`low`,``],
+  [`new`,`📞 תקשורת`,`(אחרי המעבר) להתנתק מפרי טי וי`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) העברה בנקאית כל חודש החל מספטמבר 2026 עד יוני 2027`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) לברר לגבי חדר דיירים מול ועד בית אם אפשר לעשות שם הפרשת חלה`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) לעבור לסניף הבינלאומי בראש העין`,`pending`,`low`,``],
+  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) ויטרינה מאיקאה`,`pending`,`low`,``]
 ];
 
 const SEED_AFTER = [
@@ -637,11 +664,12 @@ const SEED_GROCERY = [
   [`חד פעמי`,`אינגליש קייק`]
 ];
 
+
 const SEED_TIMELINE_WEEKS = [
   [`שבוע 22–27 ביוני`,`קש קטר — הזמנת ארון לחדר שינה`],
   [`שבוע 22–27 ביוני`,`פנדה סטייל — הזמנת קונסולה + יחידת טלוויזיה + כיסאות נערמים`],
-  [`שבוע 22–27 ביוני`,`פרטנר — דחיית/תיאום מחדש של ההתקנה עם ליז`],
-  [`שבוע 22–27 ביוני`,`להזכיר לאמא לדבר עם סשה + לסגור את השעה`],
+  [`שבוע 22–27 ביוני`,`פרטנר — תיאום מחדש של ההתקנה עם ליז`],
+  [`שבוע 22–27 ביוני`,`להזכיר לאמא לדבר עם סשה ולסגור שעה`],
   [`שבוע 5–11 ביולי`,`קש קטר — אישור הזמנת הארון`],
   [`שבוע 12–18 ביולי`,`מקס סטוק — שעון קיר, מוטות וילון, שטיח כניסה`],
   [`שבוע 19–25 ביולי`,`19 ביולי — לעבור על רשימת מחסני חשמל ולקנות מה שחסר`],
@@ -655,78 +683,60 @@ const SEED_TIMELINE_WEEKS = [
   [`שבוע 28 ביולי – 1 באוגוסט`,`30 ביולי — ניקיון הדירה החדשה`],
   [`שבוע 28 ביולי – 1 באוגוסט`,`30 ביולי — פתיחת חשבון מים + רישום לארנונה`],
   [`שבוע 28 ביולי – 1 באוגוסט`,`המשך סידור מחסן ההורים`],
-  [`שבוע 2–8 באוגוסט`,`2 באוגוסט — ריסוס מזיקים (08:30–09:00, אלדד 052-4261252)`],
+  [`שבוע 2–8 באוגוסט`,`2 באוגוסט — ריסוס מזיקים (08:30–09:00, אלדד)`],
   [`שבוע 2–8 באוגוסט`,`ימי אריזה — הסרת מזוזות`],
-  [`שבוע 2–8 באוגוסט`,`משימות אבא: ניקוי סיפונים, מושבי אסלה, מתלי מגבות, בידה, ארונות כביסה, פילטר מזגן`],
+  [`שבוע 2–8 באוגוסט`,`משימות אבא: סיפונים, מושבי אסלה, מתלי מגבות, בידה, ארונות כביסה, פילטר מזגן`],
   [`שבוע 2–8 באוגוסט`,`הכנת ארגז/מזוודה לימים הראשונים`],
   [`שבוע 9–13 באוגוסט`,`13 באוגוסט — יום המעבר! מעבר עם סשה`],
-  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — קריאת מונה חשמל סופית בדירה הישנה (יוסף חנני)`],
-  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — מסירת מפתחות לשרון + איסוף צ׳קים שנותרו`],
+  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — קריאת מונה חשמל סופית בדירה הישנה`],
+  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — מסירת מפתחות לשרון + איסוף צ׳קים`],
   [`שבוע 9–13 באוגוסט`,`13 באוגוסט — הפעלת 2 קווי פרטנר`],
   [`שבוע 9–13 באוגוסט`,`14–15 באוגוסט — פריקה וסידור`]
 ];
 const SEED_TIMELINE = SEED_TIMELINE_WEEKS.concat(SEED_AFTER.map(a=>[`אחרי המעבר`, a[0]]));
 
 
-const CONTACTS = [
-  [`סשה (הובלות)`,`054-7255775`],[`אלדד (הדברה)`,`052-4261252`],[`ליז (פרטנר)`,`052-4861013`],
-  [`אבי סופר (מוצרי חשמל)`,`077-8010102`],[`פנדה סטייל (ריהוט)`,`050-3489899`],[`רהיטי העיר`,`073-3948726`],
-  [`תאגיד מי עין אפק`,`1-800-350-303`],[`ארנונה ראש העין`,`03-9411169`]
-];
-
 /* =================== STATE =================== */
 const S = {
   user:null, projectId:null, project:null, role:"limited",
-  members:[], tasks:[], rooms:[], timeline:[], grocery:[], myProjects:[],
-  tab:"dashboard", search:"", fStatus:"all", fPrio:"all",
+  members:[], tasks:[], shop:[], install:[], grocery:[], timeline:[], myProjects:[],
+  tab:"dashboard", search:"", fStatus:"all", fPrio:"all", budOpen:null,
   authMode:"login", channel:null
 };
 const $ = id => document.getElementById(id);
 const esc = s => (s==null?"":String(s)).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2200);}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2400);}
 const cacheKey = ()=>`homeflow_cache_${S.projectId}`;
 function canEdit(){return S.role==="manager"||S.role==="full";}
 function isManager(){return S.role==="manager";}
+const ils = n => "₪"+Math.round(n).toLocaleString("en-US");
+function daysTo(d){const t=new Date(d+"T00:00:00");const n=new Date();n.setHours(0,0,0,0);return Math.round((t-n)/86400000);}
 
-/* =================== AUTH FLOW =================== */
+/* =================== AUTH =================== */
 async function init(){
   const {data:{session}} = await sb.auth.getSession();
-  if(session){ await afterLogin(session); }
-  else { showAuth(); }
+  if(session){ await afterLogin(session); } else { showAuth(); }
   $("loading").classList.add("hidden");
 }
-function showAuth(){
-  $("app").style.display="none";
-  $("authView").classList.remove("hidden");
-}
+function showAuth(){ $("app").style.display="none"; $("authView").classList.remove("hidden"); }
 function setAuthMode(mode){
   S.authMode=mode;
   $("authTitle").textContent = mode==="login"?"התחברות":"הרשמה";
   $("authBtn").textContent = mode==="login"?"התחברות":"יצירת חשבון";
-  $("authSwitch").innerHTML = mode==="login"
-    ? `אין לכם חשבון? <a id="toSignup">הרשמה</a>`
-    : `כבר רשומים? <a id="toLogin">התחברות</a>`;
+  $("authSwitch").innerHTML = mode==="login" ? `אין לכם חשבון? <a id="toSignup">הרשמה</a>` : `כבר רשומים? <a id="toLogin">התחברות</a>`;
   $("authPass").setAttribute("autocomplete", mode==="login"?"current-password":"new-password");
-  wireAuthSwitch();
-  $("authMsg").className="msg";
+  wireAuthSwitch(); $("authMsg").className="msg";
 }
-function wireAuthSwitch(){
-  const su=$("toSignup"), li=$("toLogin");
-  if(su) su.onclick=()=>setAuthMode("signup");
-  if(li) li.onclick=()=>setAuthMode("login");
-}
-function authMsg(text,kind){const m=$("authMsg");m.textContent=text;m.className="msg "+kind;}
-
+function wireAuthSwitch(){const su=$("toSignup"),li=$("toLogin");if(su)su.onclick=()=>setAuthMode("signup");if(li)li.onclick=()=>setAuthMode("login");}
+function authMsg(t,k){const m=$("authMsg");m.textContent=t;m.className="msg "+k;}
 $("authBtn").onclick = async ()=>{
-  const email=$("authEmail").value.trim().toLowerCase();
-  const pass=$("authPass").value;
+  const email=$("authEmail").value.trim().toLowerCase(), pass=$("authPass").value;
   if(!email||!pass){authMsg("יש למלא אימייל וסיסמה","err");return;}
   $("authBtn").disabled=true;
   try{
     if(S.authMode==="login"){
       const {data,error}=await sb.auth.signInWithPassword({email,password:pass});
-      if(error)throw error;
-      await afterLogin(data.session);
+      if(error)throw error; await afterLogin(data.session);
     }else{
       if(pass.length<6){authMsg("הסיסמה חייבת להכיל לפחות 6 תווים","err");$("authBtn").disabled=false;return;}
       const {data,error}=await sb.auth.signUp({email,password:pass});
@@ -734,239 +744,192 @@ $("authBtn").onclick = async ()=>{
       if(data.session){ await afterLogin(data.session); }
       else { authMsg("נשלח אליכם אימייל לאימות החשבון. לאחר האישור — התחברו כאן.","ok"); setAuthMode("login"); }
     }
-  }catch(e){
-    authMsg(translateAuthErr(e.message),"err");
-  }finally{$("authBtn").disabled=false;}
+  }catch(e){ authMsg(translateAuthErr(e.message),"err"); }
+  finally{$("authBtn").disabled=false;}
 };
-function translateAuthErr(m){
-  m=m||"";
+function translateAuthErr(m){m=m||"";
   if(/Invalid login/i.test(m))return"אימייל או סיסמה שגויים";
   if(/already registered/i.test(m))return"האימייל כבר רשום — נסו להתחבר";
   if(/Email not confirmed/i.test(m))return"החשבון טרם אומת — בדקו את תיבת המייל";
   if(/rate limit/i.test(m))return"יותר מדי ניסיונות — נסו שוב בעוד רגע";
-  return m;
-}
-
+  return m;}
 async function afterLogin(session){
   S.user=session.user;
   try{ await sb.rpc("claim_memberships"); }catch(e){}
-  $("authView").classList.add("hidden");
-  $("app").style.display="block";
+  $("authView").classList.add("hidden"); $("app").style.display="block";
   $("userEmailLbl").textContent=S.user.email;
   await loadProjects();
 }
-
-$("logoutBtn").onclick = async ()=>{
-  if(S.channel){ sb.removeChannel(S.channel); S.channel=null; }
-  await sb.auth.signOut();
-  S.projectId=null; S.user=null;
-  location.reload();
-};
+$("logoutBtn").onclick = async ()=>{ if(S.channel){sb.removeChannel(S.channel);S.channel=null;} await sb.auth.signOut(); location.reload(); };
 
 /* =================== PROJECTS =================== */
 async function loadProjects(){
-  const {data,error}=await sb.from("project_members")
-    .select("project_id, role, projects(id,name,move_date)")
-    .eq("user_id",S.user.id);
+  const {data,error}=await sb.from("project_members").select("project_id, role, projects(id,name,move_date)").eq("user_id",S.user.id);
   if(error){toast("שגיאה בטעינת פרויקטים");console.error(error);return;}
   S.myProjects=(data||[]).filter(r=>r.projects);
   if(S.myProjects.length===0){ await createDefaultProject(); return; }
-  const row=S.myProjects[0];
-  S.projectId=row.project_id; S.role=row.role; S.project=row.projects;
+  const row=S.myProjects[0]; S.projectId=row.project_id; S.role=row.role; S.project=row.projects;
   await enterProject();
 }
 async function createDefaultProject(){
   const {data,error}=await sb.rpc("create_project",{p_name:"מעבר דירה",p_move_date:MOVE_DATE});
   if(error){toast("שגיאה ביצירת פרויקט");console.error(error);return;}
-  S.projectId=data; S.role="manager";
-  S.project={id:data,name:"מעבר דירה",move_date:MOVE_DATE};
-  await seedDefaults();
-  await enterProject();
+  S.projectId=data; S.role="manager"; S.project={id:data,name:"מעבר דירה",move_date:MOVE_DATE};
+  await seedDefaults(); await enterProject();
 }
 async function seedDefaults(){
   const pid=S.projectId;
-  const tasks=SEED_TASKS.map((t,i)=>({project_id:pid,category:t[0],title:t[1],status:t[2],priority:t[3],notes:t[4],sort_order:i}));
-  const rooms=SEED_ROOMS.map((r,i)=>({project_id:pid,room:r[0],item:r[1],type:r[2],purchase_status:r[3],arrival_status:r[4],install_status:r[5],supplier:r[6],cost:r[7],link:r[8],order_number:r[9],notes:r[10],sort_order:i}));
+  const tasks=SEED_TASKS.map((t,i)=>({project_id:pid,apartment:t[0],category:t[1],title:t[2],status:t[3],priority:t[4],notes:t[5],sort_order:i}));
+  const shop=SEED_SHOP.map((s,i)=>({project_id:pid,category:s[0],item:s[1],supplier:s[2],link:s[3],order_number:s[4],price:Number(s[5])||0,status:s[6],budget_cat:s[7],notes:s[8],sort_order:i}));
+  const inst=SEED_INSTALL.map((n,i)=>({project_id:pid,item:n[0],supplier:n[1],phone:n[2],date:n[3],time:n[4],status:n[5],delivery:Number(n[6])||0,payment:n[7],notes:n[8],sort_order:i}));
   const tl=SEED_TIMELINE.map((w,i)=>({project_id:pid,week:w[0],title:w[1],done:false,sort_order:i}));
   const gro=SEED_GROCERY.map((g,i)=>({project_id:pid,category:g[0],name:g[1],checked:false,sort_order:i}));
   await sb.from("tasks").insert(tasks);
-  await sb.from("room_items").insert(rooms);
+  await sb.from("shop_items").insert(shop);
+  await sb.from("installations").insert(inst);
   await sb.from("timeline_items").insert(tl);
   await sb.from("grocery_items").insert(gro);
 }
 async function enterProject(){
-  S.project = S.project || {};
-  $("projTitle").textContent = (S.project.name||"מעבר דירה");
-  renderRoleBadge();
-  loadFromCache();
-  await loadData();
-  subscribeRealtime();
-  updateCountdown();
-  $("resetBtn").classList.toggle("hidden",!isManager());
+  S.project=S.project||{};
+  $("projTitle").textContent=(S.project.name||"מעבר דירה");
+  renderRoleBadge(); loadFromCache(); await loadData(); subscribeRealtime();
+  updateCountdowns(); $("resetBtn").classList.toggle("hidden",!isManager());
 }
-function renderRoleBadge(){
-  const map={manager:"מנהל הפרויקט",full:"הרשאה מלאה",limited:"הרשאה מוגבלת"};
-  $("roleBadge").textContent="🔑 "+(map[S.role]||S.role);
-}
+function renderRoleBadge(){const m={manager:"מנהל הפרויקט",full:"הרשאה מלאה",limited:"הרשאה מוגבלת"};$("roleBadge").textContent="🔑 "+(m[S.role]||S.role);}
 
-/* =================== DATA LOAD / CACHE =================== */
+/* =================== DATA =================== */
 function loadFromCache(){
-  try{
-    const c=JSON.parse(localStorage.getItem(cacheKey())||"null");
-    if(c){S.tasks=c.tasks||[];S.rooms=c.rooms||[];S.timeline=c.timeline||[];S.grocery=c.grocery||[];renderActive();}
-  }catch(e){}
+  try{const c=JSON.parse(localStorage.getItem(cacheKey())||"null");
+    if(c){S.tasks=c.tasks||[];S.shop=c.shop||[];S.install=c.install||[];S.timeline=c.timeline||[];S.grocery=c.grocery||[];renderActive();}}catch(e){}
 }
 function saveCache(){
-  try{localStorage.setItem(cacheKey(),JSON.stringify({tasks:S.tasks,rooms:S.rooms,timeline:S.timeline,grocery:S.grocery,ts:Date.now()}));}catch(e){}
+  try{localStorage.setItem(cacheKey(),JSON.stringify({tasks:S.tasks,shop:S.shop,install:S.install,timeline:S.timeline,grocery:S.grocery,ts:Date.now()}));}catch(e){}
 }
 async function loadData(){
   const pid=S.projectId;
-  const [t,r,tl,m,g]=await Promise.all([
+  const [t,s,n,tl,m,g]=await Promise.all([
     sb.from("tasks").select("*").eq("project_id",pid).order("sort_order"),
-    sb.from("room_items").select("*").eq("project_id",pid).order("sort_order"),
+    sb.from("shop_items").select("*").eq("project_id",pid).order("sort_order"),
+    sb.from("installations").select("*").eq("project_id",pid).order("sort_order"),
     sb.from("timeline_items").select("*").eq("project_id",pid).order("sort_order"),
     sb.from("project_members").select("*").eq("project_id",pid).order("created_at"),
     sb.from("grocery_items").select("*").eq("project_id",pid).order("sort_order")
   ]);
-  if(t.data)S.tasks=t.data;
-  if(r.data)S.rooms=r.data;
-  if(tl.data)S.timeline=tl.data;
-  if(m.data)S.members=m.data;
-  if(g.data)S.grocery=g.data;
-  saveCache();
-  renderActive();
+  if(t.data)S.tasks=t.data; if(s.data)S.shop=s.data; if(n.data)S.install=n.data;
+  if(tl.data)S.timeline=tl.data; if(m.data)S.members=m.data; if(g.data)S.grocery=g.data;
+  saveCache(); renderActive();
 }
 function subscribeRealtime(){
   if(S.channel)sb.removeChannel(S.channel);
-  S.channel=sb.channel("proj-"+S.projectId)
-    .on("postgres_changes",{event:"*",schema:"public",filter:`project_id=eq.${S.projectId}`,table:"tasks"},debouncedReload)
-    .on("postgres_changes",{event:"*",schema:"public",filter:`project_id=eq.${S.projectId}`,table:"room_items"},debouncedReload)
-    .on("postgres_changes",{event:"*",schema:"public",filter:`project_id=eq.${S.projectId}`,table:"timeline_items"},debouncedReload)
-    .on("postgres_changes",{event:"*",schema:"public",filter:`project_id=eq.${S.projectId}`,table:"grocery_items"},debouncedReload)
-    .subscribe();
+  const tbls=["tasks","shop_items","installations","timeline_items","grocery_items"];
+  let ch=sb.channel("proj-"+S.projectId);
+  tbls.forEach(tb=>ch=ch.on("postgres_changes",{event:"*",schema:"public",filter:`project_id=eq.${S.projectId}`,table:tb},debouncedReload));
+  S.channel=ch.subscribe();
 }
-let _rt;
-function debouncedReload(){clearTimeout(_rt);_rt=setTimeout(loadData,400);}
+let _rt; function debouncedReload(){clearTimeout(_rt);_rt=setTimeout(loadData,400);}
 
-/* =================== COUNTDOWN =================== */
-function updateCountdown(){
-  const target=new Date(MOVE_DATE+"T00:00:00");
-  const now=new Date(); now.setHours(0,0,0,0);
-  const days=Math.round((target-now)/86400000);
-  $("countDays").textContent = days>=0?days:"✓";
+function updateCountdowns(){
+  const k=daysTo(KEYS_DATE), mv=daysTo(MOVE_DATE);
+  $("countKeys").textContent = k>=0?k:"✓";
+  $("countMove").textContent = mv>=0?mv:"✓";
 }
 
-/* =================== FILTER HELPERS =================== */
-function matchSearch(text){return !S.search || (text||"").toLowerCase().includes(S.search);}
+/* =================== FILTERS =================== */
+function matchSearch(t){return !S.search || (t||"").toLowerCase().includes(S.search);}
 function taskVisible(t){
   if(S.fStatus!=="all" && t.status!==S.fStatus)return false;
   if(S.fPrio!=="all" && t.priority!==S.fPrio)return false;
   return matchSearch(t.title+" "+t.category+" "+(t.notes||""));
 }
-function roomItemVisible(it){
-  if(S.fStatus!=="all"){
-    const set=[it.purchase_status,it.arrival_status,it.install_status];
-    if(!set.includes(S.fStatus))return false;
-  }
-  return matchSearch(it.item+" "+it.room+" "+(it.supplier||"")+" "+(it.notes||""));
+const SHOP_STATUS_MAP={done:"done",arrived:"done",ordered:"progress",pending:"pending"};
+function shopVisible(it){
+  if(S.fStatus!=="all" && SHOP_STATUS_MAP[it.status]!==S.fStatus)return false;
+  return matchSearch(it.item+" "+it.category+" "+(it.supplier||"")+" "+(it.notes||""));
+}
+const INST_STATUS_MAP={done:"done",transit:"progress",coordinated:"progress",pending:"pending"};
+function instVisible(it){
+  if(S.fStatus!=="all" && INST_STATUS_MAP[it.status]!==S.fStatus)return false;
+  return matchSearch(it.item+" "+(it.supplier||"")+" "+(it.notes||""));
 }
 function tlVisible(it){
   if(S.fStatus==="done"&&!it.done)return false;
   if((S.fStatus==="pending"||S.fStatus==="progress")&&it.done)return false;
   return matchSearch(it.title+" "+it.week);
 }
-
-/* =================== RENDER: shell =================== */
-function renderActive(){
-  if(S.tab==="dashboard")renderDashboard();
-  if(S.tab==="tasks")renderTasks();
-  if(S.tab==="rooms")renderRooms();
-  if(S.tab==="timeline")renderTimeline();
-  if(S.tab==="grocery")renderGrocery();
+function groVisible(g){
+  if(S.fStatus==="done"&&!g.checked)return false;
+  if((S.fStatus==="pending"||S.fStatus==="progress")&&g.checked)return false;
+  return matchSearch(g.name+" "+g.category);
 }
-function progressBar(pct){return `<div class="bar"><i style="width:${pct}%"></i></div>`;}
+
+/* =================== RENDER =================== */
+function renderActive(){
+  ({dashboard:renderDashboard,tasks:renderTasks,install:renderInstall,shop:renderShop,
+    grocery:renderGrocery,budget:renderBudget,timeline:renderTimeline}[S.tab]||renderDashboard)();
+}
+function progressBar(p){return `<div class="bar"><i style="width:${p}%"></i></div>`;}
+function topProgress(title,desc,pct){
+  return `<div class="section-head"><div><h3>${title}</h3><div class="desc">${desc}</div></div></div>
+    <div class="progress-top"><div class="lbl"><span>התקדמות</span><span>${pct}%</span></div>${progressBar(pct)}</div>`;
+}
+function emptyState(){return `<div class="empty"><div class="big">🔍</div><div>לא נמצאו תוצאות לחיפוש/סינון הנוכחי</div></div>`;}
 
 /* ---------- Dashboard ---------- */
-function itemFullyDone(it){
-  const fields=["purchase_status","arrival_status","install_status"].map(f=>it[f]);
-  const applicable=fields.filter(v=>v!=="na");
-  if(applicable.length===0)return false;
-  return applicable.every(v=>v==="done");
-}
+function shopGot(it){return it.status==="arrived"||it.status==="done";}
 function renderDashboard(){
   const tot=S.tasks.length, done=S.tasks.filter(t=>t.status==="done").length;
   const taskPct=tot?Math.round(done/tot*100):0;
-  // ordered items: those whose arrival is applicable
-  const arrivable=S.rooms.filter(r=>r.arrival_status!=="na");
-  const arrived=arrivable.filter(r=>r.arrival_status==="done").length;
-  const arrivePct=arrivable.length?Math.round(arrived/arrivable.length*100):0;
-  // installations
-  const installable=S.rooms.filter(r=>r.install_status!=="na");
-  const installed=installable.filter(r=>r.install_status==="done").length;
-  const instPct=installable.length?Math.round(installed/installable.length*100):0;
-  const target=new Date(MOVE_DATE+"T00:00:00");const now=new Date();now.setHours(0,0,0,0);
-  const days=Math.round((target-now)/86400000);
-
-  const tlDone=S.timeline.filter(t=>t.done).length;
-  const overall=Math.round(((taskPct+arrivePct+instPct)/3));
-
+  const got=S.shop.filter(shopGot).length, shopPct=S.shop.length?Math.round(got/S.shop.length*100):0;
+  const idn=S.install.filter(i=>i.status==="done"||i.status==="coordinated").length;
+  const instPct=S.install.length?Math.round(idn/S.install.length*100):0;
+  const b=budgetData();
+  const overall=Math.round((taskPct+shopPct+instPct)/3);
   $("tab-dashboard").innerHTML=`
-    <div class="progress-top">
-      <div class="lbl"><span>📊 התקדמות כללית</span><span>${overall}%</span></div>
-      ${progressBar(overall)}
-    </div>
+    <div class="progress-top"><div class="lbl"><span>📊 התקדמות כללית</span><span>${overall}%</span></div>${progressBar(overall)}</div>
     <div class="grid">
-      <div class="stat"><div class="ico">✅</div><div class="num">${taskPct}%</div><div class="cap">השלמת משימות (${done}/${tot})</div>
-        <div class="mini"><i style="width:${taskPct}%;background:var(--green)"></i></div></div>
-      <div class="stat"><div class="ico">📦</div><div class="num">${arrived}/${arrivable.length}</div><div class="cap">פריטים שהגיעו</div>
-        <div class="mini"><i style="width:${arrivePct}%;background:var(--blue)"></i></div></div>
-      <div class="stat"><div class="ico">🔧</div><div class="num">${installed}/${installable.length}</div><div class="cap">התקנות שתואמו/הושלמו</div>
-        <div class="mini"><i style="width:${instPct}%;background:var(--brand)"></i></div></div>
-      <div class="stat"><div class="ico">⏳</div><div class="num">${days>=0?days:"✓"}</div><div class="cap">ימים למעבר · 13/08/2026</div>
-        <div class="mini"><i style="width:${Math.max(0,Math.min(100,100-days/1.2))}%;background:var(--amber)"></i></div></div>
+      <div class="stat"><div class="ico">✅</div><div class="num">${taskPct}%</div><div class="cap">השלמת משימות (${done}/${tot})</div><div class="mini"><i style="width:${taskPct}%;background:var(--green)"></i></div></div>
+      <div class="stat"><div class="ico">📦</div><div class="num">${got}/${S.shop.length}</div><div class="cap">פריטים שהגיעו/הותקנו</div><div class="mini"><i style="width:${shopPct}%;background:var(--blue)"></i></div></div>
+      <div class="stat"><div class="ico">🚚</div><div class="num">${idn}/${S.install.length}</div><div class="cap">הובלות שתואמו/בוצעו</div><div class="mini"><i style="width:${instPct}%;background:var(--teal)"></i></div></div>
+      <div class="stat"><div class="ico">💰</div><div class="num">${ils(b.products+b.delivTotal)}</div><div class="cap">תקציב כולל (מוצרים + הובלות)</div><div class="mini"><i style="width:100%;background:var(--brand)"></i></div></div>
     </div>
-
-    <div class="info-card">
-      <h4>🗓️ סקירה מהירה</h4>
-      <div class="contacts">
-        <div class="contact"><span style="font-size:20px">📋</span><div><b>${S.tasks.length} משימות</b><small>${done} הושלמו · ${S.tasks.filter(t=>t.status==="progress").length} בתהליך</small></div></div>
-        <div class="contact"><span style="font-size:20px">🛋️</span><div><b>${S.rooms.length} פריטים ב-${new Set(S.rooms.map(r=>r.room)).size} חדרים</b><small>${S.rooms.filter(itemFullyDone).length} הושלמו במלואם</small></div></div>
-        <div class="contact"><span style="font-size:20px">🗓️</span><div><b>${tlDone}/${S.timeline.length} משימות בלו״ז</b><small>סומנו כבוצעו</small></div></div>
-      </div>
-    </div>
-
-    <div class="info-card">
-      <h4>📞 אנשי קשר</h4>
-      <div class="contacts">
-        ${CONTACTS.map(c=>`<div class="contact"><span style="font-size:18px">📱</span><div><b>${esc(c[0])}</b><a href="tel:${esc(c[1].replace(/[^0-9+]/g,''))}">${esc(c[1])}</a></div></div>`).join("")}
-      </div>
-    </div>`;
+    <div class="info-card"><h4>🗓️ ספירה לאחור</h4><div class="contacts">
+      <div class="contact"><span style="font-size:20px">🔑</span><div><b>${Math.max(0,daysTo(KEYS_DATE))} ימים</b><small>לקבלת המפתח — 30/07/2026</small></div></div>
+      <div class="contact"><span style="font-size:20px">🚚</span><div><b>${Math.max(0,daysTo(MOVE_DATE))} ימים</b><small>ליום המעבר — 13/08/2026</small></div></div>
+      <div class="contact"><span style="font-size:20px">🛒</span><div><b>${S.shop.length} פריטים · ${ils(b.products)}</b><small>${got} כבר אצלנו</small></div></div>
+    </div></div>
+    <div class="info-card"><h4>📞 אנשי קשר</h4><div class="contacts">
+      ${CONTACTS.map(c=>`<div class="contact"><span style="font-size:18px">📱</span><div><b>${esc(c[0])}</b><a href="tel:${esc(c[1].replace(/[^0-9+]/g,''))}">${esc(c[1])}</a></div></div>`).join("")}
+    </div></div>`;
 }
 
-/* ---------- Tasks ---------- */
+/* ---------- Tasks (old vs new) ---------- */
 function renderTasks(){
-  const cats=[...new Set(S.tasks.map(t=>t.category))];
-  let html=topProgress("📋 לוח משימות","משימות לפי קטגוריה",
-    S.tasks.length?Math.round(S.tasks.filter(t=>t.status==="done").length/S.tasks.length*100):0);
+  const tot=S.tasks.length, done=S.tasks.filter(t=>t.status==="done").length;
+  let html=topProgress("📋 משימות","מופרד לפי דירה ישנה (לעזוב) ודירה חדשה (להקים)", tot?Math.round(done/tot*100):0);
   let any=false;
-  cats.forEach((cat,ci)=>{
-    const items=S.tasks.filter(t=>t.category===cat);
-    const vis=items.filter(taskVisible);
-    if(vis.length===0)return;
+  [["old",OLD_CATS],["new",NEW_CATS]].forEach(([apt,cats])=>{
+    const aptTasks=S.tasks.filter(t=>t.apartment===apt);
+    const aptVis=aptTasks.filter(taskVisible);
+    if(aptVis.length===0)return;
     any=true;
-    const dn=items.filter(t=>t.status==="done").length;
-    const pct=Math.round(dn/items.length*100);
-    html+=`<div class="acc open" data-acc>
-      <div class="acc-head" data-toggle>
-        <span class="chev">▼</span>
-        <span class="acc-title">${esc(cat)}</span>
-        <span class="acc-meta">${dn}/${items.length}</span>
-        <span class="acc-mini">${progressBar(pct)}</span>
-      </div>
-      <div class="acc-body"><div class="acc-inner">
-        ${vis.map(renderTaskRow).join("")}
-      </div></div>
-    </div>`;
+    const adn=aptTasks.filter(t=>t.status==="done").length;
+    let inner="";
+    const allCats=[...new Set([...cats, ...aptTasks.map(t=>t.category)])];
+    allCats.forEach(cat=>{
+      const items=aptTasks.filter(t=>t.category===cat);
+      const vis=items.filter(taskVisible);
+      if(vis.length===0)return;
+      const dn=items.filter(t=>t.status==="done").length, pct=Math.round(dn/items.length*100);
+      inner+=`<div class="acc open" data-acc>
+        <div class="acc-head" data-toggle><span class="chev">▼</span><span class="acc-title">${esc(cat)}</span>
+          <span class="acc-meta">${dn}/${items.length}</span><span class="acc-mini">${progressBar(pct)}</span></div>
+        <div class="acc-body"><div class="acc-inner">
+          ${vis.map(renderTaskRow).join("")}
+          ${canEdit()?`<button class="btn secondary sm add-row" data-addtask='${esc(JSON.stringify([apt,cat]))}'>➕ הוספת משימה</button>`:""}
+        </div></div></div>`;
+    });
+    html+=`<div class="apt ${APT[apt].cls}"><div class="apt-banner">${APT[apt].lbl}<span class="cnt">${adn}/${aptTasks.length}</span></div>${inner}</div>`;
   });
   if(!any)html+=emptyState();
   $("tab-tasks").innerHTML=html;
@@ -974,355 +937,360 @@ function renderTasks(){
 function renderTaskRow(t){
   const noteTip=t.notes?`<button class="note-btn" tabindex="-1">💬<span class="tip">${esc(t.notes)}</span></button>`:"";
   const seg=TASK_ST_ORDER.map(k=>`<button class="${t.status===k?"on "+TASK_ST[k].cls:""}" data-status="${k}">${TASK_ST[k].lbl}</button>`).join("");
-  const prioSel=`<select class="prio" data-prio ${canEdit()?"":"disabled"}>
-    ${Object.keys(PRIO).map(p=>`<option value="${p}" ${t.priority===p?"selected":""}>${PRIO[p]}</option>`).join("")}</select>`;
+  const prioSel=`<select class="prio" data-prio ${canEdit()?"":"disabled"}>${Object.keys(PRIO).map(p=>`<option value="${p}" ${t.priority===p?"selected":""}>${PRIO[p]}</option>`).join("")}</select>`;
   const noteEditor=canEdit()?`<textarea class="note-input" data-note placeholder="הערה…">${esc(t.notes||"")}</textarea>`:"";
-  return `<div class="task ${t.status==="done"?"done":""}" data-task="${t.id}">
-    <div class="body">
-      <div class="ttl">${esc(t.title)} ${noteTip}</div>
-      <div class="controls">
-        <span class="seg" data-seg>${seg}</span>
-        ${prioSel}
-        <span class="chip p-${t.priority}">${PRIO[t.priority]}</span>
-      </div>
-      ${noteEditor}
-    </div>
-  </div>`;
+  return `<div class="task ${t.status==="done"?"done":""}" data-task="${t.id}"><div class="body">
+    <div class="ttl">${esc(t.title)} ${noteTip}</div>
+    <div class="controls"><span class="seg" data-seg>${seg}</span>${prioSel}<span class="chip p-${t.priority}">${PRIO[t.priority]}</span></div>
+    ${noteEditor}</div></div>`;
 }
 
-/* ---------- Rooms ---------- */
-function renderRooms(){
-  const rooms=[...new Set(S.rooms.map(r=>r.room))];
-  const totalDone=S.rooms.filter(itemFullyDone).length;
-  let html=topProgress("🛋️ מעקב חדרים","התקנות, ריהוט ופריקה",
-    S.rooms.length?Math.round(totalDone/S.rooms.length*100):0);
+/* ---------- Installations ---------- */
+function renderInstall(){
+  const vis=S.install.filter(instVisible);
+  const dn=S.install.filter(i=>i.status==="done").length;
+  let html=topProgress("🚚 הובלות והתקנות","מועדי הגעה, התקנות והרכבות — עדכון כאן מתעדכן גם בתקציב",
+    S.install.length?Math.round(dn/S.install.length*100):0);
+  if(vis.length===0){html+=emptyState();$("tab-install").innerHTML=html;return;}
+  html+=`<div class="acc open"><div class="acc-inner" style="padding-top:14px">
+    <div class="tbl-wrap"><table class="tbl"><thead><tr>
+      <th>פריט</th><th>ספק</th><th>טלפון</th><th>תאריך</th><th>שעה</th><th>סטטוס</th><th>עלות הובלה</th><th>הערות</th>${canEdit()?"<th></th>":""}
+    </tr></thead><tbody>${vis.map(renderInstallRow).join("")}</tbody></table></div>
+    ${canEdit()?`<button class="btn secondary sm add-row" id="addInstall">➕ הוספת הובלה/התקנה</button>`:""}
+  </div></div>`;
+  $("tab-install").innerHTML=html;
+}
+function instSelect(it){
+  return `<select class="st-select v-${it.status}" data-istatus>${Object.keys(INST_ST).map(k=>`<option value="${k}" ${it.status===k?"selected":""}>${INST_ST[k]}</option>`).join("")}</select>`;
+}
+function renderInstallRow(it){
+  const ed=canEdit();
+  const phone=it.phone?`<a href="tel:${esc(it.phone.replace(/[^0-9+]/g,''))}" style="text-decoration:none">${esc(it.phone)}</a>`:"—";
+  const date= ed?`<input class="mini-input" data-idate value="${esc(it.date||"")}" placeholder="תאריך" />`:(esc(it.date||"—"));
+  const note= ed?`<input class="mini-input" style="min-width:130px" data-inote value="${esc(it.notes||"")}" placeholder="הערה" />`:(it.notes?`<button class="note-btn" tabindex="-1">💬<span class="tip">${esc(it.notes)}</span></button>`:"—");
+  const cost= (Number(it.delivery)>0?ils(it.delivery):"") + (it.payment?`<div style="font-size:11px;color:var(--muted)">${esc(it.payment)}</div>`:"");
+  return `<tr data-inst="${it.id}">
+    <td class="item-name">${esc(it.item)}</td><td>${esc(it.supplier||"—")}</td><td>${phone}</td>
+    <td>${date}</td><td>${esc(it.time||"—")}</td><td>${instSelect(it)}</td>
+    <td class="price">${cost||"—"}</td><td>${note}</td>
+    ${ed?`<td><button class="del-row" data-delinst>🗑</button></td>`:""}</tr>`;
+}
+
+/* ---------- Shop ---------- */
+function renderShop(){
+  const cats=[...new Set(S.shop.map(s=>s.category))];
+  const got=S.shop.filter(shopGot).length;
+  let html=topProgress("🛒 קניות","כל הפריטים מהאקסל לפי קטגוריה — קישורים, מחירים, מספרי הזמנה וסטטוס",
+    S.shop.length?Math.round(got/S.shop.length*100):0);
   let any=false;
-  rooms.forEach(room=>{
-    const items=S.rooms.filter(r=>r.room===room);
-    const vis=items.filter(roomItemVisible);
-    if(vis.length===0)return;
-    any=true;
-    const dn=items.filter(itemFullyDone).length;
-    const pct=Math.round(dn/items.length*100);
+  cats.forEach(cat=>{
+    const items=S.shop.filter(s=>s.category===cat), vis=items.filter(shopVisible);
+    if(vis.length===0)return; any=true;
+    const dn=items.filter(shopGot).length, pct=Math.round(dn/items.length*100);
+    const sum=items.reduce((a,s)=>a+(Number(s.price)||0),0);
     html+=`<div class="acc open" data-acc>
-      <div class="acc-head" data-toggle>
-        <span class="chev">▼</span>
-        <span class="acc-title">${esc(room)}</span>
-        <span class="acc-meta">${dn}/${items.length}</span>
-        <span class="acc-mini">${progressBar(pct)}</span>
-      </div>
+      <div class="acc-head" data-toggle><span class="chev">▼</span><span class="acc-title">${esc(cat)}</span>
+        <span class="acc-meta">${dn}/${items.length} · ${ils(sum)}</span><span class="acc-mini">${progressBar(pct)}</span></div>
       <div class="acc-body"><div class="acc-inner">
-        <div class="tbl-wrap"><table class="rooms">
-          <thead><tr>
-            <th>פריט</th><th>סוג</th><th>רכישה</th><th>הגעה</th><th>התקנה/הרכבה</th><th>ספק</th><th>עלות</th><th>הערות</th>${canEdit()?"<th></th>":""}
-          </tr></thead>
-          <tbody>${vis.map(renderRoomRow).join("")}</tbody>
-        </table></div>
-        ${canEdit()?`<button class="btn secondary sm add-row" data-addroom="${esc(room)}">➕ הוספת פריט</button>`:""}
-      </div></div>
-    </div>`;
+        <div class="tbl-wrap"><table class="tbl"><thead><tr>
+          <th>פריט</th><th>ספק</th><th>מחיר</th><th>סטטוס</th><th>הערות</th>${canEdit()?"<th></th>":""}
+        </tr></thead><tbody>${vis.map(renderShopRow).join("")}</tbody></table></div>
+        ${canEdit()?`<button class="btn secondary sm add-row" data-addshop="${esc(cat)}">➕ הוספת פריט</button>`:""}
+      </div></div></div>`;
   });
   if(!any)html+=emptyState();
-  $("tab-rooms").innerHTML=html;
+  $("tab-shop").innerHTML=html;
 }
-function stSelect(it,field){
-  const val=it[field];
-  return `<select class="st-select v-${val}" data-field="${field}">
-    ${Object.keys(FIELD_ST).map(k=>`<option value="${k}" ${val===k?"selected":""}>${FIELD_ST[k]}</option>`).join("")}
-  </select>`;
+function shopSelect(it){
+  return `<select class="st-select v-${it.status}" data-sstatus>${Object.keys(SHOP_ST).map(k=>`<option value="${k}" ${it.status===k?"selected":""}>${SHOP_ST[k]}</option>`).join("")}</select>`;
 }
-function renderRoomRow(it){
-  const isTask=it.type==="task";
-  const noteCell = canEdit()
-    ? `<input class="note-input" style="height:32px;min-width:120px" data-rnote value="${esc(it.notes||"")}" placeholder="הערה…" />`
-    : (it.notes?`<button class="note-btn" tabindex="-1">💬<span class="tip">${esc(it.notes)}</span></button>`:"—");
-  const linkIc = it.link?`<a href="${esc(it.link)}" target="_blank" rel="noopener" class="link-ic" title="קישור למוצר">🔗</a>`:"";
-  const ordBadge = it.order_number?`<span class="ord" title="מספר הזמנה">🧾 ${esc(it.order_number)}</span>`:"";
-  return `<tr class="${isTask?"is-task":""}" data-room="${it.id}">
-    <td class="${isTask?"row-task":""}"><div class="item-name">${isTask?"📦":""} ${esc(it.item)}${linkIc}${ordBadge}</div></td>
-    <td><span class="badge-type">${esc(it.type)}</span></td>
-    <td>${stSelect(it,"purchase_status")}</td>
-    <td>${stSelect(it,"arrival_status")}</td>
-    <td>${stSelect(it,"install_status")}</td>
+function renderShopRow(it){
+  const ed=canEdit();
+  const link=it.link?`<a href="${esc(it.link)}" target="_blank" rel="noopener" class="link-ic" title="קישור">🔗</a>`:"";
+  const ord=it.order_number?`<span class="ord" title="מס׳ הזמנה">🧾 ${esc(it.order_number)}</span>`:"";
+  const note=ed?`<input class="mini-input" style="min-width:120px" data-snote value="${esc(it.notes||"")}" placeholder="הערה" />`:(it.notes?`<button class="note-btn" tabindex="-1">💬<span class="tip">${esc(it.notes)}</span></button>`:"—");
+  return `<tr data-shop="${it.id}">
+    <td><div class="item-name">${esc(it.item)}${link}${ord}</div></td>
     <td>${esc(it.supplier||"—")}</td>
-    <td class="cost-cell">${esc(it.cost||"—")}</td>
-    <td>${noteCell}</td>
-    ${canEdit()?`<td><button class="del-row" data-delroom>🗑</button></td>`:""}
-  </tr>`;
-}
-
-/* ---------- Timeline ---------- */
-function renderTimeline(){
-  const weeks=[...new Set(S.timeline.map(t=>t.week))];
-  let html=topProgress("🗓️ לוח זמנים","משימות לפי תאריך — לחיצה מסמנת כבוצע",
-    S.timeline.length?Math.round(S.timeline.filter(t=>t.done).length/S.timeline.length*100):0);
-  let any=false;
-  weeks.forEach(week=>{
-    const items=S.timeline.filter(t=>t.week===week);
-    const vis=items.filter(tlVisible);
-    if(vis.length===0)return;
-    any=true;
-    const dn=items.filter(t=>t.done).length;
-    const pct=Math.round(dn/items.length*100);
-    html+=`<div class="acc open" data-acc>
-      <div class="acc-head" data-toggle>
-        <span class="chev">▼</span>
-        <span class="acc-title">${esc(week)}</span>
-        <span class="acc-meta">${dn}/${items.length}</span>
-        <span class="acc-mini">${progressBar(pct)}</span>
-      </div>
-      <div class="acc-body"><div class="acc-inner">
-        ${vis.map(t=>`<div class="tl-task ${t.done?"done":""}" data-tl="${t.id}">
-          <div class="tl-check">${t.done?"✓":""}</div>
-          <div class="tl-ttl">${esc(t.title)}</div>
-        </div>`).join("")}
-      </div></div>
-    </div>`;
-  });
-  if(!any)html+=emptyState();
-  $("tab-timeline").innerHTML=html;
+    <td class="price">${Number(it.price)>0?ils(it.price):"—"}</td>
+    <td>${shopSelect(it)}</td><td>${note}</td>
+    ${ed?`<td><button class="del-row" data-delshop>🗑</button></td>`:""}</tr>`;
 }
 
 /* ---------- Grocery ---------- */
-function groVisible(g){
-  if(S.fStatus==="done"&&!g.checked)return false;
-  if((S.fStatus==="pending"||S.fStatus==="progress")&&g.checked)return false;
-  return matchSearch(g.name+" "+g.category);
-}
 function renderGrocery(){
   const cats=[...new Set(S.grocery.map(g=>g.category))];
   const total=S.grocery.length, checked=S.grocery.filter(g=>g.checked).length;
-  let html=topProgress("🛒 קניות לסופר","רשימת קניות מסודרת לפי קטגוריות — לחיצה מסמנת שנקנה",
-    total?Math.round(checked/total*100):0);
-  let any=false;
-  html+=`<div class="gro-grid">`;
+  let html=topProgress("🥦 קניות לסופר","רשימה לפי קטגוריות — לחיצה מסמנת שנקנה", total?Math.round(checked/total*100):0);
+  let any=false; html+=`<div class="gro-grid">`;
   cats.forEach(cat=>{
-    const items=S.grocery.filter(g=>g.category===cat);
-    const vis=items.filter(groVisible);
-    if(vis.length===0)return;
-    any=true;
+    const items=S.grocery.filter(g=>g.category===cat), vis=items.filter(groVisible);
+    if(vis.length===0)return; any=true;
     const dn=items.filter(g=>g.checked).length;
-    html+=`<div class="gro-cat">
-      <h4>${esc(cat)} <span class="c">${dn}/${items.length}</span></h4>
-      <div class="gro-list">
-        ${vis.map(g=>`<div class="gro-item ${g.checked?"on":""}" data-gro="${g.id}">
-          <div class="box">${g.checked?"✓":""}</div><div class="nm">${esc(g.name)}</div>
-        </div>`).join("")}
-      </div>
-    </div>`;
+    html+=`<div class="gro-cat"><h4>${esc(cat)} <span class="c">${dn}/${items.length}</span></h4>
+      <div class="gro-list">${vis.map(g=>`<div class="gro-item ${g.checked?"on":""}" data-gro="${g.id}"><div class="box">${g.checked?"✓":""}</div><div class="nm">${esc(g.name)}</div></div>`).join("")}</div></div>`;
   });
-  html+=`</div>`;
-  if(!any)html+=emptyState();
+  html+=`</div>`; if(!any)html+=emptyState();
   $("tab-grocery").innerHTML=html;
 }
 
-function topProgress(title,desc,pct){
-  return `<div class="section-head"><div><h3>${title}</h3><div class="desc">${desc}</div></div></div>
-    <div class="progress-top"><div class="lbl"><span>התקדמות</span><span>${pct}%</span></div>${progressBar(pct)}</div>`;
+/* ---------- Budget ---------- */
+function budgetData(){
+  const cats={};
+  S.shop.forEach(s=>{ const c=s.budget_cat||"📦 שונות"; (cats[c]=cats[c]||{total:0,got:0,items:[]});
+    cats[c].total+=(Number(s.price)||0); if(shopGot(s))cats[c].got+=(Number(s.price)||0); cats[c].items.push(s); });
+  const delivTotal=S.install.reduce((a,x)=>a+(Number(x.delivery)||0),0);
+  const delivDone=S.install.filter(x=>x.status==="done").reduce((a,x)=>a+(Number(x.delivery)||0),0);
+  const products=Object.values(cats).reduce((a,c)=>a+c.total,0);
+  return {cats,delivTotal,delivDone,products};
 }
-function emptyState(){return `<div class="empty"><div class="big">🔍</div><div>לא נמצאו תוצאות לחיפוש/סינון הנוכחי</div></div>`;}
+function renderBudget(){
+  const b=budgetData();
+  const grand=b.products+b.delivTotal;
+  let cards="";
+  Object.keys(b.cats).sort((a,c)=>b.cats[c].total-b.cats[a].total).forEach(cat=>{
+    const c=b.cats[cat]; const pct=c.total?Math.round(c.got/c.total*100):0;
+    const det=c.items.filter(i=>Number(i.price)>0).sort((x,y)=>y.price-x.price)
+      .map(i=>`<div class="bud-line"><span class="nm">${shopGot(i)?"✅":"⏳"} ${esc(i.item)}</span><span class="pr">${ils(i.price)}</span></div>`).join("")||`<div class="bud-line"><span class="nm">אין פריטים עם מחיר</span></div>`;
+    cards+=`<div class="bud-card ${S.budOpen===cat?"open":""}" data-bud="${esc(cat)}">
+      <div class="ttl">${esc(cat)} <span style="font-size:12px;color:var(--muted)">${c.items.length}</span></div>
+      <div class="amt">${ils(c.total)}</div>
+      <div class="sub">שולם/הגיע: ${ils(c.got)} · ${pct}%</div>
+      <div class="bar"><i style="width:${pct}%;background:var(--green)"></i></div>
+      <div class="bud-detail">${det}</div></div>`;
+  });
+  // delivery card
+  const dpct=b.delivTotal?Math.round(b.delivDone/b.delivTotal*100):0;
+  const ddet=S.install.filter(i=>Number(i.delivery)>0).sort((x,y)=>y.delivery-x.delivery)
+    .map(i=>`<div class="bud-line"><span class="nm">${i.status==="done"?"✅":"⏳"} ${esc(i.item)}</span><span class="pr">${ils(i.delivery)}</span></div>`).join("")||"—";
+  cards+=`<div class="bud-card ${S.budOpen==="__deliv"?"open":""}" data-bud="__deliv">
+    <div class="ttl">🚚 הובלות והרכבות</div><div class="amt">${ils(b.delivTotal)}</div>
+    <div class="sub">בוצע: ${ils(b.delivDone)} · ${dpct}%</div>
+    <div class="bar"><i style="width:${dpct}%;background:var(--teal)"></i></div>
+    <div class="bud-detail">${ddet}</div></div>`;
 
-/* =================== EVENT DELEGATION =================== */
-// Tabs
+  $("tab-budget").innerHTML=`
+    <div class="section-head"><div><h3>💰 תקציב</h3><div class="desc">סיכום הוצאות לפי קטגוריה — לחיצה על כרטיס פותחת פירוט</div></div></div>
+    <div class="bud-hero">
+      <div class="tot"><b>${ils(grand)}</b><span>סך הוצאות מתוכננות</span></div>
+      <div class="bud-split">
+        <div><b>${ils(b.products)}</b><span>מוצרים (${S.shop.length} פריטים)</span></div>
+        <div><b>${ils(b.delivTotal)}</b><span>הובלות והרכבות</span></div>
+        <div><b>${ils(b.products? Math.round((b.cats&&Object.values(b.cats).reduce((a,c)=>a+c.got,0))+b.delivDone):0)}</b><span>כבר שולם/הגיע</span></div>
+      </div>
+    </div>
+    <div class="bud-grid">${cards}</div>`;
+}
+
+/* ---------- Timeline (vertical) ---------- */
+function tlBadge(t){
+  const map=[["מפתח","🔑 מפתח"],["ריסוס","🧹 ניקיון"],["ניקיון","🧹 ניקיון"],["מים","🏢 מוסדות"],["ארנונה","🏢 מוסדות"],
+    ["חשמל","🏢 מוסדות"],["פרטנר","📞 תקשורת"],["סשה","🚚 הובלה"],["הובלה","🚚 הובלה"],["מעבר","🚚 הובלה"],
+    ["שרון","🏠 דירה ישנה"],["צ׳ק","💰 כספים"],["ביטוח","💰 כספים"],["הזמנ","🛒 קניות"],["קש קטר","🛒 קניות"],
+    ["פנדה","🛒 קניות"],["סטוק","🛒 קניות"],["אריזה","📦 אריזה"],["מזוז","📦 אריזה"],["מחסן","📦 אריזה"],
+    ["מנוי","🏋️ פנאי"],["פריקה","📦 פריקה"],["כושר","🏋️ פנאי"]];
+  for(const[k,v]of map)if(t.includes(k))return v;
+  return "📌 כללי";
+}
+function renderTimeline(){
+  const weeks=[...new Set(S.timeline.map(t=>t.week))];
+  const dn=S.timeline.filter(t=>t.done).length;
+  let html=topProgress("🗓️ לוח זמנים","ציר זמן של המעבר — לחיצה על משימה מסמנת שבוצעה",
+    S.timeline.length?Math.round(dn/S.timeline.length*100):0);
+  let any=false; html+=`<div class="tl">`;
+  weeks.forEach(week=>{
+    const items=S.timeline.filter(t=>t.week===week), vis=items.filter(tlVisible);
+    if(vis.length===0)return; any=true;
+    const d=items.filter(t=>t.done).length, pct=Math.round(d/items.length*100);
+    const node=d===items.length?"full":(d>0?"part":"");
+    html+=`<div class="tl-week"><div class="tl-node ${node}"></div>
+      <div class="tl-card"><h4>${esc(week)} <span class="m">${d}/${items.length}</span></h4>
+        ${vis.map(t=>`<div class="tl-task ${t.done?"done":""}" data-tl="${t.id}">
+          <div class="tl-check">${t.done?"✓":""}</div>
+          <div class="tl-ttl">${esc(t.title)}</div>
+          <span class="tl-badge">${tlBadge(t.title)}</span>
+        </div>`).join("")}
+      </div></div>`;
+  });
+  html+=`</div>`; if(!any)html+=emptyState();
+  $("tab-timeline").innerHTML=html;
+}
+
+/* =================== EVENTS =================== */
 $("tabs").addEventListener("click",e=>{
   const b=e.target.closest(".tab"); if(!b)return;
   S.tab=b.dataset.tab;
   document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t===b));
-  ["dashboard","tasks","rooms","timeline","grocery"].forEach(n=>$("tab-"+n).classList.toggle("hidden",n!==S.tab));
+  ["dashboard","tasks","install","shop","grocery","budget","timeline"].forEach(n=>$("tab-"+n).classList.toggle("hidden",n!==S.tab));
   renderActive();
 });
-// Filters
 $("searchInput").addEventListener("input",e=>{S.search=e.target.value.trim().toLowerCase();renderActive();});
 $("statusFilter").addEventListener("change",e=>{S.fStatus=e.target.value;renderActive();});
 $("priorityFilter").addEventListener("change",e=>{S.fPrio=e.target.value;renderActive();});
+$("app").addEventListener("click",e=>{const tog=e.target.closest("[data-toggle]");if(tog)tog.closest("[data-acc]").classList.toggle("open");});
 
-// Accordion toggle (whole container)
-$("app").addEventListener("click",e=>{
-  const tog=e.target.closest("[data-toggle]");
-  if(tog){tog.closest("[data-acc]").classList.toggle("open");}
-});
-
-// Tasks interactions
+/* tasks */
 $("tab-tasks").addEventListener("click",async e=>{
   const seg=e.target.closest("[data-seg] button");
-  if(seg){
-    const row=e.target.closest("[data-task]");const id=row.dataset.task;
-    const st=seg.dataset.status;
-    await updateTask(id,{status:st});
-  }
+  if(seg){const row=e.target.closest("[data-task]");await updateTask(row.dataset.task,{status:seg.dataset.status});return;}
+  const add=e.target.closest("[data-addtask]");
+  if(add){const [apt,cat]=JSON.parse(add.dataset.addtask);await addTask(apt,cat);}
 });
-$("tab-tasks").addEventListener("change",async e=>{
-  const row=e.target.closest("[data-task]");if(!row)return;const id=row.dataset.task;
-  if(e.target.matches("[data-prio]"))await updateTask(id,{priority:e.target.value});
-});
+$("tab-tasks").addEventListener("change",async e=>{const row=e.target.closest("[data-task]");if(row&&e.target.matches("[data-prio]"))await updateTask(row.dataset.task,{priority:e.target.value});});
 $("tab-tasks").addEventListener("blur",async e=>{
-  if(e.target.matches("[data-note]")){
-    const row=e.target.closest("[data-task]");const id=row.dataset.task;
-    const t=S.tasks.find(x=>x.id===id);
-    if(t && (t.notes||"")!==e.target.value)await updateTask(id,{notes:e.target.value});
-  }
+  if(e.target.matches("[data-note]")){const row=e.target.closest("[data-task]");const t=S.tasks.find(x=>x.id===row.dataset.task);
+    if(t&&(t.notes||"")!==e.target.value)await updateTask(row.dataset.task,{notes:e.target.value});}
 },true);
-
 async function updateTask(id,patch){
-  const t=S.tasks.find(x=>x.id===id);if(!t)return;
-  Object.assign(t,patch);saveCache();
-  if(S.tab==="tasks")renderTasks();
-  const {error}=await sb.from("tasks").update(patch).eq("id",id);
-  if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
+  const t=S.tasks.find(x=>x.id===id);if(!t)return;Object.assign(t,patch);saveCache();if(S.tab==="tasks")renderTasks();
+  const {error}=await sb.from("tasks").update(patch).eq("id",id);if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
+}
+async function addTask(apt,cat){
+  const title=prompt("שם המשימה החדשה:");if(!title)return;
+  const sort=Math.max(0,...S.tasks.map(t=>t.sort_order||0))+1;
+  const row={project_id:S.projectId,apartment:apt,category:cat,title,status:"pending",priority:"normal",notes:"",sort_order:sort};
+  const {data,error}=await sb.from("tasks").insert(row).select().single();
+  if(error){toast("הוספה נכשלה");return;}S.tasks.push(data);saveCache();renderTasks();
 }
 
-// Rooms interactions
-$("tab-rooms").addEventListener("change",async e=>{
-  const tr=e.target.closest("[data-room]");if(!tr)return;const id=tr.dataset.room;
-  if(e.target.matches("[data-field]")){
-    const f=e.target.dataset.field;
-    await updateRoom(id,{[f]:e.target.value});
-  }
+/* installations (sync to budget) */
+$("tab-install").addEventListener("change",async e=>{
+  const tr=e.target.closest("[data-inst]");if(!tr)return;const id=tr.dataset.inst;
+  if(e.target.matches("[data-istatus]"))await updateInstall(id,{status:e.target.value},true);
 });
-$("tab-rooms").addEventListener("blur",async e=>{
-  if(e.target.matches("[data-rnote]")){
-    const tr=e.target.closest("[data-room]");const id=tr.dataset.room;
-    const it=S.rooms.find(x=>x.id===id);
-    if(it&&(it.notes||"")!==e.target.value)await updateRoom(id,{notes:e.target.value});
-  }
+$("tab-install").addEventListener("blur",async e=>{
+  const tr=e.target.closest("[data-inst]");if(!tr)return;const id=tr.dataset.inst;const it=S.install.find(x=>x.id===id);
+  if(e.target.matches("[data-idate]")&&(it.date||"")!==e.target.value)await updateInstall(id,{date:e.target.value});
+  if(e.target.matches("[data-inote]")&&(it.notes||"")!==e.target.value)await updateInstall(id,{notes:e.target.value});
 },true);
-$("tab-rooms").addEventListener("click",async e=>{
-  const del=e.target.closest("[data-delroom]");
-  if(del){
-    const tr=e.target.closest("[data-room]");const id=tr.dataset.room;
-    const it=S.rooms.find(x=>x.id===id);
-    if(confirm(`למחוק את "${it.item}"?`)){
-      S.rooms=S.rooms.filter(x=>x.id!==id);saveCache();renderRooms();
-      const {error}=await sb.from("room_items").delete().eq("id",id);
-      if(error){toast("מחיקה נכשלה");loadData();}
-    }
-  }
-  const add=e.target.closest("[data-addroom]");
-  if(add){ await addRoomItem(add.dataset.addroom); }
+$("tab-install").addEventListener("click",async e=>{
+  const del=e.target.closest("[data-delinst]");
+  if(del){const tr=e.target.closest("[data-inst]");const id=tr.dataset.inst;const it=S.install.find(x=>x.id===id);
+    if(confirm(`למחוק את "${it.item}"?`)){S.install=S.install.filter(x=>x.id!==id);saveCache();renderInstall();
+      const {error}=await sb.from("installations").delete().eq("id",id);if(error){toast("מחיקה נכשלה");loadData();}}return;}
+  if(e.target.id==="addInstall")await addInstall();
 });
-async function updateRoom(id,patch){
-  const it=S.rooms.find(x=>x.id===id);if(!it)return;
-  Object.assign(it,patch);saveCache();
-  // update only the changed select color without full rerender for snappiness
-  if(S.tab==="rooms")renderRooms();
-  const {error}=await sb.from("room_items").update(patch).eq("id",id);
-  if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
+async function updateInstall(id,patch,syncBudget){
+  const it=S.install.find(x=>x.id===id);if(!it)return;Object.assign(it,patch);saveCache();
+  if(S.tab==="install")renderInstall();
+  if(syncBudget)toast("💰 עודכן גם בלשונית התקציב");
+  const {error}=await sb.from("installations").update(patch).eq("id",id);if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
 }
-async function addRoomItem(room){
-  const name=prompt("שם הפריט החדש:");if(!name)return;
-  const sort=Math.max(0,...S.rooms.map(r=>r.sort_order||0))+1;
-  const row={project_id:S.projectId,room,item:name,type:"item",purchase_status:"pending",arrival_status:"pending",install_status:"pending",supplier:"",cost:"",notes:"",sort_order:sort};
-  const {data,error}=await sb.from("room_items").insert(row).select().single();
-  if(error){toast("הוספה נכשלה");return;}
-  S.rooms.push(data);saveCache();renderRooms();
+async function addInstall(){
+  const item=prompt("שם ההובלה/התקנה:");if(!item)return;
+  const sort=Math.max(0,...S.install.map(i=>i.sort_order||0))+1;
+  const row={project_id:S.projectId,item,supplier:"",phone:"",date:"",time:"",status:"pending",delivery:0,payment:"",notes:"",sort_order:sort};
+  const {data,error}=await sb.from("installations").insert(row).select().single();
+  if(error){toast("הוספה נכשלה");return;}S.install.push(data);saveCache();renderInstall();
 }
 
-// Timeline interactions
-$("tab-timeline").addEventListener("click",async e=>{
-  const row=e.target.closest("[data-tl]");if(!row)return;const id=row.dataset.tl;
-  const t=S.timeline.find(x=>x.id===id);if(!t)return;
-  t.done=!t.done;saveCache();renderTimeline();
-  const {error}=await sb.from("timeline_items").update({done:t.done}).eq("id",id);
-  if(error){toast("שמירה נכשלה");loadData();}
+/* shop */
+$("tab-shop").addEventListener("change",async e=>{const tr=e.target.closest("[data-shop]");if(tr&&e.target.matches("[data-sstatus]"))await updateShop(tr.dataset.shop,{status:e.target.value});});
+$("tab-shop").addEventListener("blur",async e=>{
+  const tr=e.target.closest("[data-shop]");if(!tr)return;const it=S.shop.find(x=>x.id===tr.dataset.shop);
+  if(e.target.matches("[data-snote]")&&(it.notes||"")!==e.target.value)await updateShop(tr.dataset.shop,{notes:e.target.value});
+},true);
+$("tab-shop").addEventListener("click",async e=>{
+  const del=e.target.closest("[data-delshop]");
+  if(del){const tr=e.target.closest("[data-shop]");const id=tr.dataset.shop;const it=S.shop.find(x=>x.id===id);
+    if(confirm(`למחוק את "${it.item}"?`)){S.shop=S.shop.filter(x=>x.id!==id);saveCache();renderShop();
+      const {error}=await sb.from("shop_items").delete().eq("id",id);if(error){toast("מחיקה נכשלה");loadData();}}return;}
+  const add=e.target.closest("[data-addshop]");if(add)await addShop(add.dataset.addshop);
 });
+async function updateShop(id,patch){
+  const it=S.shop.find(x=>x.id===id);if(!it)return;Object.assign(it,patch);saveCache();if(S.tab==="shop")renderShop();
+  const {error}=await sb.from("shop_items").update(patch).eq("id",id);if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
+}
+async function addShop(cat){
+  const item=prompt("שם הפריט החדש:");if(!item)return;
+  const sort=Math.max(0,...S.shop.map(s=>s.sort_order||0))+1;
+  const row={project_id:S.projectId,category:cat,item,supplier:"",link:"",order_number:"",price:0,status:"pending",budget_cat:"📦 שונות",notes:"",sort_order:sort};
+  const {data,error}=await sb.from("shop_items").insert(row).select().single();
+  if(error){toast("הוספה נכשלה");return;}S.shop.push(data);saveCache();renderShop();
+}
 
-// Grocery interactions
+/* grocery */
 $("tab-grocery").addEventListener("click",async e=>{
-  const row=e.target.closest("[data-gro]");if(!row)return;const id=row.dataset.gro;
-  const g=S.grocery.find(x=>x.id===id);if(!g)return;
+  const row=e.target.closest("[data-gro]");if(!row)return;const g=S.grocery.find(x=>x.id===row.dataset.gro);if(!g)return;
   g.checked=!g.checked;saveCache();renderGrocery();
-  const {error}=await sb.from("grocery_items").update({checked:g.checked}).eq("id",id);
-  if(error){toast("שמירה נכשלה");loadData();}
+  const {error}=await sb.from("grocery_items").update({checked:g.checked}).eq("id",g.id);if(error){toast("שמירה נכשלה");loadData();}
+});
+
+/* budget */
+$("tab-budget").addEventListener("click",e=>{
+  const c=e.target.closest("[data-bud]");if(!c)return;
+  const cat=c.dataset.bud;S.budOpen=(S.budOpen===cat)?null:cat;renderBudget();
+});
+
+/* timeline */
+$("tab-timeline").addEventListener("click",async e=>{
+  const row=e.target.closest("[data-tl]");if(!row)return;const t=S.timeline.find(x=>x.id===row.dataset.tl);if(!t)return;
+  t.done=!t.done;saveCache();renderTimeline();
+  const {error}=await sb.from("timeline_items").update({done:t.done}).eq("id",t.id);if(error){toast("שמירה נכשלה");loadData();}
 });
 
 /* =================== MEMBERS =================== */
 $("membersBtn").onclick=()=>{renderMembers();$("memberModal").classList.add("show");};
 $("closeMembers").onclick=()=>$("memberModal").classList.remove("show");
 $("memberModal").addEventListener("click",e=>{if(e.target===$("memberModal"))$("memberModal").classList.remove("show");});
-
 function renderMembers(){
   const roleMap={manager:["מנהל","role-manager"],full:["מלא","role-full"],limited:["מוגבל","role-limited"]};
   let html=S.members.map(m=>{
-    const r=roleMap[m.role]||["—","role-limited"];
-    const initial=(m.email||"?").charAt(0).toUpperCase();
+    const r=roleMap[m.role]||["—","role-limited"];const initial=(m.email||"?").charAt(0).toUpperCase();
     const pending=m.user_id?"":`<span class="pending-tag">· ממתין להרשמה</span>`;
     const canRemove=isManager()&&m.role!=="manager";
-    const roleControl = isManager()&&m.role!=="manager"
-      ? `<select class="st-select" data-memrole="${m.id}">
-           <option value="full" ${m.role==="full"?"selected":""}>הרשאה מלאה</option>
-           <option value="limited" ${m.role==="limited"?"selected":""}>הרשאה מוגבלת</option>
-         </select>`
+    const roleControl=isManager()&&m.role!=="manager"
+      ? `<select class="st-select" data-memrole="${m.id}"><option value="full" ${m.role==="full"?"selected":""}>הרשאה מלאה</option><option value="limited" ${m.role==="limited"?"selected":""}>הרשאה מוגבלת</option></select>`
       : `<span class="role-tag ${r[1]}">${r[0]}</span>`;
-    return `<div class="mem">
-      <div class="av">${esc(initial)}</div>
+    return `<div class="mem"><div class="av">${esc(initial)}</div>
       <div class="info"><b>${esc(m.email)}</b> ${pending}<br><small>${m.role==="manager"?"מנהל הפרויקט":""}</small></div>
-      ${roleControl}
-      ${canRemove?`<button class="del-row" data-memdel="${m.id}">🗑</button>`:""}
-    </div>`;
+      ${roleControl}${canRemove?`<button class="del-row" data-memdel="${m.id}">🗑</button>`:""}</div>`;
   }).join("");
-
   if(isManager()){
-    html+=`<div class="add-mem">
-      <input type="email" id="newMemEmail" placeholder="אימייל של חבר חדש" />
+    html+=`<div class="add-mem"><input type="email" id="newMemEmail" placeholder="אימייל של חבר חדש" />
       <select id="newMemRole"><option value="limited">הרשאה מוגבלת</option><option value="full">הרשאה מלאה</option></select>
-      <button class="btn sm" id="addMemBtn">➕ הוספה</button>
-    </div>
-    <p style="color:var(--muted);font-size:12.5px;margin-top:10px">המוזמן יקבל גישה לאחר שיירשם עם אותו אימייל. <b>הרשאה מוגבלת</b> = עדכון סטטוסים בלבד · <b>הרשאה מלאה</b> = הוספה ועריכה של פריטים.</p>`;
-  }else{
-    html+=`<p style="color:var(--muted);font-size:13px;margin-top:12px">רק מנהל הפרויקט יכול להוסיף או להסיר חברים.</p>`;
-  }
+      <button class="btn sm" id="addMemBtn">➕ הוספה</button></div>
+      <p style="color:var(--muted);font-size:12.5px;margin-top:10px">המוזמן יקבל גישה לאחר שיירשם עם אותו אימייל. <b>הרשאה מוגבלת</b> = עדכון סטטוסים בלבד · <b>הרשאה מלאה</b> = הוספה ועריכה.</p>`;
+  }else{ html+=`<p style="color:var(--muted);font-size:13px;margin-top:12px">רק מנהל הפרויקט יכול להוסיף או להסיר חברים.</p>`; }
   $("memberBody").innerHTML=html;
-
   if(isManager()){
     $("addMemBtn").onclick=addMember;
-    $("memberBody").querySelectorAll("[data-memrole]").forEach(sel=>{
-      sel.onchange=async()=>{
-        const {error}=await sb.from("project_members").update({role:sel.value}).eq("id",sel.dataset.memrole);
-        if(error)toast("עדכון נכשל");else{toast("עודכן");await loadData();renderMembers();}
-      };
-    });
-    $("memberBody").querySelectorAll("[data-memdel]").forEach(btn=>{
-      btn.onclick=async()=>{
-        if(!confirm("להסיר חבר זה מהפרויקט?"))return;
-        const {error}=await sb.from("project_members").delete().eq("id",btn.dataset.memdel);
-        if(error)toast("הסרה נכשלה");else{toast("הוסר");await loadData();renderMembers();}
-      };
-    });
+    $("memberBody").querySelectorAll("[data-memrole]").forEach(sel=>sel.onchange=async()=>{
+      const {error}=await sb.from("project_members").update({role:sel.value}).eq("id",sel.dataset.memrole);
+      if(error)toast("עדכון נכשל");else{toast("עודכן");await loadData();renderMembers();}});
+    $("memberBody").querySelectorAll("[data-memdel]").forEach(btn=>btn.onclick=async()=>{
+      if(!confirm("להסיר חבר זה מהפרויקט?"))return;
+      const {error}=await sb.from("project_members").delete().eq("id",btn.dataset.memdel);
+      if(error)toast("הסרה נכשלה");else{toast("הוסר");await loadData();renderMembers();}});
   }
 }
 async function addMember(){
-  const email=$("newMemEmail").value.trim().toLowerCase();
-  const role=$("newMemRole").value;
+  const email=$("newMemEmail").value.trim().toLowerCase(),role=$("newMemRole").value;
   if(!email){toast("יש להזין אימייל");return;}
   const {error}=await sb.from("project_members").insert({project_id:S.projectId,email,role,user_id:null});
   if(error){toast(/duplicate/i.test(error.message)?"החבר כבר קיים":"הוספה נכשלה");return;}
-  $("newMemEmail").value="";
-  toast("נוסף בהצלחה");
-  await loadData();renderMembers();
+  $("newMemEmail").value="";toast("נוסף בהצלחה");await loadData();renderMembers();
 }
 
 /* =================== RESET =================== */
 $("resetBtn").onclick=async()=>{
   if(!isManager())return;
-  if(!confirm("פעולה זו תמחק את כל המשימות, הפריטים והלו״ז הנוכחיים ותשחזר את ברירת המחדל. להמשיך?"))return;
+  if(!confirm("פעולה זו תמחק את כל הנתונים הנוכחיים ותשחזר את ברירת המחדל. להמשיך?"))return;
   $("loading").classList.remove("hidden");
   await Promise.all([
     sb.from("tasks").delete().eq("project_id",S.projectId),
-    sb.from("room_items").delete().eq("project_id",S.projectId),
+    sb.from("shop_items").delete().eq("project_id",S.projectId),
+    sb.from("installations").delete().eq("project_id",S.projectId),
     sb.from("timeline_items").delete().eq("project_id",S.projectId),
     sb.from("grocery_items").delete().eq("project_id",S.projectId)
   ]);
-  await seedDefaults();
-  localStorage.removeItem(cacheKey());
-  await loadData();
-  $("loading").classList.add("hidden");
-  toast("שוחזר לברירת המחדל");
+  await seedDefaults(); localStorage.removeItem(cacheKey()); await loadData();
+  $("loading").classList.add("hidden"); toast("שוחזר לברירת המחדל");
 };
 
 /* =================== START =================== */
-setAuthMode("login");
-wireAuthSwitch();
-sb.auth.onAuthStateChange((event)=>{ if(event==="SIGNED_OUT"){showAuth();} });
+setAuthMode("login"); wireAuthSwitch();
+sb.auth.onAuthStateChange((event)=>{ if(event==="SIGNED_OUT")showAuth(); });
 init();
 </script>
 </body>
