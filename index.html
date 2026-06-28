@@ -313,7 +313,6 @@
         <option value="normal">🟡 רגיל</option>
         <option value="low">🟢 נמוך</option>
       </select>
-      <button class="btn ghost sm" id="resetBtn">♻️ איפוס הכול</button>
     </div>
     <div id="tab-dashboard"></div>
     <div id="tab-tasks" class="hidden"></div>
@@ -807,7 +806,7 @@ async function enterProject(){
   renderRoleBadge(); loadFromCache(); await loadData();
   if(await backfillDefaults()) await loadData();
   subscribeRealtime();
-  updateCountdowns(); $("resetBtn").classList.toggle("hidden",!isManager());
+  updateCountdowns();
 }
 function renderRoleBadge(){const m={manager:"מנהל הפרויקט",full:"הרשאה מלאה",limited:"הרשאה מוגבלת"};$("roleBadge").textContent="🔑 "+(m[S.role]||S.role);}
 
@@ -1291,22 +1290,6 @@ async function addMember(){
   if(error){toast(/duplicate/i.test(error.message)?"החבר כבר קיים":"הוספה נכשלה");return;}
   $("newMemEmail").value="";toast("נוסף בהצלחה");await loadData();renderMembers();
 }
-
-/* =================== RESET =================== */
-$("resetBtn").onclick=async()=>{
-  if(!isManager())return;
-  if(!confirm("פעולה זו תמחק את כל הנתונים הנוכחיים ותשחזר את ברירת המחדל. להמשיך?"))return;
-  $("loading").classList.remove("hidden");
-  await Promise.all([
-    sb.from("tasks").delete().eq("project_id",S.projectId),
-    sb.from("shop_items").delete().eq("project_id",S.projectId),
-    sb.from("installations").delete().eq("project_id",S.projectId),
-    sb.from("timeline_items").delete().eq("project_id",S.projectId),
-    sb.from("grocery_items").delete().eq("project_id",S.projectId)
-  ]);
-  await seedDefaults(); localStorage.removeItem(cacheKey()); await loadData();
-  $("loading").classList.add("hidden"); toast("שוחזר לברירת המחדל");
-};
 
 /* =================== START =================== */
 setAuthMode("login"); wireAuthSwitch();
