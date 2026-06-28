@@ -777,23 +777,36 @@ async function createDefaultProject(){
   S.projectId=data; S.role="manager"; S.project={id:data,name:"מעבר דירה",move_date:MOVE_DATE};
   await seedDefaults(); await enterProject();
 }
+const SEED_BUILD = {
+  tasks: pid => SEED_TASKS.map((t,i)=>({project_id:pid,apartment:t[0],category:t[1],title:t[2],status:t[3],priority:t[4],notes:t[5],sort_order:i})),
+  shop_items: pid => SEED_SHOP.map((s,i)=>({project_id:pid,category:s[0],item:s[1],supplier:s[2],link:s[3],order_number:s[4],price:Number(s[5])||0,status:s[6],budget_cat:s[7],notes:s[8],sort_order:i})),
+  installations: pid => SEED_INSTALL.map((n,i)=>({project_id:pid,item:n[0],supplier:n[1],phone:n[2],date:n[3],time:n[4],status:n[5],delivery:Number(n[6])||0,payment:n[7],notes:n[8],sort_order:i})),
+  timeline_items: pid => SEED_TIMELINE.map((w,i)=>({project_id:pid,week:w[0],title:w[1],done:false,sort_order:i})),
+  grocery_items: pid => SEED_GROCERY.map((g,i)=>({project_id:pid,category:g[0],name:g[1],checked:false,sort_order:i}))
+};
 async function seedDefaults(){
   const pid=S.projectId;
-  const tasks=SEED_TASKS.map((t,i)=>({project_id:pid,apartment:t[0],category:t[1],title:t[2],status:t[3],priority:t[4],notes:t[5],sort_order:i}));
-  const shop=SEED_SHOP.map((s,i)=>({project_id:pid,category:s[0],item:s[1],supplier:s[2],link:s[3],order_number:s[4],price:Number(s[5])||0,status:s[6],budget_cat:s[7],notes:s[8],sort_order:i}));
-  const inst=SEED_INSTALL.map((n,i)=>({project_id:pid,item:n[0],supplier:n[1],phone:n[2],date:n[3],time:n[4],status:n[5],delivery:Number(n[6])||0,payment:n[7],notes:n[8],sort_order:i}));
-  const tl=SEED_TIMELINE.map((w,i)=>({project_id:pid,week:w[0],title:w[1],done:false,sort_order:i}));
-  const gro=SEED_GROCERY.map((g,i)=>({project_id:pid,category:g[0],name:g[1],checked:false,sort_order:i}));
-  await sb.from("tasks").insert(tasks);
-  await sb.from("shop_items").insert(shop);
-  await sb.from("installations").insert(inst);
-  await sb.from("timeline_items").insert(tl);
-  await sb.from("grocery_items").insert(gro);
+  for(const tb of Object.keys(SEED_BUILD)) await sb.from(tb).insert(SEED_BUILD[tb](pid));
+}
+// Fill any tables that are empty (e.g. a project created before a feature existed)
+async function backfillDefaults(){
+  if(!canEdit()) return false;
+  const pid=S.projectId; let did=false;
+  const map={tasks:S.tasks, shop_items:S.shop, installations:S.install, timeline_items:S.timeline, grocery_items:S.grocery};
+  for(const tb of Object.keys(map)){
+    if((map[tb]||[]).length===0){
+      const {error}=await sb.from(tb).insert(SEED_BUILD[tb](pid));
+      if(!error) did=true;
+    }
+  }
+  return did;
 }
 async function enterProject(){
   S.project=S.project||{};
   $("projTitle").textContent=(S.project.name||"מעבר דירה");
-  renderRoleBadge(); loadFromCache(); await loadData(); subscribeRealtime();
+  renderRoleBadge(); loadFromCache(); await loadData();
+  if(await backfillDefaults()) await loadData();
+  subscribeRealtime();
   updateCountdowns(); $("resetBtn").classList.toggle("hidden",!isManager());
 }
 function renderRoleBadge(){const m={manager:"מנהל הפרויקט",full:"הרשאה מלאה",limited:"הרשאה מוגבלת"};$("roleBadge").textContent="🔑 "+(m[S.role]||S.role);}
@@ -818,6 +831,7 @@ async function loadData(){
   ]);
   if(t.data)S.tasks=t.data; if(s.data)S.shop=s.data; if(n.data)S.install=n.data;
   if(tl.data)S.timeline=tl.data; if(m.data)S.members=m.data; if(g.data)S.grocery=g.data;
+  $("membersBtn").textContent=`👥 חברים (${S.members.length})`;
   saveCache(); renderActive();
 }
 function subscribeRealtime(){
@@ -900,7 +914,12 @@ function renderDashboard(){
     </div></div>
     <div class="info-card"><h4>📞 אנשי קשר</h4><div class="contacts">
       ${CONTACTS.map(c=>`<div class="contact"><span style="font-size:18px">📱</span><div><b>${esc(c[0])}</b><a href="tel:${esc(c[1].replace(/[^0-9+]/g,''))}">${esc(c[1])}</a></div></div>`).join("")}
-    </div></div>`;
+    </div></div>
+    ${isManager()?`<div class="info-card"><h4>👥 חברי הפרויקט (${S.members.length})</h4>
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 12px">${S.members.map(m=>esc(m.email)+(m.user_id?"":" (ממתין)")).join(" · ")}</p>
+      <button class="btn secondary sm" id="dashInvite">➕ הזמנת חבר לפרויקט</button>
+      <p style="color:var(--muted);font-size:12.5px;margin-top:10px">הזינו אימייל של מי שתרצו לשתף. הוא יקבל גישה לאחר שיירשם עם אותו אימייל. אפשר לתת <b>הרשאה מלאה</b> (עריכה) או <b>מוגבלת</b> (עדכון סטטוסים בלבד).</p>
+    </div>`:""}`;
 }
 
 /* ---------- Tasks (old vs new) ---------- */
@@ -1231,6 +1250,7 @@ $("tab-timeline").addEventListener("click",async e=>{
 
 /* =================== MEMBERS =================== */
 $("membersBtn").onclick=()=>{renderMembers();$("memberModal").classList.add("show");};
+$("tab-dashboard").addEventListener("click",e=>{if(e.target.closest("#dashInvite")){renderMembers();$("memberModal").classList.add("show");}});
 $("closeMembers").onclick=()=>$("memberModal").classList.remove("show");
 $("memberModal").addEventListener("click",e=>{if(e.target===$("memberModal"))$("memberModal").classList.remove("show");});
 function renderMembers(){
