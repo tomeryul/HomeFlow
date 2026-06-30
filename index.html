@@ -279,7 +279,7 @@
       <div class="hero">
         <div>
           <h2 id="projTitle">מעבר דירה</h2>
-          <div style="opacity:.92;font-size:14px">נווה עוז, פתח תקווה → פסגת אפק ב', ראש העין</div>
+          <div style="opacity:.92;font-size:14px" id="projSub">ניהול המעבר שלכם — משימות, קניות, הובלות ותקציב</div>
         </div>
         <div class="counts">
           <div class="count gold"><b id="countKeys">—</b><span>ימים למפתח · 30/07</span></div>
@@ -351,348 +351,11 @@ const APT = {old:{lbl:"🔴 דירה ישנה — לסגור ולעזוב",cls:"
 const OLD_CATS = ["🏠 שרון (בעל הבית)","⚡ חשמל (דירה ישנה)","🔧 תיקונים","📦 אריזה"];
 const NEW_CATS = ["🏢 בירוקרטיה ושירותים","💰 כספים וביטוח","📞 תקשורת","🧹 ניקיון והכנה","🔒 ביטחון ובטיחות","🛠️ התקנות ומשימות אבא"];
 
-const CONTACTS = [
-  [`סשה (הובלות)`,`054-7255775`],[`אלדד (הדברה)`,`052-4261252`],[`ליז (פרטנר)`,`052-4861013`],
-  [`אבי סופר (מוצרי חשמל)`,`077-8010102`],[`פנדה סטייל (ריהוט)`,`050-3489899`],[`רהיטי העיר`,`073-3948726`],
-  [`תאגיד מי עין אפק`,`1-800-350-303`],[`ארנונה ראש העין`,`03-9411169`]
-];
-
-/* =================== SEED DATA =================== */
-const SEED_SHOP = [
-  [`🛋️ סלון ומבואה`,`אקדח להתזה לצינור מים`,``,``,``,`0`,`pending`,`📦 שונות`,``],
-  [`🛋️ סלון ומבואה`,`רשתות לכיורים`,``,``,``,`0`,`pending`,`📦 שונות`,``],
-  [`🛋️ סלון ומבואה`,`ארון נעליים`,``,``,``,`0`,`pending`,`🛋️ ריהוט`,``],
-  [`🛋️ סלון ומבואה`,`מגני ברקים`,`Alon computers`,`https://www.alon-computers.co.il/items/3322715?gad_source=1&gad_campaignid=17178602865&gclid=CjwKCAjw6f3RBhApEiwAMaCqWc8or_5Fefcj_l_BZgwi0REan2htXDPOIktZect_SgQ0iuQDkwN_uRoC2uoQAvD_BwE`,``,`152`,`ordered`,`🔧 אלקטרוניקה ובית חכם`,`מחיר כולל משלוח`],
-  [`🛋️ סלון ומבואה`,`שעון קיר`,`Take it`,``,``,`30`,`arrived`,`📦 שונות`,``],
-  [`🛋️ סלון ומבואה`,`מזוזות`,``,`צריך 3 חדשות, שני קלפים בטוח יש`,``,`0`,`pending`,`📦 שונות`,``],
-  [`🛋️ סלון ומבואה`,`Switcher לדוד`,`KSP`,`https://ksp.co.il/web/item/355834`,`604206`,`176.27`,`arrived`,`🔧 אלקטרוניקה ובית חכם`,``],
-  [`🛋️ סלון ומבואה`,`גלאי עשן`,``,``,``,`0`,`arrived`,`📦 שונות`,`יש במחסן אצל ההורים`],
-  [`🛋️ סלון ומבואה`,`מצלמה לעינית של הדלת`,`KSP`,``,`604206`,`380`,`arrived`,`🔧 אלקטרוניקה ובית חכם`,``],
-  [`🛋️ סלון ומבואה`,`שטיח כניסה לבית`,`מקס סטוק`,``,``,`0`,`pending`,`🪟 טקסטיל ווילונות`,``],
-  [`🛋️ סלון ומבואה`,`וילונות`,``,``,``,`1000`,`pending`,`🪟 טקסטיל ווילונות`,``],
-  [`🛋️ סלון ומבואה`,`מנורות לסלון + מטבח`,`KSP`,`https://ksp.co.il/web/item/464648`,`34044129`,`624`,`ordered`,`💡 תאורה`,``],
-  [`🛋️ סלון ומבואה`,`טלפון לבית`,`KSP`,`https://ksp.co.il/web/item/52132`,`34044129`,`146`,`ordered`,`🔧 אלקטרוניקה ובית חכם`,``],
-  [`🌿 מרפסת ומחסן`,`מתלים למחסן`,``,``,``,`0`,`pending`,`📦 שונות`,``],
-  [`🚿 אמבטיה ושירות`,`מתלה כביסה גדול`,`איקאה`,`https://www.ikea.com/il/he/p/mulig-drying-rack-in-outdoor-white-50228755/`,``,`125`,`arrived`,`🔧 אלקטרוניקה ובית חכם`,``],
-  [`🌿 מרפסת ומחסן`,`עציץ בזיליקום (מרפסת)`,``,``,``,`0`,`pending`,`📦 שונות`,``],
-  [`🛋️ סלון ומבואה`,`14 כיסאות מתקפלים`,`פנדה סטייל`,`https://www.pandastyle.co.il/product/%d7%9b%d7%9c%d7%9c%d7%99/%d7%9e%d7%91%d7%a6%d7%a2-%d7%9b%d7%99%d7%a1%d7%90%d7%95%d7%aa-%d7%9c%d7%a8%d7%95%d7%9b%d7%a9%d7%99%d7%9d-%d7%a7%d7%95%d7%a0%d7%a1%d7%95%d7%9c%d7%94-%d7%9b%d7%99%d7%a1%d7%90-%d7%a0%d7%a2/`,`07/040544`,`2100`,`ordered`,`🛋️ ריהוט`,`איסוף עצמאי בספטמבר כשיגיע`],
-  [`🍳 מטבח ופינת אוכל`,`דיספנסרים`,`Take it`,``,``,`20`,`arrived`,`🍽️ מטבח וכלים`,``],
-  [`🍳 מטבח ופינת אוכל`,`מגבות מטבח`,`איקאה`,`https://www.ikea.com/il/he/p/roedspaetta-tea-towel-white-90618564/`,``,`98`,`arrived`,`🍽️ מטבח וכלים`,``],
-  [`🍳 מטבח ופינת אוכל`,`תנור`,`אבי סופר`,`https://www.payngo.co.il/appliances/home-appliances/ovens/built-in-oven/369723.html`,`2164873`,`2200`,`ordered`,`🔌 מוצרי חשמל`,`אחרי הנחה של אבי סופר`],
-  [`🍳 מטבח ופינת אוכל`,`מקרר`,`אבי סופר`,`https://www.soferavi.co.il/%D7%9E%D7%95%D7%A6%D7%A8%D7%99%D7%9D/%d7%9e%d7%a7%d7%a8%d7%a8-%d7%9e%d7%a7%d7%a4%d7%99%d7%90-%d7%aa%d7%97%d7%aa%d7%95%d7%9f-%d7%90%d7%9c-%d7%92%d7%99-gm-859rwc-%d7%9c%d7%91%d7%9f/`,``,`5700`,`ordered`,`🔌 מוצרי חשמל`,`אחרי הנחה של אבי סופר`],
-  [`🍳 מטבח ופינת אוכל`,`מדיח`,`אבי סופר`,`https://www.payngo.co.il/appliances/home-appliances/dish-washers/brands/bosch/364053.html`,`2164873`,`3500`,`ordered`,`🔌 מוצרי חשמל`,`אחרי הנחה של אבי סופר`],
-  [`🍳 מטבח ופינת אוכל`,`אי למטבח`,`מחסני חשמל`,`https://www.payngo.co.il/319082.html`,``,`1645`,`pending`,`🔌 מוצרי חשמל`,``],
-  [`🍳 מטבח ופינת אוכל`,`2 כיסאות בר`,`Take it`,`https://www.take-it.co.il/product/%D7%9B%D7%A1%D7%90-%D7%91%D7%A8-%D7%93%D7%92%D7%9D-7227`,``,`398`,`pending`,`🛋️ ריהוט`,``],
-  [`🍳 מטבח ופינת אוכל`,`קונסולת פינת אוכל`,`פנדה סטייל`,`https://www.pandastyle.co.il/product/%d7%a7%d7%95%d7%a0%d7%a1%d7%95%d7%9c%d7%94-%d7%a0%d7%a4%d7%aa%d7%97%d7%aa-%d7%9c%d7%a4%d7%99%d7%a0%d7%aa-%d7%90%d7%95%d7%9b%d7%9c/%d7%a7%d7%95%d7%a0%d7%a1%d7%95%d7%9c%d7%94-%d7%a0%d7%a4%d7%aa%d7%97%d7%aa-%d7%9c%d7%a4%d7%99%d7%a0%d7%aa-%d7%90%d7%95%d7%9b%d7%9c-3-%d7%9e%d7%98%d7%a8-%d7%93%d7%92%d7%9d-%d7%9c%d7%95%d7%a8%d7%93-3/`,`07/040544`,`1450`,`ordered`,`🛋️ ריהוט`,`הובלה והרכבה 450 ₪`],
-  [`🍳 מטבח ופינת אוכל`,`ארון למקפיא + מיקרוגל`,`נגריה`,``,``,`2600`,`ordered`,`🛋️ ריהוט`,``],
-  [`🍳 מטבח ופינת אוכל`,`שידת טלוויזיה`,`פנדה סטייל`,`https://www.pandastyle.co.il/product/%d7%9e%d7%96%d7%a0%d7%95%d7%a0%d7%99%d7%9d/%d7%9e%d7%96%d7%a0%d7%95%d7%9f-%d7%9c%d7%a1%d7%9c%d7%95%d7%9f-%d7%93%d7%92%d7%9d-%d7%a9%d7%95%d7%95%d7%99%d7%99%d7%a5-%d7%90%d7%9c%d7%95%d7%9f-%d7%9e%d7%a9%d7%95%d7%9c%d7%91/`,`07/040544`,`1700`,`ordered`,`🔌 מוצרי חשמל`,`הובלה והרכבה 200 ₪`],
-  [`🍳 מטבח ופינת אוכל`,`לדים למטבח מתחת לארון`,``,``,``,`0`,`pending`,`💡 תאורה`,``],
-  [`🍳 מטבח ופינת אוכל`,`כורסת אירוח דגם 8710 צבע תכלת`,`Take it`,`https://www.take-it.co.il/product/%D7%9B%D7%95%D7%A8%D7%A1%D7%AA-%D7%90%D7%99%D7%A8%D7%95%D7%97-%D7%93%D7%92%D7%9D-8710-%D7%A6%D7%91%D7%A2-%D7%99%D7%A8%D7%95%D7%A7`,`1-6-2940`,`799`,`ordered`,`🛋️ ריהוט`,`700 + 100 ₪ הובלה- שולם / לאחר מעבר דירה להביא מרמי ועפרה`],
-  [`🍳 מטבח ופינת אוכל`,`4 מילויים כריות גדולות לספות`,``,``,``,`0`,`pending`,`🪟 טקסטיל ווילונות`,``],
-  [`🍳 מטבח ופינת אוכל`,`כיסויי כריות חדשות בצבעים שמתאימים לתכלת`,`שיין`,`https://il.shein.com/1PS-2PSLightBluePillowcaseWithoutPillowInsert,BohemianStyleDecorativeTexturedCoarseLinenFabric,LuxuryPillowcaseMadeOfCoarseLinenCraft,SuitableForSofa,LivingRoom,Bedroom,Floor,Bench,Car,Office,CafeAndOtherLeisureAreasDecoration,PillowcaseWithoutShedding,WithoutPilling,SuitableForAllSeasons-p-34338762-cat-1947.html?share_from=null&url_from=GM71044300045&cdn_rsite=ak&ref=www&rep=dir&ret=il`,``,`128`,`ordered`,`🪟 טקסטיל ווילונות`,``],
-  [`🍳 מטבח ופינת אוכל`,`מתקן ייבוש כלים`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,``],
-  [`🍳 מטבח ופינת אוכל`,`צלחות`,`אמזון`,``,``,`300`,`ordered`,`🍽️ מטבח וכלים`,``],
-  [`🍳 מטבח ופינת אוכל`,`סכום`,`איקאה`,`https://www.ikea.com/il/he/p/martorp-30-piece-cutlery-set-stainless-steel-30167507/`,``,`500`,`arrived`,`🍽️ מטבח וכלים`,``],
-  [`🛏️ חדר שינה`,`מיטה + שידות`,`רהיטי הסיטי`,`https://www.rcity.co.il/product/%d7%9e%d7%99%d7%98%d7%94-%d7%93%d7%92%d7%9d-%d7%a0%d7%94%d7%95%d7%a8%d7%90%d7%99-%d7%a9%d7%9e%d7%a0%d7%aa-%d7%90%d7%a8%d7%92%d7%96-%d7%9e%d7%a6%d7%a2%d7%99%d7%9d-%d7%95%d7%9e%d7%96%d7%a8%d7%9f/?shem=rimspwouoe,`,``,`2700`,`ordered`,`🛋️ ריהוט`,`450 ₪ למובילים, כולל התקנה`],
-  [`🛏️ חדר שינה`,`לדים למתחת למיטה זוגית`,`מחסני תאורה`,`https://www.lighting.co.il/75308001`,``,`150`,`arrived`,`💡 תאורה`,``],
-  [`🛏️ חדר שינה`,`מנורת תלייה`,`מחסני תאורה`,`https://www.lighting.co.il/%D7%AA%D7%90%D7%95%D7%A8%D7%AA-%D7%A4%D7%A0%D7%99%D7%9D/%D7%9E%D7%A0%D7%95%D7%A8%D7%95%D7%AA-%D7%AA%D7%9C%D7%99%D7%94/carltonreces#size=12671&color=12959`,``,`379`,`arrived`,`💡 תאורה`,``],
-  [`🛏️ חדר שינה`,`מנורות לשידות`,`אלי אקספרס`,`https://he.aliexpress.com/item/1005006293567790.html?invitationCode=WjZzZFhmL3hFSnh5VHBGZHgvclZicW0zcVMyeFBybGRsclFQNndUbXRSND0&srcSns=sns_WhatsApp&spreadType=socialShare&social_params=6000457372929&bizType=ProductDetail&spreadCode=WjZzZFhmL3hFSnh5VHBGZHgvclZicW0zcVMyeFBybGRsclFQNndUbXRSND0&aff_fcid=0c74f30ba0c54b29ac5ae0336d02ed1c-1782571659416-06592-_c3UXMwSl&tt=MG&aff_fsk=_c3UXMwSl&aff_platform=default&sk=_c3UXMwSl&aff_trace_key=0c74f30ba0c54b29ac5ae0336d02ed1c-1782571659416-06592-_c3UXMwSl&shareId=6000457372929&businessType=ProductDetail&platform=AE&terminal_id=1e571d7271924df5a1fcb4041ef0338b&afSmartRedirect=y&gatewayAdapt=glo2isr`,``,`57.16`,`ordered`,`💡 תאורה`,``],
-  [`🛏️ חדר שינה`,`ארון בגדים`,`קש. כתר`,`https://www.keter.biz/details.aspx?name=322026`,``,`2800`,`pending`,`🛋️ ריהוט`,``],
-  [`🛏️ חדר שינה`,`שידת איפור`,`סופר פארם`,`https://shop.super-pharm.co.il/home/furniture/vanity-desks/%D7%9E%D7%90%D7%A8%D7%96-%D7%A9%D7%99%D7%93%D7%AA-%D7%90%D7%99%D7%A4%D7%95%D7%A8-%D7%A2%D7%9D-%D7%9E%D7%A8%D7%90%D7%94-%D7%95%D7%AA%D7%90%D7%95%D7%A8%D7%AA-%D7%9C%D7%93-%D7%A8%D7%95%D7%97%D7%91-106-%D7%A1%D7%9E-%D7%93%D7%92%D7%9D-RSM-2063-%D7%9E%D7%91%D7%99%D7%AA-ROSSO-ITALY-%D7%9C%D7%91%D7%9F-%D7%95%D7%94%D7%93%D7%95%D7%9D-%D7%91%D7%93-%D7%99%D7%95%D7%A7%D7%A8%D7%AA%D7%99-%D7%93%D7%92%D7%9D-RSM-3014-%D7%A9%D7%9E%D7%A0%D7%AA-%D7%9E%D7%91%D7%99%D7%AA-ROSSO-ITALY/p/mp-00396572`,``,`746`,`pending`,`🛋️ ריהוט`,``],
-  [`🛏️ חדר שינה`,`טלוויזיה`,`מחסני חשמל`,`https://www.payngo.co.il/360268.html`,``,`900`,`pending`,`🔌 מוצרי חשמל`,``],
-  [`🛏️ חדר שינה`,`זרוע לטלוויזיה`,`IVORY`,`https://www.ivory.co.il/catalog.php?id=113003`,``,`49`,`pending`,`🔌 מוצרי חשמל`,``],
-  [`🛡️ ממ״ד`,`ארון בגדים`,`קש. כתר`,``,``,`1800`,`pending`,`🛋️ ריהוט`,``],
-  [`🛡️ ממ״ד`,`מנורה לממד`,`KSP`,`https://ksp.co.il/web/item/199636`,`34044129`,`152`,`ordered`,`💡 תאורה`,``],
-  [`🛡️ ממ״ד`,`מתקן מתלה ל-2 מסכי מחשב- אמא`,`אקספרס קולונע ביתי`,`https://expresshatkanot.co.il/%D7%96%D7%A8%D7%95%D7%A2-%D7%A9%D7%95%D7%9C%D7%97%D7%A0%D7%99%D7%AA-%D7%90%D7%A8%D7%92%D7%95%D7%A0%D7%95%D7%9E%D7%99%D7%AA-%D7%9C-2-%D7%9E%D7%A1%D7%9B%D7%99-%D7%9E%D7%97%D7%A9%D7%91-%D7%93%D7%92%D7%9D-F160-NB.htm?gad_source=1&gad_campaignid=22097721545&gclid=CjwKCAjw6f3RBhApEiwAMaCqWTsRjd4MTXDhwEg9dI35E9hXHS8lGMmccgAj_buIBA_c90rPAJqRhRoC19kQAvD_BwE`,`85627`,`195`,`ordered`,`🔧 אלקטרוניקה ובית חכם`,``],
-  [`🛡️ ממ״ד`,`מסך מחשב`,`ASUS`,``,``,`0`,`arrived`,`🔌 מוצרי חשמל`,``],
-  [`🌿 מרפסת ומחסן`,`ריהוט חוץ`,`ACE`,`https://www.ace.co.il/catalog/product/view/id/424204/s/6001495/?utm_source=InforuMail&utm_medium=email&utm_campaign=ace_order_email_automatic_new_04.02.25&upixel=4un360e1hfl000002h09102n0g6tpg`,`5004612805`,`677`,`ordered`,`🛋️ ריהוט`,`120 ₪ הובלה`],
-  [`🌿 מרפסת ומחסן`,`מנגל חשמלי`,`מחסני חשמל`,`https://www.payngo.co.il/home-electric-products/gas-grill/electric-grill/349914.html`,`2010764868`,`149`,`arrived`,`🔌 מוצרי חשמל`,``],
-  [`🌿 מרפסת ומחסן`,`כיסוי למנגל חשמלי- אמא`,`אלי אקספרס`,``,``,`20`,`ordered`,`🔌 מוצרי חשמל`,``],
-  [`🚿 אמבטיה ושירות`,`2 מנורות לאמבטיה`,``,``,``,`0`,`pending`,`💡 תאורה`,``],
-  [`🚿 אמבטיה ושירות`,`מנורה לחדר שירות`,``,``,``,`0`,`pending`,`💡 תאורה`,``],
-  [`🚿 אמבטיה ושירות`,`2 מוטות פינוק`,`פירזול חצי חינם`,``,``,`500`,`pending`,`🚿 אמבטיה`,``],
-  [`🚿 אמבטיה ושירות`,`2 טושי אמבטיה`,`אלי אקספרס`,``,``,`96`,`ordered`,`🚿 אמבטיה`,``],
-  [`🚿 אמבטיה ושירות`,`2 מושבי אסלה`,``,``,``,`0`,`pending`,`📦 שונות`,``],
-  [`🚿 אמבטיה ושירות`,`2 בידה`,`KSP`,`https://ksp.co.il/web/item/268096`,`604206`,`116`,`arrived`,`🚿 אמבטיה`,``],
-  [`🚿 אמבטיה ושירות`,`ארון שירות לחדר כביסה מעל מכונת כביסה`,`איקאה`,`https://www.ikea.com/il/he/p/nysjoen-cabinet-for-washing-machine-white-10496477/`,``,`495`,`arrived`,`🛋️ ריהוט`,``],
-  [`🚿 אמבטיה ושירות`,`ארון שירות לחדר כביסה מעל מייבש`,`איקאה`,`https://www.ikea.com/il/he/p/nysjoen-cabinet-for-washing-machine-white-10496477/`,``,`495`,`arrived`,`🛋️ ריהוט`,``],
-  [`🚿 אמבטיה ושירות`,`מתלה כביסה שעולה ויורד`,``,``,``,`0`,`pending`,`🔧 אלקטרוניקה ובית חכם`,``],
-  [`🍳 מטבח ופינת אוכל`,`כפות הגשה`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
-  [`🍳 מטבח ופינת אוכל`,`מתקן לייבוש כלים`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
-  [`🍳 מטבח ופינת אוכל`,`תבניות אינגליש קייק`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
-  [`🍳 מטבח ופינת אוכל`,`מפה לשולחן 3 מטר`,``,``,``,`0`,`pending`,`📦 שונות`,`לרכישה`],
-  [`🛋️ סלון ומבואה`,`מפה קטנה לשולחן קפה`,``,``,``,`0`,`pending`,`📦 שונות`,`לרכישה`],
-  [`🍳 מטבח ופינת אוכל`,`קלף לבצק`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
-  [`🍳 מטבח ופינת אוכל`,`קנקן מים גדול`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
-  [`🍳 מטבח ופינת אוכל`,`מגן להבה עם ידית מתקפלת`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
-  [`🍳 מטבח ופינת אוכל`,`מגבות מטבח עם לולאה`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
-  [`🍳 מטבח ופינת אוכל`,`פלפליה ומלחיה`,``,``,``,`0`,`pending`,`🍽️ מטבח וכלים`,`לרכישה`],
-  [`🛋️ סלון ומבואה`,`מילויים לכריות`,``,``,``,`0`,`pending`,`🪟 טקסטיל ווילונות`,`לרכישה`]
-];
-
-const SEED_INSTALL = [
-  [`הובלה ראשית`,`סשה`,`054-7255775`,`13/08`,``,`pending`,`2000`,`2000 ₪ · תשלום במועד`,`המעבר הראשי`],
-  [`ריהוט חוץ`,`ACE`,`ווצפ- 054-1510885`,`לנסות לתאם ליום חמישי`,``,`pending`,`120`,`120 ₪ · תשלום להובלה במועד הגעה`,``],
-  [`הדברה`,`אלדד`,`052-4261252`,`2026-08-02 00:00:00`,`08:30-09:00`,`coordinated`,`0`,`380 ₪ · תשלום במועד הגעה`,`אחרי ריסוס לא להיות בדירה שעתיים. שטיפה אחרי יומיים.`],
-  [`מיטה + שידות`,`רהיטי הסיטי`,`073-3948726`,``,``,`pending`,`450`,`450 ₪ · תשלום להובלה והרכבה במועד הגעה`,``],
-  [`מקרר`,`אבי סופר`,`077-8010102`,``,``,`pending`,`570`,`570 ₪ · תשלום להובלה והרכבה במועד הגעה`,``],
-  [`מדיח`,`אבי סופר`,`077-8010102`,``,``,`pending`,`0`,``,``],
-  [`תנור`,`אבי סופר`,`077-8010102`,``,``,`pending`,`0`,``,``],
-  [`פרטנר- התקנת 2 ממירים`,`פרטנר`,`052-4861013`,``,``,`pending`,`0`,``,`ליז אשת הקשר`],
-  [`פרטנר- טלפונים ניידים`,`פרטנר`,`052-4861013`,``,``,`pending`,`0`,``,`ליז אשת הקשר`],
-  [`הובלה`,`סשה`,`054-7255775`,``,``,`pending`,`0`,``,``],
-  [`כורסא מעוצבת`,`Take it`,``,``,``,`pending`,`100`,`שולם מראש · הובלה שולמה מראש`,``],
-  [`קונסולת פינת אוכל`,`פנדה סטייל`,`050-3489899`,``,``,`pending`,`450`,`450 ₪ · תשלום להובלה והרכבה במועד הגעה`,``],
-  [`שידת טלוויזיה`,`פנדה סטייל`,`050-3489899`,``,``,`pending`,`200`,`200 ₪ · תשלום להובלה והרכבה במועד הגעה`,``],
-  [`אי למטבח`,``,``,``,``,`pending`,`0`,``,``],
-  [`כיסאות לאי מטבח`,``,``,``,``,`pending`,`0`,``,``],
-  [`שידת איפור`,``,``,``,``,`pending`,`0`,``,``]
-];
-
-const SEED_TASKS = [
-  [`new`,`💰 כספים וביטוח`,`לקבוע עם אורטל מדידה של כמה דברים`,`done`,`normal`,``],
-  [`new`,`💰 כספים וביטוח`,`מציאת פנקסי צ'יקים`,`done`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`צילום מונים- גז חשמל ומים ביום קבלת מפתח`,`pending`,`urgent`,``],
-  [`old`,`📦 אריזה`,`למדוד: / מקרר  / מחסן  / ארון שירות במטבח  / ארון שירות בחדר שירות / תאורת קשת בחדר שינה- גובה חלון / רוחב לארונות אמבטיה / לספור מנורות / לבדוק אם יש מזוזות`,`done`,`normal`,``],
-  [`old`,`🏠 שרון (בעל הבית)`,`חתימה על חוזה`,`done`,`normal`,``],
-  [`new`,`🔒 ביטחון ובטיחות`,`צילום דירה בעת קבלת המפתח`,`pending`,`urgent`,``],
-  [`new`,`🧹 ניקיון והכנה`,`לקבוע ריסוס ל-02/08/2026`,`done`,`urgent`,``],
-  [`old`,`🏠 שרון (בעל הבית)`,`הודעה לשרון על עזיבה`,`done`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`לתאם הובלה עם סשה`,`progress`,`urgent`,`21/06- לתאם סופית`],
-  [`new`,`💰 כספים וביטוח`,`הכנת 12 צ'קים לשכירות ללירון ואורטל`,`done`,`normal`,``],
-  [`new`,`💰 כספים וביטוח`,`ביטוח דירה`,`progress`,`urgent`,`לדבר עם אהובה ב-28/07 ליצור פוליסה חדשה ולהפסיק את הקודמת ב-13/08/2026`],
-  [`new`,`💰 כספים וביטוח`,`העברת 18,300 ₪ ללירון ואורטל`,`done`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`מדידת מקפיא- תומר`,`progress`,`normal`,`רוחב 55 סנטימטר  / עומק 57.5 סנטימטר / גובה 82.5 סנטימטרים`],
-  [`new`,`💰 כספים וביטוח`,`הכנת 2 צ'קים חסרים`,`done`,`normal`,``],
-  [`old`,`📦 אריזה`,`לאריזה / 3 לורדים שחורים / 2 לורדים אדומים / חבילת מדבקות קטנות מאבא`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`העברה בנקאית כל חודש החל מספטמבר 2026 עד יוני 2027`,`pending`,`normal`,``],
-  [`new`,`📞 תקשורת`,`לשאול את ליז מפרטנר - האם הקו בדירה שלי פעיל ומוכן להתקנה, או שצריך קודם הפעלת תשתית?`,`pending`,`normal`,``],
-  [`old`,`🏠 שרון (בעל הבית)`,`לקחת משרון צ'קים שנותרו + צ'ק פיקדון אם יש`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`27.07.2026- לדבר עם דניאלה מגו אקטיב קרית אונו להעביר מנויים שלי ושל תומר לגו אקטיב ראש העין`,`pending`,`normal`,``],
-  [`old`,`🏠 שרון (בעל הבית)`,`לתת לשרון מפתח`,`pending`,`urgent`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`לעשות סדר בבגדי ילדים`,`pending`,`normal`,``],
-  [`old`,`🔧 תיקונים`,`תיקונים ביוסף חנני- 12-13/06`,`pending`,`normal`,``],
-  [`new`,`🔒 ביטחון ובטיחות`,`מההורים-  / פיירקסים / ארון תכשיטים / שטיח / 2 גלאי עשן / אורית! / מעמד לפן`,`pending`,`normal`,``],
-  [`old`,`📦 אריזה`,`להביא לבית סולם קטן`,`pending`,`normal`,``],
-  [`old`,`📦 אריזה`,`לסדר מחסן אצל ההורים בסופ"ש של לפני מעבר`,`pending`,`normal`,``],
-  [`new`,`🔒 ביטחון ובטיחות`,`מפתחות מההורים של הבית`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`הכנת רשימת משימות על פי חדר`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`לדבר עם אורטל- לוודא שהחשבון על שמנו פעיל מיום הכניסה ושאין נתק. לבדוק שעון חכם מול סלקום`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`19.07- שבועיים לפני מעבר לקנות כמה דברים- לעבור על רשימה ממחסני חשמל`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`גז- לברר אם יש גז מרכזי או בלונים מי הספק?`,`pending`,`normal`,``],
-  [`old`,`📦 אריזה`,`לתכנן ימי אריזה`,`done`,`normal`,``],
-  [`old`,`⚡ חשמל (דירה ישנה)`,`קריאת מונה חשמל סופית ביוסף חנני- 13/08`,`pending`,`urgent`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנה של סוויצ'ר לדוד- להזמין חשמלאי`,`pending`,`normal`,``],
-  [`old`,`📦 אריזה`,`להחליף צילנדירים לדירה + למחסן`,`pending`,`normal`,``],
-  [`new`,`🔒 ביטחון ובטיחות`,`לשכפל מפתחות`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`למדוד ארונות מטבח ואז לקנות לדים לארונות מטבח`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`לתכנן ארון בגדים`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`אחרי שהמקרר מגיע להתקשר לשירות לקוחות להזמין טכנאי שיבוא להחליף את הצד של הדלת של המקרר`,`pending`,`normal`,``],
-  [`new`,`🧹 ניקיון והכנה`,`ריסוס`,`pending`,`urgent`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הגעת הובלה`,`pending`,`urgent`,``],
-  [`new`,`🧹 ניקיון והכנה`,`לנקות פילטר במזגן`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`להרכיב סוויצ'ר`,`pending`,`normal`,``],
-  [`old`,`📦 אריזה`,`להחליף צילנדירים לדירה + מחסן- לשאול את אורטל אם רוצים מפתח חדש`,`pending`,`normal`,``],
-  [`new`,`🔒 ביטחון ובטיחות`,`לשכפל מפתחות - 6 מפתחות`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`שטיח כניסה לבית`,`pending`,`normal`,``],
-  [`new`,`📞 תקשורת`,`פרטנר- התקנת אינטרנט`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`הגעת 14 כיסאות אירוח`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת ארון לבן מאיקאה`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת תמי 4`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת ארון מקפיא + מיקרוגל`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`פירוק ארגזים`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת מנורה`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת בידה`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת מושב אסלה`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת טוש`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת מוט פינוק`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת שולחן עבודה + מסך + מדפסת`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`מתלה כביסה בחדר שירות (שעולה ויורד)`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורות- מטבח`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורות- סלון`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורות אמבטיה`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורה- חדר שינה`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`התקנת מנורה- ממ"ד`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`פירוק ארגזים- חדר שירות`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`הרכבת שידת איפור`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`סולם צהוב מסבא וסבתא ולהעביר אליהם את הסולם האפור`,`pending`,`normal`,``],
-  [`new`,`🛠️ התקנות ומשימות אבא`,`לקחת את הברז ניל עם שתי יציאות מהמחסן`,`pending`,`normal`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) חניה`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) אפליקציה של הבניין`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) לבדוק אם יש שעון חכם למונה חשמל ואז לבקש מסלקום חשמל`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום חשמל`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום ועד`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום גז`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום מים`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) תשלום ארנונה`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) שיוך סניף קופת חולים- תומר כללית`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) שיוך סניף קופת חולים- דקל מכבי`,`pending`,`low`,``],
-  [`new`,`📞 תקשורת`,`(אחרי המעבר) להתנתק מפרי טי וי`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) העברה בנקאית כל חודש החל מספטמבר 2026 עד יוני 2027`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) לברר לגבי חדר דיירים מול ועד בית אם אפשר לעשות שם הפרשת חלה`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) לעבור לסניף הבינלאומי בראש העין`,`pending`,`low`,``],
-  [`new`,`🏢 בירוקרטיה ושירותים`,`(אחרי המעבר) ויטרינה מאיקאה`,`pending`,`low`,``]
-];
-
-const SEED_AFTER = [
-  [`חניה`],
-  [`אפליקציה של הבניין`],
-  [`לבדוק אם יש שעון חכם למונה חשמל ואז לבקש מסלקום חשמל`],
-  [`תשלום חשמל`],
-  [`תשלום ועד`],
-  [`תשלום גז`],
-  [`תשלום מים`],
-  [`תשלום ארנונה`],
-  [`שיוך סניף קופת חולים- תומר כללית`],
-  [`שיוך סניף קופת חולים- דקל מכבי`],
-  [`להתנתק מפרי טי וי`],
-  [`העברה בנקאית כל חודש החל מספטמבר 2026 עד יוני 2027`],
-  [`לברר לגבי חדר דיירים מול ועד בית אם אפשר לעשות שם הפרשת חלה`],
-  [`לעבור לסניף הבינלאומי בראש העין`],
-  [`ויטרינה מאיקאה`]
-];
-
-const SEED_GROCERY = [
-  [`בסיסי`,`פסטות`],
-  [`בסיסי`,`רסק עגבניות- 4`],
-  [`בסיסי`,`שמן זית`],
-  [`בסיסי`,`שמן קנולה`],
-  [`בסיסי`,`נפוליטנה`],
-  [`בסיסי`,`3 שישיות מים`],
-  [`בסיסי`,`אורז`],
-  [`בסיסי`,`כריות`],
-  [`בסיסי`,`קטשופ`],
-  [`בסיסי`,`פיתות`],
-  [`בסיסי`,`ביצים`],
-  [`בסיסי`,`מלח שקית 1 ק"ג`],
-  [`בסיסי`,`פירורי לחם`],
-  [`בסיסי`,`אבקת מרק עוף`],
-  [`בסיסי`,`קמח לבן`],
-  [`בסיסי`,`קמח תופח`],
-  [`בסיסי`,`אבקת אפייה`],
-  [`בסיסי`,`סוכר לבן 1 ק"ג`],
-  [`בסיסי`,`נוטלה`],
-  [`בסיסי`,`לחמניות`],
-  [`בסיסי`,`פיתות ביס כוסמין`],
-  [`בסיסי`,`שמרים יבשים/טריים`],
-  [`בסיסי`,`סוכר וניל`],
-  [`בסיסי`,`אינסטנט פודינג`],
-  [`בסיסי`,`קוקה קולה`],
-  [`בסיסי`,`שוקולד חלב`],
-  [`בסיסי`,`שוקולד מריר`],
-  [`בסיסי`,`קורנפלקס אלופים`],
-  [`בסיסי`,`דוריטוס`],
-  [`בסיסי`,`במבה`],
-  [`בסיסי`,`ביסלי`],
-  [`בסיסי`,`אפרופו`],
-  [`בסיסי`,`קליק`],
-  [`בסיסי`,`אטריות דקות למרק`],
-  [`בסיסי`,`סוכר וניל`],
-  [`בסיסי`,`קקאו`],
-  [`בסיסי`,`שוקולית`],
-  [`בסיסי`,`שקדי מרק`],
-  [`בסיסי`,`פסטו`],
-  [`בסיסי`,`קצח`],
-  [`בסיסי`,`שומשום`],
-  [`בסיסי`,`נטורל פורמולה`],
-  [`בסיסי`,`חלה`],
-  [`בסיסי`,`יין לקידוש`],
-  [`בסיסי`,`תה ירוק`],
-  [`מוצרי ניקיון`,`דלי מגבונים`],
-  [`מוצרי ניקיון`,`3 חבילות נייר סופג`],
-  [`מוצרי ניקיון`,`חומר ניקוי לרצפה`],
-  [`מוצרי ניקיון`,`וינדולין למראות/חלונות`],
-  [`מוצרי ניקיון`,`AJAX לניקוי כללי`],
-  [`מוצרי ניקיון`,`2 סנו ג'אוול אבקת ניקוי ללא אקונומיקה`],
-  [`מוצרי ניקיון`,`סקוצ'ים`],
-  [`מוצרי ניקיון`,`סמרטוטים לרצפה`],
-  [`מוצרי ניקיון`,`סמרטוטים צהובים לכיור`],
-  [`מוצרי ניקיון`,`2 נוזל כלים- פרי צהוב`],
-  [`מוצרי ניקיון`,`ספוגית הפלא של סנו (הלבנה)`],
-  [`מוצרי ניקיון`,`ג'ל אורנים`],
-  [`מוצרי ניקיון`,`סנו ג'ט סודה`],
-  [`מוצרי ניקיון`,`סנו ג'ט חומץ`],
-  [`מוצרי ניקיון`,`ג'ל לניקוי אסלות`],
-  [`קטניות`,`סולת`],
-  [`קטניות`,`אורז`],
-  [`קטניות`,`עדשים ירוקות`],
-  [`קטניות`,`בורגול`],
-  [`מוצרי חלב`,`חלב`],
-  [`מוצרי חלב`,`שמנת`],
-  [`מוצרי חלב`,`קוטג'`],
-  [`מוצרי חלב`,`לורפק`],
-  [`מוצרי חלב`,`גבינה צהובה`],
-  [`מוצרי חלב`,`סימפוניה שום`],
-  [`מוצרי חלב`,`סימפוניה בצל מקורמל`],
-  [`שימורים`,`חומוס`],
-  [`שימורים`,`אפונה וגזר`],
-  [`שימורים`,`פולפה`],
-  [`שימורים`,`תירס- פרי הגליל??`],
-  [`שימורים`,`מרכזה`],
-  [`קפואים`,`מלאווח`],
-  [`קפואים`,`בורקס גבינה`],
-  [`קפואים`,`צ'יפס`],
-  [`קפואים`,`נקניקיות עוף קטנות`],
-  [`קפואים`,`אפונה עדינה`],
-  [`קפואים`,`בורקס פילו גבינה`],
-  [`ירקות`,`מלפפונים`],
-  [`ירקות`,`עגבניות`],
-  [`ירקות`,`בצל`],
-  [`ירקות`,`קישוא`],
-  [`ירקות`,`גזר`],
-  [`ירקות`,`גמבה אדומה`],
-  [`ירקות`,`גמבה ירוקה`],
-  [`ירקות`,`כרובית`],
-  [`ירקות`,`שמיר`],
-  [`ירקות`,`פטרוזיליה`],
-  [`ירקות`,`סלרי`],
-  [`ירקות`,`כרוב`],
-  [`ירקות`,`תפוח אדמה`],
-  [`ירקות`,`זוקיני`],
-  [`פירות`,`בננות`],
-  [`פירות`,`תפוחי עץ אדומים`],
-  [`בשר/עוף`,`חזה עוף`],
-  [`בשר/עוף`,`בשר טחון`],
-  [`חד פעמי`,`צלחות`],
-  [`חד פעמי`,`מזלגות`],
-  [`חד פעמי`,`סכינים`],
-  [`חד פעמי`,`כפיות`],
-  [`חד פעמי`,`כוסות לשתייה קרה`],
-  [`חד פעמי`,`כוסות לשתייה חמה`],
-  [`חד פעמי`,`כוסות לשתייה חמה- גדולות`],
-  [`חד פעמי`,`אינגליש קייק`]
-];
-
-
-const SEED_TIMELINE_WEEKS = [
-  [`שבוע 22–27 ביוני`,`קש קטר — הזמנת ארון לחדר שינה`],
-  [`שבוע 22–27 ביוני`,`פנדה סטייל — הזמנת קונסולה + יחידת טלוויזיה + כיסאות נערמים`],
-  [`שבוע 22–27 ביוני`,`פרטנר — תיאום מחדש של ההתקנה עם ליז`],
-  [`שבוע 22–27 ביוני`,`להזכיר לאמא לדבר עם סשה ולסגור שעה`],
-  [`שבוע 5–11 ביולי`,`קש קטר — אישור הזמנת הארון`],
-  [`שבוע 12–18 ביולי`,`מקס סטוק — שעון קיר, מוטות וילון, שטיח כניסה`],
-  [`שבוע 19–25 ביולי`,`19 ביולי — לעבור על רשימת מחסני חשמל ולקנות מה שחסר`],
-  [`שבוע 19–25 ביולי`,`תיאום אספקת תנור, מדיח, מקרר (אבי סופר)`],
-  [`שבוע 19–25 ביולי`,`הזמנה: ישיבה למרפסת, שידת איפור, יחידת טלוויזיה`],
-  [`שבוע 19–25 ביולי`,`סידור מחסן ההורים (יומיים)`],
-  [`שבוע 19–25 ביולי`,`לוודא שכל ההתקנות מתואמות`],
-  [`שבוע 26–27 ביולי`,`27 ביולי — העברת מנויי חדר כושר (דניאלה: Go Active)`],
-  [`שבוע 26–27 ביולי`,`28 ביולי — ביטוח דירה (אהבה)`],
-  [`שבוע 26–27 ביולי`,`30 ביולי — קבלת מפתח! צילום מונים + צילום דירה + ניקיון`],
-  [`שבוע 28 ביולי – 1 באוגוסט`,`30 ביולי — ניקיון הדירה החדשה`],
-  [`שבוע 28 ביולי – 1 באוגוסט`,`30 ביולי — פתיחת חשבון מים + רישום לארנונה`],
-  [`שבוע 28 ביולי – 1 באוגוסט`,`המשך סידור מחסן ההורים`],
-  [`שבוע 2–8 באוגוסט`,`2 באוגוסט — ריסוס מזיקים (08:30–09:00, אלדד)`],
-  [`שבוע 2–8 באוגוסט`,`ימי אריזה — הסרת מזוזות`],
-  [`שבוע 2–8 באוגוסט`,`משימות אבא: סיפונים, מושבי אסלה, מתלי מגבות, בידה, ארונות כביסה, פילטר מזגן`],
-  [`שבוע 2–8 באוגוסט`,`הכנת ארגז/מזוודה לימים הראשונים`],
-  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — יום המעבר! מעבר עם סשה`],
-  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — קריאת מונה חשמל סופית בדירה הישנה`],
-  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — מסירת מפתחות לשרון + איסוף צ׳קים`],
-  [`שבוע 9–13 באוגוסט`,`13 באוגוסט — הפעלת 2 קווי פרטנר`],
-  [`שבוע 9–13 באוגוסט`,`14–15 באוגוסט — פריקה וסידור`]
-];
-const SEED_TIMELINE = SEED_TIMELINE_WEEKS.concat(SEED_AFTER.map(a=>[`אחרי המעבר`, a[0]]));
+/* =================== EMPTY-PROJECT SCAFFOLDING =================== */
+/* New projects start empty. These category labels give a ready-made
+   structure so each user can add their own items in every tab. */
+const SHOP_CATS = ["🛋️ סלון ומבואה","🍳 מטבח ופינת אוכל","🛏️ חדר שינה","🛡️ ממ״ד","🚿 אמבטיה ושירות","🌿 מרפסת ומחסן"];
+const GROCERY_CATS = ["בסיסי","מוצרי ניקיון","קטניות","מוצרי חלב","שימורים","קפואים","ירקות","פירות","בשר/עוף","חד פעמי"];
 
 
 /* =================== STATE =================== */
@@ -771,40 +434,16 @@ async function loadProjects(){
   await enterProject();
 }
 async function createDefaultProject(){
+  // New projects start empty — the user fills them in.
   const {data,error}=await sb.rpc("create_project",{p_name:"מעבר דירה",p_move_date:MOVE_DATE});
   if(error){toast("שגיאה ביצירת פרויקט");console.error(error);return;}
   S.projectId=data; S.role="manager"; S.project={id:data,name:"מעבר דירה",move_date:MOVE_DATE};
-  await seedDefaults(); await enterProject();
-}
-const SEED_BUILD = {
-  tasks: pid => SEED_TASKS.map((t,i)=>({project_id:pid,apartment:t[0],category:t[1],title:t[2],status:t[3],priority:t[4],notes:t[5],sort_order:i})),
-  shop_items: pid => SEED_SHOP.map((s,i)=>({project_id:pid,category:s[0],item:s[1],supplier:s[2],link:s[3],order_number:s[4],price:Number(s[5])||0,status:s[6],budget_cat:s[7],notes:s[8],sort_order:i})),
-  installations: pid => SEED_INSTALL.map((n,i)=>({project_id:pid,item:n[0],supplier:n[1],phone:n[2],date:n[3],time:n[4],status:n[5],delivery:Number(n[6])||0,payment:n[7],notes:n[8],sort_order:i})),
-  timeline_items: pid => SEED_TIMELINE.map((w,i)=>({project_id:pid,week:w[0],title:w[1],done:false,sort_order:i})),
-  grocery_items: pid => SEED_GROCERY.map((g,i)=>({project_id:pid,category:g[0],name:g[1],checked:false,sort_order:i}))
-};
-async function seedDefaults(){
-  const pid=S.projectId;
-  for(const tb of Object.keys(SEED_BUILD)) await sb.from(tb).insert(SEED_BUILD[tb](pid));
-}
-// Fill any tables that are empty (e.g. a project created before a feature existed)
-async function backfillDefaults(){
-  if(!canEdit()) return false;
-  const pid=S.projectId; let did=false;
-  const map={tasks:S.tasks, shop_items:S.shop, installations:S.install, timeline_items:S.timeline, grocery_items:S.grocery};
-  for(const tb of Object.keys(map)){
-    if((map[tb]||[]).length===0){
-      const {error}=await sb.from(tb).insert(SEED_BUILD[tb](pid));
-      if(!error) did=true;
-    }
-  }
-  return did;
+  await enterProject();
 }
 async function enterProject(){
   S.project=S.project||{};
   $("projTitle").textContent=(S.project.name||"מעבר דירה");
   renderRoleBadge(); loadFromCache(); await loadData();
-  if(await backfillDefaults()) await loadData();
   subscribeRealtime();
   updateCountdowns();
 }
@@ -850,6 +489,8 @@ function updateCountdowns(){
 
 /* =================== FILTERS =================== */
 function matchSearch(t){return !S.search || (t||"").toLowerCase().includes(S.search);}
+function isFiltering(){return !!S.search || S.fStatus!=="all" || S.fPrio!=="all";}
+function emptyHint(text){return `<div class="empty"><div class="big">📝</div><div>${text}</div></div>`;}
 function taskVisible(t){
   if(S.fStatus!=="all" && t.status!==S.fStatus)return false;
   if(S.fPrio!=="all" && t.priority!==S.fPrio)return false;
@@ -911,9 +552,11 @@ function renderDashboard(){
       <div class="contact"><span style="font-size:20px">🚚</span><div><b>${Math.max(0,daysTo(MOVE_DATE))} ימים</b><small>ליום המעבר — 13/08/2026</small></div></div>
       <div class="contact"><span style="font-size:20px">🛒</span><div><b>${S.shop.length} פריטים · ${ils(b.products)}</b><small>${got} כבר אצלנו</small></div></div>
     </div></div>
-    <div class="info-card"><h4>📞 אנשי קשר</h4><div class="contacts">
-      ${CONTACTS.map(c=>`<div class="contact"><span style="font-size:18px">📱</span><div><b>${esc(c[0])}</b><a href="tel:${esc(c[1].replace(/[^0-9+]/g,''))}">${esc(c[1])}</a></div></div>`).join("")}
-    </div></div>
+    ${(()=>{
+      const cs=[...new Map(S.install.filter(i=>i.phone).map(i=>[i.phone.replace(/[^0-9+]/g,""),[i.supplier||i.item,i.phone]])).values()];
+      if(!cs.length)return "";
+      return `<div class="info-card"><h4>📞 אנשי קשר (מתוך ההובלות)</h4><div class="contacts">${cs.map(c=>`<div class="contact"><span style="font-size:18px">📱</span><div><b>${esc(c[0])}</b><a href="tel:${esc(c[1].replace(/[^0-9+]/g,""))}">${esc(c[1])}</a></div></div>`).join("")}</div></div>`;
+    })()}
     ${isManager()?`<div class="info-card"><h4>👥 חברי הפרויקט (${S.members.length})</h4>
       <p style="color:var(--muted);font-size:13.5px;margin:0 0 12px">${S.members.map(m=>esc(m.email)+(m.user_id?"":" (ממתין)")).join(" · ")}</p>
       <button class="btn secondary sm" id="dashInvite">➕ הזמנת חבר לפרויקט</button>
@@ -929,7 +572,7 @@ function renderTasks(){
   [["old",OLD_CATS],["new",NEW_CATS]].forEach(([apt,cats])=>{
     const aptTasks=S.tasks.filter(t=>t.apartment===apt);
     const aptVis=aptTasks.filter(taskVisible);
-    if(aptVis.length===0)return;
+    if(aptVis.length===0 && isFiltering())return;
     any=true;
     const adn=aptTasks.filter(t=>t.status==="done").length;
     let inner="";
@@ -937,8 +580,8 @@ function renderTasks(){
     allCats.forEach(cat=>{
       const items=aptTasks.filter(t=>t.category===cat);
       const vis=items.filter(taskVisible);
-      if(vis.length===0)return;
-      const dn=items.filter(t=>t.status==="done").length, pct=Math.round(dn/items.length*100);
+      if(vis.length===0 && isFiltering())return;
+      const dn=items.filter(t=>t.status==="done").length, pct=items.length?Math.round(dn/items.length*100):0;
       inner+=`<div class="acc open" data-acc>
         <div class="acc-head" data-toggle><span class="chev">▼</span><span class="acc-title">${esc(cat)}</span>
           <span class="acc-meta">${dn}/${items.length}</span><span class="acc-mini">${progressBar(pct)}</span></div>
@@ -969,11 +612,13 @@ function renderInstall(){
   const dn=S.install.filter(i=>i.status==="done").length;
   let html=topProgress("🚚 הובלות והתקנות","מועדי הגעה, התקנות והרכבות — עדכון כאן מתעדכן גם בתקציב",
     S.install.length?Math.round(dn/S.install.length*100):0);
-  if(vis.length===0){html+=emptyState();$("tab-install").innerHTML=html;return;}
+  if(vis.length===0 && isFiltering()){html+=emptyState();$("tab-install").innerHTML=html;return;}
+  const body = vis.length? vis.map(renderInstallRow).join("")
+    : `<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:20px">אין עדיין הובלות/התקנות — הוסיפו את הראשונה ⬇️</td></tr>`;
   html+=`<div class="acc open"><div class="acc-inner" style="padding-top:14px">
     <div class="tbl-wrap"><table class="tbl"><thead><tr>
       <th>פריט</th><th>ספק</th><th>טלפון</th><th>תאריך</th><th>שעה</th><th>סטטוס</th><th>עלות הובלה</th><th>הערות</th>${canEdit()?"<th></th>":""}
-    </tr></thead><tbody>${vis.map(renderInstallRow).join("")}</tbody></table></div>
+    </tr></thead><tbody>${body}</tbody></table></div>
     ${canEdit()?`<button class="btn secondary sm add-row" id="addInstall">➕ הוספת הובלה/התקנה</button>`:""}
   </div></div>`;
   $("tab-install").innerHTML=html;
@@ -996,15 +641,15 @@ function renderInstallRow(it){
 
 /* ---------- Shop ---------- */
 function renderShop(){
-  const cats=[...new Set(S.shop.map(s=>s.category))];
+  const cats=[...new Set([...(isFiltering()?[]:SHOP_CATS), ...S.shop.map(s=>s.category)])];
   const got=S.shop.filter(shopGot).length;
-  let html=topProgress("🛒 קניות","כל הפריטים מהאקסל לפי קטגוריה — קישורים, מחירים, מספרי הזמנה וסטטוס",
+  let html=topProgress("🛒 קניות","פריטים לרכישה לפי קטגוריה — קישורים, מחירים, מספרי הזמנה וסטטוס",
     S.shop.length?Math.round(got/S.shop.length*100):0);
   let any=false;
   cats.forEach(cat=>{
     const items=S.shop.filter(s=>s.category===cat), vis=items.filter(shopVisible);
-    if(vis.length===0)return; any=true;
-    const dn=items.filter(shopGot).length, pct=Math.round(dn/items.length*100);
+    if(vis.length===0 && isFiltering())return; any=true;
+    const dn=items.filter(shopGot).length, pct=items.length?Math.round(dn/items.length*100):0;
     const sum=items.reduce((a,s)=>a+(Number(s.price)||0),0);
     html+=`<div class="acc open" data-acc>
       <div class="acc-head" data-toggle><span class="chev">▼</span><span class="acc-title">${esc(cat)}</span>
@@ -1037,16 +682,16 @@ function renderShopRow(it){
 
 /* ---------- Grocery ---------- */
 function renderGrocery(){
-  const cats=[...new Set(S.grocery.map(g=>g.category))];
+  const cats=[...new Set([...(isFiltering()?[]:GROCERY_CATS), ...S.grocery.map(g=>g.category)])];
   const total=S.grocery.length, checked=S.grocery.filter(g=>g.checked).length;
   let html=topProgress("🥦 קניות לסופר","רשימה לפי קטגוריות — לחיצה מסמנת שנקנה", total?Math.round(checked/total*100):0);
   let any=false; html+=`<div class="gro-grid">`;
   cats.forEach(cat=>{
     const items=S.grocery.filter(g=>g.category===cat), vis=items.filter(groVisible);
-    if(vis.length===0)return; any=true;
+    if(vis.length===0 && isFiltering())return; any=true;
     const dn=items.filter(g=>g.checked).length;
-    html+=`<div class="gro-cat"><h4>${esc(cat)} <span class="c">${dn}/${items.length}</span></h4>
-      <div class="gro-list">${vis.map(g=>`<div class="gro-item ${g.checked?"on":""}" data-gro="${g.id}"><div class="box">${g.checked?"✓":""}</div><div class="nm">${esc(g.name)}</div></div>`).join("")}</div></div>`;
+    html+=`<div class="gro-cat"><h4>${esc(cat)} <span style="display:flex;gap:6px;align-items:center"><span class="c">${dn}/${items.length}</span>${canEdit()?`<button class="del-row" style="color:var(--brand);opacity:.8" data-addgro="${esc(cat)}" title="הוספת מוצר">➕</button>`:""}</span></h4>
+      <div class="gro-list">${vis.map(g=>`<div class="gro-item ${g.checked?"on":""}" data-gro="${g.id}"><div class="box">${g.checked?"✓":""}</div><div class="nm">${esc(g.name)}</div></div>`).join("")||`<div style="padding:10px 9px;color:var(--muted);font-size:13px">ריק — לחצו ➕ להוספה</div>`}</div></div>`;
   });
   html+=`</div>`; if(!any)html+=emptyState();
   $("tab-grocery").innerHTML=html;
@@ -1065,6 +710,11 @@ function budgetData(){
 function renderBudget(){
   const b=budgetData();
   const grand=b.products+b.delivTotal;
+  if(S.shop.length===0 && S.install.length===0){
+    $("tab-budget").innerHTML=`<div class="section-head"><div><h3>💰 תקציב</h3><div class="desc">מתעדכן אוטומטית לפי מחירי הקניות וההובלות</div></div></div>`+
+      emptyHint("התקציב יתמלא אוטומטית כשתוסיפו פריטים בלשונית הקניות ועלויות בלשונית ההובלות.");
+    return;
+  }
   let cards="";
   Object.keys(b.cats).sort((a,c)=>b.cats[c].total-b.cats[a].total).forEach(cat=>{
     const c=b.cats[cat]; const pct=c.total?Math.round(c.got/c.total*100):0;
@@ -1102,11 +752,13 @@ function renderBudget(){
 
 /* ---------- Timeline (vertical) ---------- */
 function tlBadge(t){
-  const map=[["מפתח","🔑 מפתח"],["ריסוס","🧹 ניקיון"],["ניקיון","🧹 ניקיון"],["מים","🏢 מוסדות"],["ארנונה","🏢 מוסדות"],
-    ["חשמל","🏢 מוסדות"],["פרטנר","📞 תקשורת"],["סשה","🚚 הובלה"],["הובלה","🚚 הובלה"],["מעבר","🚚 הובלה"],
-    ["שרון","🏠 דירה ישנה"],["צ׳ק","💰 כספים"],["ביטוח","💰 כספים"],["הזמנ","🛒 קניות"],["קש קטר","🛒 קניות"],
-    ["פנדה","🛒 קניות"],["סטוק","🛒 קניות"],["אריזה","📦 אריזה"],["מזוז","📦 אריזה"],["מחסן","📦 אריזה"],
-    ["מנוי","🏋️ פנאי"],["פריקה","📦 פריקה"],["כושר","🏋️ פנאי"]];
+  const map=[["מפתח","🔑 מפתח"],["ריסוס","🧹 ניקיון"],["ניקיון","🧹 ניקיון"],["ניקוי","🧹 ניקיון"],
+    ["מים","🏢 מוסדות"],["ארנונה","🏢 מוסדות"],["חשמל","🏢 מוסדות"],["גז","🏢 מוסדות"],
+    ["אינטרנט","📞 תקשורת"],["טלפון","📞 תקשורת"],["הובלה","🚚 הובלה"],["מעבר","🚚 הובלה"],
+    ["התקנ","🔧 התקנה"],["הרכב","🔧 התקנה"],["צ׳ק","💰 כספים"],["ביטוח","💰 כספים"],["תשלום","💰 כספים"],["העברה","💰 כספים"],
+    ["הזמנ","🛒 קניות"],["לקנות","🛒 קניות"],["קני","🛒 קניות"],
+    ["אריזה","📦 אריזה"],["מזוז","📦 אריזה"],["מחסן","📦 אריזה"],["פריקה","📦 פריקה"],
+    ["מנוי","🏋️ פנאי"],["כושר","🏋️ פנאי"]];
   for(const[k,v]of map)if(t.includes(k))return v;
   return "📌 כללי";
 }
@@ -1115,6 +767,7 @@ function renderTimeline(){
   const dn=S.timeline.filter(t=>t.done).length;
   let html=topProgress("🗓️ לוח זמנים","ציר זמן של המעבר — לחיצה על משימה מסמנת שבוצעה",
     S.timeline.length?Math.round(dn/S.timeline.length*100):0);
+  if(canEdit())html+=`<button class="btn secondary sm" id="addTimeline" style="margin-bottom:14px">➕ הוספת שלב ללוח הזמנים</button>`;
   let any=false; html+=`<div class="tl">`;
   weeks.forEach(week=>{
     const items=S.timeline.filter(t=>t.week===week), vis=items.filter(tlVisible);
@@ -1130,7 +783,7 @@ function renderTimeline(){
         </div>`).join("")}
       </div></div>`;
   });
-  html+=`</div>`; if(!any)html+=emptyState();
+  html+=`</div>`; if(!any)html+=isFiltering()?emptyState():emptyHint("עדיין אין שלבים בלוח הזמנים — הוסיפו את הראשון עם הכפתור למעלה ⬆️");
   $("tab-timeline").innerHTML=html;
 }
 
@@ -1229,10 +882,19 @@ async function addShop(cat){
 
 /* grocery */
 $("tab-grocery").addEventListener("click",async e=>{
+  const add=e.target.closest("[data-addgro]");
+  if(add){await addGrocery(add.dataset.addgro);return;}
   const row=e.target.closest("[data-gro]");if(!row)return;const g=S.grocery.find(x=>x.id===row.dataset.gro);if(!g)return;
   g.checked=!g.checked;saveCache();renderGrocery();
   const {error}=await sb.from("grocery_items").update({checked:g.checked}).eq("id",g.id);if(error){toast("שמירה נכשלה");loadData();}
 });
+async function addGrocery(category){
+  const name=prompt(`מוצר חדש בקטגוריה "${category}":`);if(!name)return;
+  const sort=Math.max(0,...S.grocery.map(g=>g.sort_order||0))+1;
+  const row={project_id:S.projectId,category,name,checked:false,sort_order:sort};
+  const {data,error}=await sb.from("grocery_items").insert(row).select().single();
+  if(error){toast("הוספה נכשלה");return;}S.grocery.push(data);saveCache();renderGrocery();
+}
 
 /* budget */
 $("tab-budget").addEventListener("click",e=>{
@@ -1242,10 +904,19 @@ $("tab-budget").addEventListener("click",e=>{
 
 /* timeline */
 $("tab-timeline").addEventListener("click",async e=>{
+  if(e.target.closest("#addTimeline")){await addTimeline();return;}
   const row=e.target.closest("[data-tl]");if(!row)return;const t=S.timeline.find(x=>x.id===row.dataset.tl);if(!t)return;
   t.done=!t.done;saveCache();renderTimeline();
   const {error}=await sb.from("timeline_items").update({done:t.done}).eq("id",t.id);if(error){toast("שמירה נכשלה");loadData();}
 });
+async function addTimeline(){
+  const week=prompt("שם השלב / השבוע (למשל: \"שבוע 1-7 ביולי\"):");if(!week)return;
+  const title=prompt("תיאור המשימה:");if(!title)return;
+  const sort=Math.max(0,...S.timeline.map(t=>t.sort_order||0))+1;
+  const row={project_id:S.projectId,week,title,done:false,sort_order:sort};
+  const {data,error}=await sb.from("timeline_items").insert(row).select().single();
+  if(error){toast("הוספה נכשלה");return;}S.timeline.push(data);saveCache();renderTimeline();
+}
 
 /* =================== MEMBERS =================== */
 $("membersBtn").onclick=()=>{renderMembers();$("memberModal").classList.add("show");};
