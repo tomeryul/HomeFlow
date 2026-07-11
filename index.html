@@ -9,325 +9,145 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#f4f6fb; --card:#ffffff; --ink:#1f2937; --muted:#6b7280;
-    --line:#e5e7eb; --brand:#4f46e5; --brand-2:#6366f1; --brand-soft:#eef2ff;
-    --green:#16a34a; --green-soft:#dcfce7; --blue:#2563eb; --blue-soft:#dbeafe;
-    --amber:#d97706; --amber-soft:#fef3c7; --gray:#9ca3af; --gray-soft:#f3f4f6;
-    --red:#dc2626; --red-soft:#fee2e2; --gold:#f4c542; --teal:#0d9488;
-    --shadow:0 6px 24px rgba(17,24,39,.08); --radius:16px;
+    --bg:#f4f6fb; --card:#fff; --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
+    --brand:#4f46e5; --brand-2:#6366f1; --brand-soft:#eef2ff;
+    --green:#16a34a; --green-soft:#dcfce7; --amber:#d97706; --amber-soft:#fef3c7;
+    --gray-soft:#f3f4f6; --red:#dc2626; --red-soft:#fee2e2; --gold:#f4c542;
+    --shadow:0 6px 24px rgba(17,24,39,.08); --radius:15px;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{font-family:'Rubik',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
-  button{font-family:inherit;cursor:pointer}
-  input,select,textarea{font-family:inherit}
-  a{color:var(--brand)}
-  .hidden{display:none !important}
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{font-family:'Rubik',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer} input,select,textarea{font-family:inherit}
+  a{color:var(--brand)} .hidden{display:none!important}
 
-  /* ===== Auth ===== */
-  .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(1200px 600px at 80% -10%,#e0e7ff 0%,transparent 60%),var(--bg)}
-  .auth-card{background:var(--card);width:100%;max-width:420px;border-radius:20px;box-shadow:var(--shadow);padding:34px 30px;border:1px solid var(--line)}
-  .auth-logo{font-size:40px;text-align:center}
-  .auth-card h1{font-size:23px;margin:6px 0 2px;text-align:center}
-  .auth-card p.sub{color:var(--muted);text-align:center;margin:0 0 22px;font-size:14px}
-  .field{margin-bottom:14px}
-  .field label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:#374151}
-  .field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:#fafafa;transition:border .15s,box-shadow .15s}
-  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft);background:#fff}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;padding:12px 18px;font-size:15px;font-weight:600;background:var(--brand);color:#fff;width:100%;transition:transform .05s,background .15s}
-  .btn:hover{background:var(--brand-2)}
-  .btn:active{transform:translateY(1px)}
-  .btn.secondary{background:var(--brand-soft);color:var(--brand)}
-  .btn.secondary:hover{background:#e0e7ff}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:11px;padding:11px 17px;font-size:15px;font-weight:600;background:var(--brand);color:#fff;transition:.12s}
+  .btn:hover{background:var(--brand-2)} .btn:active{transform:translateY(1px)}
+  .btn.sm{padding:8px 12px;font-size:13px} .btn.secondary{background:var(--brand-soft);color:var(--brand)} .btn.secondary:hover{background:#e0e7ff}
   .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
-  .btn.danger{background:var(--red)}
-  .btn.sm{padding:8px 12px;font-size:13px;width:auto}
-  .switch-line{text-align:center;margin-top:16px;font-size:14px;color:var(--muted)}
-  .switch-line a{cursor:pointer;font-weight:600}
-  .drop{border:2px dashed #c7d2fe;background:#fafbff;border-radius:16px;padding:26px 18px;margin-top:8px;transition:.15s}
-  .drop:hover{border-color:var(--brand);background:var(--brand-soft)}
-  .msg{margin-top:14px;padding:11px 13px;border-radius:10px;font-size:13.5px;display:none}
-  .msg.err{background:var(--red-soft);color:#991b1b;display:block}
-  .msg.ok{background:var(--green-soft);color:#166534;display:block}
-  .msg.info{background:var(--blue-soft);color:#1e40af;display:block}
 
-  /* ===== Shell ===== */
+  /* landing */
+  .land{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(1200px 600px at 80% -10%,#e0e7ff 0,transparent 60%),var(--bg)}
+  .land-card{background:var(--card);width:100%;max-width:540px;border-radius:22px;box-shadow:var(--shadow);padding:34px 30px;text-align:center;border:1px solid var(--line)}
+  .land-card .logo{font-size:42px}
+  .land-card h1{font-size:24px;margin:8px 0 4px}
+  .land-card p{color:var(--muted);font-size:14px;margin:0 auto 18px;max-width:420px}
+  .drop{border:2px dashed #c7d2fe;background:#fafbff;border-radius:16px;padding:28px 18px;transition:.15s}
+  .drop.over,.drop:hover{border-color:var(--brand);background:var(--brand-soft)}
+
+  /* shell */
   .app{display:none}
-  .topbar{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;padding:18px 20px 0}
-  .topbar-inner{max-width:1180px;margin:0 auto}
-  .topbar-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  .brand{font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px}
-  .topbar .spacer{flex:1}
-  .who{font-size:13px;opacity:.95;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .pill{background:rgba(255,255,255,.18);padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:600}
-  .icon-btn{background:rgba(255,255,255,.16);border:none;color:#fff;border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600;display:inline-flex;gap:6px;align-items:center}
+  .topbar{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;padding:16px 20px 0}
+  .tin{max-width:1240px;margin:0 auto}
+  .trow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .brand{font-size:21px;font-weight:800} .sp{flex:1}
+  .icon-btn{background:rgba(255,255,255,.16);border:none;color:#fff;border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600}
   .icon-btn:hover{background:rgba(255,255,255,.28)}
-  .hero{max-width:1180px;margin:14px auto 0;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .hero h2{margin:0;font-size:26px;font-weight:800}
-  .counts{display:flex;gap:10px}
-  .count{text-align:center;background:rgba(255,255,255,.15);border-radius:14px;padding:9px 16px;min-width:104px}
-  .count b{display:block;font-size:26px;line-height:1.1}
-  .count span{font-size:11.5px;opacity:.92}
-  .count.gold{background:rgba(244,197,66,.28);box-shadow:inset 0 0 0 1.5px rgba(244,197,66,.7)}
-  .count.gold b{color:#fde68a}
-  .tabs{max-width:1180px;margin:16px auto 0;display:flex;gap:6px;overflow-x:auto}
-  .tab{background:transparent;border:none;color:rgba(255,255,255,.8);padding:12px 16px;font-size:14.5px;font-weight:600;border-radius:12px 12px 0 0;white-space:nowrap}
-  .tab.active{background:var(--bg);color:var(--brand)}
-  .tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.12)}
-  .container{max-width:1180px;margin:0 auto;padding:20px}
+  .hero{max-width:1240px;margin:12px auto 0;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .hero h2{margin:0;font-size:24px;font-weight:800}
+  .counts{display:flex;gap:9px}
+  .count{text-align:center;background:rgba(255,255,255,.15);border-radius:13px;padding:8px 15px;min-width:98px}
+  .count b{display:block;font-size:24px;line-height:1.1} .count span{font-size:11px;opacity:.92}
+  .count.gold{background:rgba(244,197,66,.28);box-shadow:inset 0 0 0 1.5px rgba(244,197,66,.7)} .count.gold b{color:#fde68a}
+  .tabs{max-width:1240px;margin:14px auto 0;display:flex;gap:5px;overflow-x:auto;padding-bottom:1px}
+  .tab{background:transparent;border:none;color:rgba(255,255,255,.82);padding:11px 15px;font-size:14px;font-weight:600;border-radius:11px 11px 0 0;white-space:nowrap}
+  .tab.active{background:var(--bg);color:var(--brand)} .tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.12)}
+  .tab.addtab{color:#fde68a}
+  .wrap{max-width:1240px;margin:0 auto;padding:18px 20px}
 
-  /* ===== Toolbar ===== */
-  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
   .search{flex:1;min-width:200px;position:relative}
-  .search input{width:100%;padding:11px 40px 11px 14px;border:1px solid var(--line);border-radius:12px;font-size:14px;background:#fff}
+  .search input{width:100%;padding:11px 40px 11px 14px;border:1px solid var(--line);border-radius:11px;font-size:14px;background:#fff}
   .search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
-  .search::before{content:"🔍";position:absolute;right:13px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.6}
-  .toolbar select{padding:10px 12px;border:1px solid var(--line);border-radius:12px;font-size:13.5px;background:#fff}
+  .search::before{content:"🔍";position:absolute;right:13px;top:50%;transform:translateY(-50%);opacity:.6;font-size:14px}
 
-  .section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 14px;flex-wrap:wrap}
-  .section-head h3{margin:0;font-size:20px;font-weight:700}
-  .section-head .desc{color:var(--muted);font-size:13.5px}
-  .progress-top{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:18px;box-shadow:var(--shadow)}
-  .progress-top .lbl{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:9px}
-  .bar{height:10px;background:var(--gray-soft);border-radius:999px;overflow:hidden}
-  .bar>i{display:block;height:100%;background:linear-gradient(90deg,#4f46e5,#22c55e);border-radius:999px;transition:width .5s}
+  .sheet-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .sheet-name{font-size:20px;font-weight:800;border:1px solid transparent;border-radius:9px;padding:4px 8px;background:transparent;color:var(--ink);min-width:180px}
+  .sheet-name:hover{border-color:var(--line)} .sheet-name:focus{outline:none;border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px var(--brand-soft)}
+  .sheet-meta{color:var(--muted);font-size:13px} .sheet-actions{margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap}
 
-  /* dashboard */
-  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-  @media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:480px){.grid{grid-template-columns:1fr}}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
-  .stat .ico{font-size:26px}
-  .stat .num{font-size:28px;font-weight:800;margin-top:6px}
-  .stat .cap{color:var(--muted);font-size:13px;margin-top:2px}
-  .stat .mini{height:7px;background:var(--gray-soft);border-radius:999px;margin-top:12px;overflow:hidden}
-  .stat .mini>i{display:block;height:100%;border-radius:999px}
-  .info-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-top:18px}
-  .info-card h4{margin:0 0 12px;font-size:16px}
-  .contacts{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-  .contact{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fafafe;border:1px solid var(--line);border-radius:12px;font-size:13.5px}
-  .contact b{display:block}.contact a{font-weight:600;text-decoration:none}
+  .tbl-wrap{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow)}
+  table.grid{border-collapse:separate;border-spacing:0;width:100%;font-size:13.5px}
+  table.grid th,table.grid td{border-bottom:1px solid var(--line);border-inline-start:1px solid var(--line);padding:0;vertical-align:top}
+  table.grid th:first-child,table.grid td:first-child{border-inline-start:none}
+  table.grid thead th{position:sticky;top:0;z-index:2;background:#f8f9ff}
+  .hcell{width:100%;min-width:120px;border:none;background:transparent;font-weight:700;font-size:12.5px;color:#374151;padding:9px 10px}
+  .hcell:focus{outline:2px solid var(--brand);outline-offset:-2px;background:#fff}
+  .colbar{display:flex;align-items:center}
+  .delcol{background:none;border:none;color:var(--muted);font-size:14px;padding:0 6px;opacity:.5}.delcol:hover{opacity:1;color:var(--red)}
+  .cell{width:100%;min-width:120px;border:none;background:transparent;padding:8px 10px;font-size:13.5px;color:var(--ink);resize:none;line-height:1.45;display:block}
+  .cell:focus{outline:2px solid var(--brand);outline-offset:-2px;background:#fff}
+  td.st .cell.v-done{background:var(--green-soft);color:#166534;font-weight:600}
+  td.st .cell.v-pending{background:var(--gray-soft);color:#6b7280}
+  td.st .cell.v-progress{background:var(--amber-soft);color:#92400e;font-weight:600}
+  tr:hover td{background:#fcfcff}
+  .rowact{width:36px;text-align:center}
+  .delrow{background:none;border:none;color:var(--red);opacity:.5;font-size:14px;padding:6px}.delrow:hover{opacity:1}
+  .addcol-th{width:46px;text-align:center}
+  .addcol{background:none;border:none;color:var(--brand);font-size:18px;font-weight:700;padding:4px 8px}
+  .bar-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 
-  /* accordion */
-  .acc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
-  .acc-head{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer;user-select:none}
-  .acc-head:hover{background:#fafafe}
-  .acc-title{font-size:16px;font-weight:700;flex:1;display:flex;align-items:center;gap:9px}
-  .acc-meta{font-size:12.5px;color:var(--muted);font-weight:600}
-  .chev{transition:transform .25s;font-size:13px;color:var(--muted)}
-  .acc.open .chev{transform:rotate(-180deg)}
-  .acc-mini{width:90px}.acc-mini .bar{height:8px}
-  .acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
-  .acc.open .acc-body{max-height:8000px}
-  .acc-inner{padding:4px 18px 18px}
+  /* overview */
+  .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+  .ocard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;cursor:pointer;transition:.12s}
+  .ocard:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(17,24,39,.12)}
+  .ocard h4{margin:0 0 4px;font-size:15.5px} .ocard .m{color:var(--muted);font-size:12.5px}
+  .bar{height:8px;background:var(--gray-soft);border-radius:99px;overflow:hidden;margin-top:11px}
+  .bar>i{display:block;height:100%;background:linear-gradient(90deg,#4f46e5,#22c55e);border-radius:99px}
+  .info-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-top:16px}
+  .info-card h4{margin:0 0 10px;font-size:15px}
+  .empty{text-align:center;color:var(--muted);padding:46px 20px}.empty .big{font-size:40px}
 
-  /* tasks old/new */
-  .apt{border-radius:var(--radius);padding:4px 0 2px;margin-bottom:22px}
-  .apt-banner{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;padding:13px 18px;border-radius:14px;margin-bottom:14px;color:#fff}
-  .apt-old .apt-banner{background:linear-gradient(135deg,#ef4444,#dc2626)}
-  .apt-new .apt-banner{background:linear-gradient(135deg,#22c55e,#16a34a)}
-  .apt-banner .cnt{margin-inline-start:auto;background:rgba(255,255,255,.25);padding:3px 11px;border-radius:999px;font-size:13px}
-  .apt-old .acc{border-inline-start:4px solid #ef4444}
-  .apt-new .acc{border-inline-start:4px solid #22c55e}
-  .task{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
-  .task:first-child{border-top:none}
-  .task .body{flex:1;min-width:0}
-  .task .ttl{font-weight:500;font-size:14.5px}
-  .task.done .ttl{text-decoration:line-through;color:var(--muted)}
-  .task .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
-  .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  .seg button{background:#fff;border:none;padding:6px 10px;font-size:12.5px;color:var(--muted);border-inline-start:1px solid var(--line)}
-  .seg button:first-child{border-inline-start:none}
-  .seg button.on{color:#fff}
-  .seg button.on.s-done{background:var(--green)}.seg button.on.s-progress{background:var(--blue)}.seg button.on.s-pending{background:var(--amber)}
-  .chip{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px}
-  .chip.p-urgent{background:var(--red-soft);color:#b91c1c}.chip.p-normal{background:var(--amber-soft);color:#92400e}.chip.p-low{background:var(--green-soft);color:#166534}
-  select.prio{border:1px solid var(--line);border-radius:8px;padding:5px 8px;font-size:12px;background:#fff}
-  .note-btn{background:none;border:none;font-size:15px;position:relative}
-  .note-btn .tip{position:absolute;bottom:130%;inset-inline-end:0;background:#1f2937;color:#fff;padding:8px 11px;border-radius:10px;font-size:12px;font-weight:400;width:230px;text-align:start;box-shadow:var(--shadow);display:none;z-index:30;line-height:1.4}
-  .note-btn:hover .tip{display:block}
-  .note-input{margin-top:8px;width:100%;border:1px dashed var(--line);border-radius:10px;padding:8px 10px;font-size:13px;background:#fafafe;resize:vertical;min-height:0;height:36px}
-
-  /* tables (shop / install) */
-  .tbl-wrap{overflow-x:auto;margin-top:6px}
-  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:680px}
-  table.tbl th{text-align:start;font-size:12px;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap}
-  table.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
-  table.tbl tr:hover td{background:#fafafe}
-  .item-name{font-weight:600;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-  .link-ic{margin-inline-start:4px;text-decoration:none;font-size:13px}
-  .ord{margin-inline-start:4px;font-size:10.5px;color:var(--muted);background:var(--gray-soft);padding:1px 6px;border-radius:6px;white-space:nowrap}
-  .price{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
-  .st-select{border:1px solid var(--line);border-radius:9px;padding:6px 8px;font-size:12.5px;background:#fff;font-weight:600;min-width:104px}
-  .st-select.v-done,.st-select.v-arrived{color:var(--green);border-color:#bbf7d0;background:var(--green-soft)}
-  .st-select.v-transit,.st-select.v-ordered{color:var(--blue);border-color:#bfdbfe;background:var(--blue-soft)}
-  .st-select.v-coordinated{color:var(--teal);border-color:#99f6e4;background:#ccfbf1}
-  .st-select.v-pending{color:var(--amber);border-color:#fde68a;background:var(--amber-soft)}
-  .mini-input{border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:12.5px;background:#fff;min-width:78px}
-  .del-row{background:none;border:none;color:var(--red);font-size:15px;opacity:.55}.del-row:hover{opacity:1}
-  .add-row{margin-top:12px}
-
-  /* budget */
-  .bud-hero{background:linear-gradient(135deg,#111827,#1f2937);color:#fff;border-radius:18px;padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
-  .bud-hero .tot b{font-size:34px;font-weight:800}
-  .bud-hero .tot span{opacity:.7;font-size:13px;display:block}
-  .bud-split{display:flex;gap:22px;flex-wrap:wrap}
-  .bud-split div b{font-size:20px;font-weight:700;display:block}
-  .bud-split div span{opacity:.7;font-size:12.5px}
-  .bud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  @media(max-width:820px){.bud-grid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:520px){.bud-grid{grid-template-columns:1fr}}
-  .bud-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;cursor:pointer;transition:.15s}
-  .bud-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(17,24,39,.12)}
-  .bud-card .ttl{font-size:14.5px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
-  .bud-card .amt{font-size:22px;font-weight:800;margin:8px 0 4px}
-  .bud-card .sub{font-size:12px;color:var(--muted)}
-  .bud-card .bar{margin-top:11px;height:8px}
-  .bud-detail{margin-top:11px;border-top:1px dashed var(--line);padding-top:10px;display:none}
-  .bud-card.open .bud-detail{display:block}
-  .bud-line{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 0;gap:8px}
-  .bud-line .nm{color:#374151}.bud-line .pr{font-weight:600;white-space:nowrap}
-
-  /* grocery */
-  .gro-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;align-items:start}
-  .gro-cat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-  .gro-cat h4{margin:0;padding:13px 16px;font-size:15px;background:var(--brand-soft);color:var(--brand);display:flex;justify-content:space-between;align-items:center}
-  .gro-cat h4 .c{font-size:12px;background:#fff;border-radius:999px;padding:2px 9px}
-  .gro-list{padding:6px 8px}
-  .gro-item{display:flex;align-items:center;gap:10px;padding:8px 9px;border-radius:9px;cursor:pointer;font-size:14px}
-  .gro-item:hover{background:#fafafe}
-  .gro-item .box{width:20px;height:20px;border-radius:6px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex-shrink:0;transition:.15s}
-  .gro-item.on .box{background:var(--green);border-color:var(--green)}
-  .gro-item.on .nm{text-decoration:line-through;color:var(--muted)}
-
-  /* timeline vertical */
-  .tl{position:relative;padding-inline-start:8px}
-  .tl-week{position:relative;padding-inline-start:34px;padding-bottom:8px;margin-bottom:10px}
-  .tl-week::before{content:"";position:absolute;inset-inline-start:9px;top:26px;bottom:-10px;width:2px;background:var(--line)}
-  .tl-week:last-child::before{display:none}
-  .tl-node{position:absolute;inset-inline-start:0;top:3px;width:20px;height:20px;border-radius:50%;border:3px solid var(--brand);background:#fff;z-index:1}
-  .tl-node.full{background:var(--green);border-color:var(--green)}
-  .tl-node.part{background:var(--amber);border-color:var(--amber)}
-  .tl-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:13px 16px}
-  .tl-card h4{margin:0 0 4px;font-size:15.5px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-  .tl-card h4 .m{font-size:12px;color:var(--muted);font-weight:600}
-  .tl-task{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
-  .tl-task:first-of-type{border-top:none}
-  .tl-check{width:21px;height:21px;border-radius:7px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex-shrink:0;margin-top:1px;transition:.15s}
-  .tl-task.done .tl-check{background:var(--green);border-color:var(--green)}
-  .tl-task .tl-ttl{font-size:14px;flex:1}
-  .tl-task.done .tl-ttl{text-decoration:line-through;color:var(--muted)}
-  .tl-badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--brand-soft);color:var(--brand);white-space:nowrap;margin-top:1px}
-
-  /* modal */
-  .modal-bg{position:fixed;inset:0;background:rgba(17,24,39,.5);display:none;align-items:center;justify-content:center;padding:18px;z-index:60}
-  .modal-bg.show{display:flex}
-  .modal{background:#fff;border-radius:18px;max-width:540px;width:100%;max-height:90vh;overflow:auto;box-shadow:var(--shadow)}
-  .modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}
-  .modal-head h3{margin:0;font-size:18px}
-  .modal-body{padding:20px}
-  .x{background:none;border:none;font-size:22px;color:var(--muted);line-height:1}
-  .mem{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
-  .mem:first-child{border-top:none}
-  .mem .av{width:34px;height:34px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700}
-  .mem .info{flex:1;min-width:0}.mem .info small{color:var(--muted)}
-  .role-tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
-  .role-manager{background:#ede9fe;color:#6d28d9}.role-full{background:var(--blue-soft);color:#1d4ed8}.role-limited{background:var(--gray-soft);color:#4b5563}
-  .pending-tag{font-size:10.5px;color:var(--amber);font-weight:600}
-  .add-mem{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-  .add-mem input{flex:1;min-width:140px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px}
-  .add-mem select{padding:10px;border:1px solid var(--line);border-radius:10px}
-
-  .empty{text-align:center;color:var(--muted);padding:50px 20px}.empty .big{font-size:42px}
   .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:#1f2937;color:#fff;padding:12px 20px;border-radius:12px;font-size:14px;box-shadow:var(--shadow);opacity:0;transition:.3s;z-index:80}
   .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-  .loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:90;flex-direction:column;gap:14px}
-  .spinner{width:42px;height:42px;border:4px solid var(--brand-soft);border-top-color:var(--brand);border-radius:50%;animation:spin 1s linear infinite}
+  .loading{position:fixed;inset:0;background:rgba(244,246,251,.85);display:flex;align-items:center;justify-content:center;z-index:90;flex-direction:column;gap:14px}
+  .spinner{width:40px;height:40px;border:4px solid var(--brand-soft);border-top-color:var(--brand);border-radius:50%;animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<div class="loading" id="loading"><div class="spinner"></div><div style="color:var(--muted);font-size:14px">טוען…</div></div>
-
+<div class="loading hidden" id="loading"><div class="spinner"></div><div style="color:var(--muted);font-size:14px">מעבד…</div></div>
 <input type="file" id="fileInput" accept=".xlsx,.pptx" multiple style="display:none" />
 
-<!-- IMPORT LANDING -->
-<div class="auth-wrap hidden" id="importView">
-  <div class="auth-card" style="max-width:520px;text-align:center">
-    <div class="auth-logo">🏠</div>
+<!-- LANDING -->
+<div class="land" id="landing">
+  <div class="land-card">
+    <div class="logo">🏠</div>
     <h1>מעבר דירה — HomeFlow</h1>
-    <p class="sub">התחילו כל ישיבה בייבוא הקבצים שלכם. עובדים בנוחות — ובסוף מייצאים חזרה ל‑Excel.</p>
+    <p>התחילו כל ישיבה בייבוא הקבצים. עורכים בנוחות — ובסוף מייצאים חזרה לאותו קובץ Excel, עם אותן העמודות והערכים.</p>
     <div class="drop" id="dropZone">
       <div style="font-size:34px">📥</div>
-      <div style="font-weight:700;margin-top:6px">גררו לכאן קובץ Excel והלו״ז (PowerPoint)</div>
+      <div style="font-weight:700;margin-top:6px">גררו לכאן את קובץ ה‑Excel והלו״ז (PowerPoint)</div>
       <div style="color:var(--muted);font-size:13px;margin-top:4px">או לחצו לבחירה — אפשר לבחור את שני הקבצים יחד (.xlsx ו‑.pptx)</div>
-      <button class="btn" id="importBtnLanding" style="margin-top:16px">בחירת קבצים לייבוא</button>
+      <button class="btn" id="pickLanding" style="margin-top:16px">בחירת קבצים לייבוא</button>
     </div>
-    <p style="color:var(--muted);font-size:12.5px;margin-top:16px">אין צורך בהתחברות. הנתונים נשמרים רק בדפדפן שלכם עד לייצוא. 🔒</p>
+    <p style="font-size:12.5px;margin-top:16px">אין התחברות ואין מסד נתונים. הנתונים נשמרים רק בדפדפן שלכם עד לייצוא. 🔒</p>
   </div>
 </div>
 
 <!-- APP -->
 <div class="app" id="app">
   <div class="topbar">
-    <div class="topbar-inner">
-      <div class="topbar-row">
-        <div class="brand">🏠 HomeFlow</div>
-        <div class="spacer"></div>
-        <div class="who">
-          <button class="icon-btn" id="importBtn">📥 ייבוא</button>
-          <button class="icon-btn" id="exportBtn">📤 ייצוא ל‑Excel</button>
-          <button class="icon-btn" id="clearBtn">🗑 ניקוי</button>
-        </div>
+    <div class="tin">
+      <div class="trow">
+        <div class="brand">🏠 HomeFlow</div><div class="sp"></div>
+        <button class="icon-btn" id="importBtn">📥 ייבוא</button>
+        <button class="icon-btn" id="exportBtn">📤 ייצוא ל‑Excel</button>
+        <button class="icon-btn" id="clearBtn">🗑 ניקוי</button>
       </div>
       <div class="hero">
-        <div>
-          <h2 id="projTitle">מעבר דירה</h2>
-          <div style="opacity:.92;font-size:14px" id="projSub">ניהול המעבר שלכם — משימות, קניות, הובלות ותקציב</div>
-        </div>
+        <div><h2>מעבר דירה</h2><div style="opacity:.92;font-size:13.5px">עריכה מודולרית — עמוד לכל גיליון, נאמן לקובץ</div></div>
         <div class="counts">
-          <div class="count gold"><b id="countKeys">—</b><span>ימים למפתח · 30/07</span></div>
-          <div class="count"><b id="countMove">—</b><span>ימים למעבר · 13/08</span></div>
+          <div class="count gold"><b id="ckKeys">—</b><span>ימים למפתח · 30/07</span></div>
+          <div class="count"><b id="ckMove">—</b><span>ימים למעבר · 13/08</span></div>
         </div>
       </div>
-      <div class="tabs" id="tabs">
-        <button class="tab active" data-tab="dashboard">📊 לוח בקרה</button>
-        <button class="tab" data-tab="tasks">📋 משימות</button>
-        <button class="tab" data-tab="install">🚚 הובלות והתקנות</button>
-        <button class="tab" data-tab="shop">🛒 קניות</button>
-        <button class="tab" data-tab="grocery">🥦 קניות לסופר</button>
-        <button class="tab" data-tab="budget">💰 תקציב</button>
-        <button class="tab" data-tab="boxes">📦 ארגזים</button>
-        <button class="tab" data-tab="timeline">🗓️ לוח זמנים</button>
-      </div>
+      <div class="tabs" id="tabs"></div>
     </div>
   </div>
-
-  <div class="container">
-    <div class="toolbar" id="toolbar">
-      <div class="search"><input type="text" id="searchInput" placeholder="חיפוש חופשי בכל הלשוניות…" /></div>
-      <select id="statusFilter">
-        <option value="all">כל הסטטוסים</option>
-        <option value="done">✅ הושלם</option>
-        <option value="progress">🔄 בתהליך</option>
-        <option value="pending">⏳ ממתין</option>
-      </select>
-      <select id="priorityFilter">
-        <option value="all">כל העדיפויות</option>
-        <option value="urgent">🔴 דחוף</option>
-        <option value="normal">🟡 רגיל</option>
-        <option value="low">🟢 נמוך</option>
-      </select>
-    </div>
-    <div id="tab-dashboard"></div>
-    <div id="tab-tasks" class="hidden"></div>
-    <div id="tab-install" class="hidden"></div>
-    <div id="tab-shop" class="hidden"></div>
-    <div id="tab-grocery" class="hidden"></div>
-    <div id="tab-budget" class="hidden"></div>
-    <div id="tab-boxes" class="hidden"></div>
-    <div id="tab-timeline" class="hidden"></div>
+  <div class="wrap">
+    <div class="toolbar"><div class="search"><input type="text" id="search" placeholder="חיפוש בגיליון הנוכחי…" /></div></div>
+    <div id="view"></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -335,863 +155,191 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script>
-/* ============================================================
-   HomeFlow import/export pipeline — library-agnostic core.
-   Works on `sheets` = { sheetName: rows[][] } (array of rows, each row an array of string cells).
-   Runs in both Node (module.exports) and the browser (window.PIPE).
-   ============================================================ */
-(function(root){
-"use strict";
-const S=v=>v==null?"":String(v).trim();
-const numOf=s=>{const m=S(s).replace(/,/g,"").match(/\d+(\.\d+)?/);return m?parseFloat(m[0]):0;};
-const isHeaderRow=(r)=>S(r[0])&&!S(r[1])&&!S(r[2])&&!S(r[3])&&!S(r[4]); // only first cell filled
-
-/* ---------- status helpers ---------- */
-function shopStatus(t){t=S(t);
-  if(/אצל ההורים|אצלנו|אצל רמי/.test(t))return"arrived";
-  if(/הוזמן|שולם|בטיפול|יגיע|נקנה בהמשך|ארלה/.test(t))return"ordered";
-  return"pending";}
-function taskStatus(t){t=S(t);
-  if(t==="בוצע"||t==="V"||t==="בביצוע")return"done";
-  if(!t||t==="לא בוצע")return"pending";
-  if(/תואם/.test(t))return"progress";
-  return"progress";}
-function instStatus(done,date){ if(S(done)==="V")return"done"; if(S(date))return"coordinated"; return"pending"; }
-const budgetCat=n=>{n=S(n);
-  if(/תנור|מקרר|מדיח|טלוויז|מנגל|מסך מחשב|אי למטבח|הליכון/.test(n))return"🔌 מוצרי חשמל";
-  if(/מנורה|מנורות|מנורת|לדים|תאור/.test(n))return"💡 תאורה";
-  if(/וילון|כרית|מילוי|כיסוי|שטיח|מצע/.test(n))return"🪟 טקסטיל ווילונות";
-  if(/בידה|טוש|מושב אסלה|מוט|מקלחת|אמבט/.test(n))return"🚿 אמבטיה";
-  if(/מצלמ|מגני ברק|טלפון לבית|זרוע|מתקן מתלה|switcher|סוויצ/i.test(n))return"🔧 אלקטרוניקה ובית חכם";
-  if(/ארון|מיטה|שיד|כורס|קונסול|מזנון|שולחן|כיסא|ריהוט|ויטרינה|מקפיא/.test(n))return"🛋️ ריהוט";
-  if(/צלחות|סכום|דיספנסר|מגבות|ייבוש כלים|כפות|תבני|קלף|קנקן|מפה|פלפליה|מתקן ל/.test(n))return"🍽️ מטבח וכלים";
-  return"📦 שונות";};
-const prioOf=t=>/ריסוס|צילום מונים|צילום דירה|סשה|קריאת מונה|ביטוח|מפתח|הובלה|מנעולן/.test(S(t))?"urgent":"normal";
-
-/* ---------- rows-of-a-sheet accessor ---------- */
-function rowsOf(sheets,name){ return sheets[name]||[]; }
-function findSheet(sheets,keyword){ return Object.keys(sheets).find(k=>k.includes(keyword)); }
-
-/* ================= IMPORT: sheets -> model ================= */
-function importShopping(rows){
-  const out=[]; let cat="כללי";
-  for(let i=1;i<rows.length;i++){const r=rows[i]; const name=S(r[0]); if(!name)continue;
-    if(isHeaderRow(r)){cat=name;continue;}
-    // canonical export layout: [קטגוריה,מוצר,ספק,מחיר,סטטוס,קישור,מס' הזמנה,הערות]
-    out.push({category:cat,item:name,supplier:S(r[1]),link:S(r[4]),order_number:S(r[5]),
-      price:numOf(r[2]),status:shopStatus(r[3]),budget_cat:budgetCat(name),
-      notes:[S(r[6]),S(r[7])].filter(Boolean).join(" · ")});}
-  return out;
-}
-function importInstallations(rows){
-  const out=[];
-  for(let i=1;i<rows.length;i++){const r=rows[i];const item=S(r[0]);if(!item||isHeaderRow(r))continue;
-    out.push({item,supplier:S(r[1]),phone:S(r[2]),date:fmtDate(r[3]),time:S(r[4]),
-      status:instStatus(r[7],r[3]),delivery:numOf(r[5]),
-      payment:[S(r[6]),(S(r[5])&&isNaN(numOf(r[5]))?S(r[5]):"")].filter(Boolean).join(" · "),
-      notes:S(r[8])});}
-  return out;
-}
-function importGrocery(rows){
-  const out=[];const headers=(rows[0]||[]).map(S);
-  headers.forEach((h,c)=>{ if(!h)return;
-    for(let i=1;i<rows.length;i++){const v=S((rows[i]||[])[c]);if(v)out.push({category:h,name:v,checked:false});}});
-  return out;
-}
-function importBoxes(rows){
-  const out=[];
-  for(let i=1;i<rows.length;i++){const r=rows[i];const num=S(r[0]);if(!num)continue;
-    out.push({box:num,fragile:S(r[1]),room:S(r[2]),content:S(r[3])});}
-  return out;
-}
-function importContacts(rows){
-  return rows.map(r=>S(r[0])).filter(Boolean);
-}
-// tasks: multiple source layouts -> unified {apartment,category,title,status,priority,owner,date,notes}
-function importTasksFrom(sheets){
-  const tasks=[];
-  const push=(t)=>{ if(S(t.title))tasks.push(Object.assign({priority:prioOf(t.title),owner:"",date:"",notes:""},t)); };
-
-  // 1) canonical 'משימות' export: header includes 'דירה' & 'קטגוריה'
-  const mName=findSheet(sheets,"משימות")&&!findSheet(sheets,"משימות- חדש") ? "משימות" : "משימות";
-  const m=rowsOf(sheets,"משימות");
-  if(m.length && /דירה/.test(S((m[0]||[])[0]))){
-    for(let i=1;i<m.length;i++){const r=m[i];if(!S(r[2]))continue;
-      push({apartment:S(r[0])==="ישנה"?"old":"new",category:S(r[1])||"כללי",title:S(r[2]),
-        status:taskStatus(r[3]),priority:S(r[4])||prioOf(r[2]),owner:S(r[5]),date:S(r[6]),notes:S(r[7])});}
-  } else if(m.length){
-    // 2) original 'משימות': three (משימה,סטטוס) column pairs
-    for(let i=1;i<m.length;i++){const r=m[i];[0,4,8].forEach(ci=>{const t=S(r[ci]);if(!t)return;
-      push({apartment:apt(t),category:catOf(t),title:t,status:taskStatus(r[ci+1]),notes:S(r[ci+1])&&taskStatus(r[ci+1])==="progress"?S(r[ci+1]):""});});}
-  }
-  // 3) 'משימות- חדש': משימה,אחריות,תאריך,סטטוס,הערות with section headers (כללי / דירה ישנה...)
-  const mc=findSheet(sheets,"חדש"); if(mc){const rs=rowsOf(sheets,mc);let ap="new",cat="כללי";
-    for(let i=1;i<rs.length;i++){const r=rs[i];const t=S(r[0]);if(!t)continue;
-      if(isHeaderRow(r)||(!S(r[1])&&!S(r[3])&&!S(r[2]))){ ap=/ישנ/.test(t)?"old":"new"; cat=t; continue; }
-      push({apartment:ap,category:cat,title:t,status:taskStatus(r[3]),owner:S(r[1]),date:fmtDate(r[2]),notes:S(r[4])});}}
-  // 4) 'אחרי המעבר'
-  const am=findSheet(sheets,"אחרי המעבר"); if(am){const rs=rowsOf(sheets,am);
-    for(let i=1;i<rs.length;i++){const r=rs[i];const t=S(r[0]);if(!t)continue;
-      push({apartment:"new",category:"אחרי המעבר",title:t,status:taskStatus(r[3]),owner:S(r[1]),date:fmtDate(r[2]),priority:"low"});}}
-  // 5) 'סידור והרכבת רהיטים בבית': room-grouped assembly
-  const fr=findSheet(sheets,"רהיטים"); if(fr){const rs=rowsOf(sheets,fr);let cat="הרכבות";
-    for(let i=1;i<rs.length;i++){const r=rs[i];const t=S(r[0]);if(!t)continue;
-      if(isHeaderRow(r)){cat=t;continue;}
-      push({apartment:"new",category:"🔧 "+cat,title:t,status:taskStatus(r[4]),owner:S(r[2]),date:fmtDate(r[3]),
-        notes:[S(r[1])&&S(r[1])!=="X"?"ספק: "+S(r[1]):"",S(r[5])].filter(Boolean).join(" · ")});}}
-  // de-dupe by title
-  const seen=new Set(),dd=[];
-  for(const t of tasks){if(seen.has(t.title))continue;seen.add(t.title);dd.push(t);}
-  return dd;
-}
-function apt(t){return /שרון|פיקדון|חוזה|יוסף חנני|מונה חשמל|צילנד|אריזה|לורד|מזוז|מחסן|סולם|ארגז/.test(S(t))?"old":"new";}
-function catOf(t){t=S(t);
-  if(/שרון|פיקדון|חוזה/.test(t))return"🏠 שרון (בעל הבית)";
-  if(/יוסף חנני|חורים|תיקונ/.test(t))return"🔧 תיקונים";
-  if(/מונה חשמל|חשמל אחרון/.test(t))return"⚡ חשמל (דירה ישנה)";
-  if(/אריזה|לורד|מדבק|מזוז|סולם|מחסן|ארגז/.test(t))return"📦 אריזה";
-  if(/מים|ארנונה|גז|קופת חולים|כללית|מכבי|בנק|חניה|בניין|שעון חכם|סלקום|דניאלה|גו אקטיב|מנוי/.test(t))return"🏢 בירוקרטיה ושירותים";
-  if(/העברה|צ.ק|צ.יק|לירון|אורטל|ביטוח|פוליסה|תשלום/.test(t))return"💰 כספים וביטוח";
-  if(/פרטנר|ליז|אינטרנט|ממיר/.test(t))return"📞 תקשורת";
-  if(/ריסוס|לנקות|פילטר|סיפונ|ניקיון|ניקוי/.test(t))return"🧹 ניקיון והכנה";
-  if(/צילנד|מנעול|מפתח|לשכפל|גלאי/.test(t))return"🔒 ביטחון ובטיחות";
-  return"🛠️ התקנות ומשימות אבא";}
-
-function fmtDate(v){ v=S(v); if(!v)return"";
-  const m=v.match(/^(\d{4})-(\d{2})-(\d{2})/); if(m)return m[3]+"/"+m[2]+"/"+m[1].slice(2);
-  return v; }
-
-/* ================= IMPORT: pptx tables -> schedule -> timeline ================= */
-function scheduleFromTables(tables){
-  const items=[]; let order=0;
-  const DAY=/(ראשון|שני|שלישי|רביעי|חמישי|שישי|שבת)\s*(\d{2}\/\d{2})/;
-  tables.forEach(tbl=>{
-    for(let r=0;r+1<tbl.length;r+=2){
-      const head=tbl[r]||[], body=tbl[r+1]||[];
-      const dates=head.map(c=>{const m=S(c).match(DAY);return m?{day:m[1],date:m[2]}:null;});
-      const valid=dates.filter(Boolean);
-      if(valid.length<3)continue; // not a calendar row
-      const first=valid[valid.length-1], last=valid[0]; // RTL: last col is earliest
-      const week=`${first?first.date:""}–${last?last.date:""}`;
-      head.forEach((_,c)=>{
-        const d=dates[c]; const txt=S(body[c]); if(!d||!txt)return;
-        txt.split(/\n|\s\/\s/).map(x=>x.trim()).filter(Boolean).forEach(line=>{
-          items.push({week:`שבוע ${week}`,title:`${d.date} (${d.day}) — ${line}`,done:false,sort_order:order++});
-        });
-      });
-    }
-  });
-  return items;
-}
-
-/* ================= MODEL -> sheets (for export) ================= */
-function modelToSheets(m){
-  const sheets={};
-  // משימות (canonical)
-  const T=[["דירה","קטגוריה","משימה","סטטוס","עדיפות","אחריות","תאריך","הערות"]];
-  (m.tasks||[]).forEach(t=>T.push([t.apartment==="old"?"ישנה":"חדשה",t.category,t.title,statTxt(t.status),t.priority||"",t.owner||"",t.date||"",t.notes||""]));
-  sheets["משימות"]=T;
-  // קניות (with category header rows so re-import works)
-  const K=[["מוצר","ספק","תשלום (₪)","סטטוס","קישור","מספר הזמנה","הערות","הערות"]];
-  groupBy(m.shop||[],"category").forEach(([cat,items])=>{ K.push([cat,"","","","","","",""]);
-    items.forEach(s=>K.push([s.item,s.supplier||"",s.price||"",shopTxt(s.status),s.link||"",s.order_number||"",s.notes||"",""]));});
-  sheets["קניות"]=K;
-  // תיאום התקנות והרכבות
-  const I=[["מוצר","ספק","טלפון","תאריך הגעה","שעת הגעה","תשלום (₪)","סטטוס תשלום","סטטוס ביצוע/הגעה","הערות"]];
-  (m.install||[]).forEach(x=>I.push([x.item,x.supplier||"",x.phone||"",x.date||"",x.time||"",x.delivery||"",x.payment||"",x.status==="done"?"V":"",x.notes||""]));
-  sheets["תיאום התקנות והרכבות"]=I;
-  // רשימת קניות לסופר (grid by category)
-  const gcats=[...new Set((m.grocery||[]).map(g=>g.category))];
-  const gcols=gcats.map(c=>(m.grocery||[]).filter(g=>g.category===c).map(g=>g.name));
-  const gmax=Math.max(0,...gcols.map(a=>a.length));
-  const G=[gcats];
-  for(let i=0;i<gmax;i++)G.push(gcols.map(a=>a[i]||""));
-  sheets["רשימת קניות לסופר"]=G;
-  // טבלת אריזה
-  const B=[["מספר ארגז","שביר/לא שביר","חדר ייעודי","תוכן"]];
-  (m.boxes||[]).forEach(b=>B.push([b.box,b.fragile||"",b.room||"",b.content||""]));
-  sheets["טבלת אריזה של ארזים"]=B;
-  // לוח זמנים (schedule)
-  const Z=[["שבוע","משימה","בוצע"]];
-  (m.timeline||[]).forEach(t=>Z.push([t.week,t.title,t.done?"בוצע":""]));
-  sheets["לוח זמנים"]=Z;
-  // אנשי קשר
-  sheets["אנשי קשר"]=(m.contacts||[]).map(c=>[c]);
-  return sheets;
-}
-const statTxt=s=>({done:"בוצע",progress:"בתהליך",pending:"לא בוצע"}[s]||"");
-const shopTxt=s=>({done:"בוצע, אצל ההורים",arrived:"בוצע, אצל ההורים",ordered:"הוזמן",pending:""}[s]||"");
-function groupBy(arr,key){const m=new Map();arr.forEach(x=>{const k=x[key]||"";if(!m.has(k))m.set(k,[]);m.get(k).push(x);});return[...m.entries()];}
-
-/* ================= top-level ================= */
-function buildModel(sheets){
-  const shopName=findSheet(sheets,"קניות")&&!findSheet(sheets,"לסופר")?findSheet(sheets,"קניות"):Object.keys(sheets).find(k=>k==="קניות");
-  return {
-    tasks: importTasksFrom(sheets),
-    shop: importShopping(rowsOf(sheets,"קניות")),
-    install: importInstallations(rowsOf(sheets, findSheet(sheets,"התקנות")||"תיאום התקנות והרכבות")),
-    grocery: importGrocery(rowsOf(sheets, findSheet(sheets,"לסופר")||"רשימת קניות לסופר")),
-    boxes: importBoxes(rowsOf(sheets, findSheet(sheets,"אריזה")||"טבלת אריזה של ארזים")),
-    contacts: importContacts(rowsOf(sheets, findSheet(sheets,"אנשי קשר")||"אנשי קשר")),
-    timeline: (rowsOf(sheets,"לוח זמנים").length>1)? importCanonTimeline(rowsOf(sheets,"לוח זמנים")) : []
-  };
-}
-function importCanonTimeline(rows){const out=[];for(let i=1;i<rows.length;i++){const r=rows[i];if(!S(r[1]))continue;out.push({week:S(r[0]),title:S(r[1]),done:S(r[2])==="בוצע",sort_order:i});}return out;}
-
-/* ================= pptx slide XML -> tables ================= */
+/* ===== faithful pipeline (inline) ===== */
+(function(root){"use strict";const S=v=>v==null?"":String(v);
+function sheetFromAoa(name,aoa){aoa=aoa||[];let mc=0;aoa.forEach(r=>{if(r&&r.length>mc)mc=r.length;});
+  const headers=[];for(let c=0;c<mc;c++)headers[c]=S((aoa[0]||[])[c]);
+  const rows=[];for(let i=1;i<aoa.length;i++){const s=aoa[i]||[];const r=[];for(let c=0;c<mc;c++)r[c]=S(s[c]);rows.push(r);}
+  return {name:S(name),headers,rows};}
+function sheetToAoa(sh){return [sh.headers.slice(),...sh.rows.map(r=>r.slice())];}
 function xmlDecode(s){return S(s).replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&#10;/g,"\n").replace(/&apos;/g,"'");}
-function pptxTablesFromXmls(xmls){
-  const tables=[];
-  xmls.forEach(xml=>{
-    (xml.match(/<a:tbl>[\s\S]*?<\/a:tbl>/g)||[]).forEach(tblXml=>{
-      const rows=[];
-      (tblXml.match(/<a:tr[\s\S]*?<\/a:tr>/g)||[]).forEach(trXml=>{
-        const cells=[];
-        (trXml.match(/<a:tc[ >][\s\S]*?<\/a:tc>/g)||[]).forEach(tcXml=>{
-          const paras=(tcXml.match(/<a:p>[\s\S]*?<\/a:p>|<a:p\/>/g)||[]).map(p=>
-            (p.match(/<a:t>([\s\S]*?)<\/a:t>/g)||[]).map(t=>xmlDecode(t.replace(/<\/?a:t>/g,""))).join(""));
-          cells.push(paras.filter(x=>x!=="").join("\n"));
-        });
-        if(cells.length)rows.push(cells);
-      });
-      if(rows.length)tables.push(rows);
-    });
-  });
-  return tables;
-}
+function pptxTablesFromXmls(xmls){const tables=[];xmls.forEach(xml=>{(xml.match(/<a:tbl>[\s\S]*?<\/a:tbl>/g)||[]).forEach(t=>{const rows=[];
+  (t.match(/<a:tr[\s\S]*?<\/a:tr>/g)||[]).forEach(tr=>{const cells=[];
+    (tr.match(/<a:tc[ >][\s\S]*?<\/a:tc>/g)||[]).forEach(tc=>{const paras=(tc.match(/<a:p>[\s\S]*?<\/a:p>|<a:p\/>/g)||[]).map(p=>(p.match(/<a:t>([\s\S]*?)<\/a:t>/g)||[]).map(x=>xmlDecode(x.replace(/<\/?a:t>/g,""))).join(""));cells.push(paras.filter(x=>x!=="").join("\n"));});
+    if(cells.length)rows.push(cells);});
+  if(rows.length)tables.push(rows);});});return tables;}
+function scheduleSheet(tables,name){const DAY=/(ראשון|שני|שלישי|רביעי|חמישי|שישי|שבת)\s*(\d{2}\/\d{2})/;const rows=[];
+  tables.forEach(tbl=>{for(let r=0;r+1<tbl.length;r+=2){const head=tbl[r]||[],body=tbl[r+1]||[];
+    head.forEach((c,i)=>{const m=S(c).match(DAY);if(!m)return;const d=S(c).match(/(\d+)\s*ימים/);const tasks=S(body[i]).trim();if(!tasks)return;
+      rows.push([m[2],m[1],d?d[1]:"",tasks.replace(/\n/g," / ")]);});}});
+  rows.sort((a,b)=>{const p=s=>{const m=s.match(/(\d{2})\/(\d{2})/);return m?(+m[2])*100+(+m[1]):0;};return p(a[0])-p(b[0]);});
+  return {name:name||"לוח זמנים",headers:["תאריך","יום","ימים לספירה","משימות"],rows};}
+root.PIPE={sheetFromAoa,sheetToAoa,pptxTablesFromXmls,scheduleSheet};
+})(window);
 
-const API={buildModel,scheduleFromTables,modelToSheets,pptxTablesFromXmls,importTasksFrom,importShopping,importInstallations,importGrocery,importBoxes,importContacts};
-if(typeof module!=="undefined"&&module.exports)module.exports=API; else root.PIPE=API;
-})(typeof window!=="undefined"?window:globalThis);
-
-</script>
-<script>
-/* =================== CONFIG =================== */
-const MOVE_DATE = "2026-08-13";
-const KEYS_DATE = "2026-07-30";
-const LS_KEY = "homeflow_local_v1";
-
-/* =================== DICTIONARIES =================== */
-const TASK_ST = {done:{lbl:"✅ הושלם",cls:"s-done"},progress:{lbl:"🔄 בתהליך",cls:"s-progress"},pending:{lbl:"⏳ ממתין",cls:"s-pending"}};
-const TASK_ST_ORDER = ["pending","progress","done"];
-const PRIO = {urgent:"🔴 דחוף",normal:"🟡 רגיל",low:"🟢 נמוך"};
-const SHOP_ST = {pending:"⏳ ממתין",ordered:"🛒 הוזמן",arrived:"📦 הגיע",done:"✅ הותקן"};
-const INST_ST = {pending:"⏳ ממתין",coordinated:"🤝 תואם",transit:"🚚 בדרך",done:"✅ בוצע"};
-const APT = {old:{lbl:"🔴 דירה ישנה — לסגור ולעזוב",cls:"apt-old"},new:{lbl:"🟢 דירה חדשה — להקים ולסדר",cls:"apt-new"}};
-const OLD_CATS = ["🏠 שרון (בעל הבית)","⚡ חשמל (דירה ישנה)","🔧 תיקונים","📦 אריזה"];
-const NEW_CATS = ["🏢 בירוקרטיה ושירותים","💰 כספים וביטוח","📞 תקשורת","🧹 ניקיון והכנה","🔒 ביטחון ובטיחות","🛠️ התקנות ומשימות אבא"];
-
-/* =================== EMPTY-PROJECT SCAFFOLDING =================== */
-/* New projects start empty. These category labels give a ready-made
-   structure so each user can add their own items in every tab. */
-const SHOP_CATS = ["🛋️ סלון ומבואה","🍳 מטבח ופינת אוכל","🛏️ חדר שינה","🛡️ ממ״ד","🚿 אמבטיה ושירות","🌿 מרפסת ומחסן"];
-const GROCERY_CATS = ["בסיסי","מוצרי ניקיון","קטניות","מוצרי חלב","שימורים","קפואים","ירקות","פירות","בשר/עוף","חד פעמי"];
-
-
-/* =================== STATE =================== */
-const S = {
-  tasks:[], shop:[], install:[], grocery:[], timeline:[], boxes:[], contacts:[],
-  tab:"dashboard", search:"", fStatus:"all", fPrio:"all", budOpen:null, hasData:false
-};
-const $ = id => document.getElementById(id);
-const esc = s => (s==null?"":String(s)).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+/* ===================== APP ===================== */
+const MOVE_DATE="2026-08-13", KEYS_DATE="2026-07-30", LS_KEY="homeflow_sheets_v2";
+const $=id=>document.getElementById(id);
+const esc=s=>(s==null?"":String(s)).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2600);}
-function canEdit(){return true;}
-function isManager(){return false;}
-const ils = n => "₪"+Math.round(n).toLocaleString("en-US");
 function daysTo(d){const t=new Date(d+"T00:00:00");const n=new Date();n.setHours(0,0,0,0);return Math.round((t-n)/86400000);}
-let _uid=0; const uid=()=>"loc"+Date.now().toString(36)+(_uid++);
 
-/* =================== LOCAL PERSISTENCE (no database) =================== */
-function saveCache(){ // kept name so existing handlers persist unchanged
-  try{localStorage.setItem(LS_KEY,JSON.stringify({
-    tasks:S.tasks,shop:S.shop,install:S.install,grocery:S.grocery,timeline:S.timeline,
-    boxes:S.boxes,contacts:S.contacts,ts:Date.now()}));}catch(e){}
-}
-const saveLocal = saveCache;
-function loadLocal(){
-  try{const c=JSON.parse(localStorage.getItem(LS_KEY)||"null");
-    if(c && (c.tasks||c.shop||c.timeline)){ Object.assign(S,{tasks:c.tasks||[],shop:c.shop||[],install:c.install||[],
-      grocery:c.grocery||[],timeline:c.timeline||[],boxes:c.boxes||[],contacts:c.contacts||[]}); return true; }
-  }catch(e){}
-  return false;
-}
-// in-memory shim so the existing edit/add/delete handlers keep working without a backend
-async function loadData(){ renderActive(); } // used by handlers as a fallback — just re-render
-const sb = { from(){ return {
-  update(){ return { eq(){ saveLocal(); return Promise.resolve({error:null}); } }; },
-  delete(){ return { eq(){ saveLocal(); return Promise.resolve({error:null}); } }; },
-  insert(row){ if(row&&!Array.isArray(row)&&!row.id) row.id=uid();
-    const res={data:row,error:null};
-    return { select(){ return { single(){ saveLocal(); return Promise.resolve(res); } }; },
-             then(r){ saveLocal(); r({error:null}); } };
-  }
-};}};
+const S={ sheets:[], active:"__overview", search:"" };
 
-/* =================== MODEL <-> STATE =================== */
-function applyModel(model, merge){
-  const withIds=(arr)=>(arr||[]).map((x,i)=>Object.assign({id:uid(),sort_order:i},x));
-  if(merge){
-    if(model.tasks&&model.tasks.length)   S.tasks=withIds(model.tasks);
-    if(model.shop&&model.shop.length)     S.shop=withIds(model.shop);
-    if(model.install&&model.install.length)S.install=withIds(model.install);
-    if(model.grocery&&model.grocery.length)S.grocery=withIds(model.grocery);
-    if(model.boxes&&model.boxes.length)   S.boxes=withIds(model.boxes);
-    if(model.contacts&&model.contacts.length)S.contacts=model.contacts;
-    if(model.timeline&&model.timeline.length)S.timeline=withIds(model.timeline);
-  }else{
-    S.tasks=withIds(model.tasks); S.shop=withIds(model.shop); S.install=withIds(model.install);
-    S.grocery=withIds(model.grocery); S.boxes=withIds(model.boxes); S.contacts=model.contacts||[];
-    S.timeline=withIds(model.timeline);
-  }
-}
-function stateToModel(){ return {tasks:S.tasks,shop:S.shop,install:S.install,grocery:S.grocery,
-  boxes:S.boxes,contacts:S.contacts,timeline:S.timeline}; }
+/* ---- persistence ---- */
+function save(){ try{localStorage.setItem(LS_KEY,JSON.stringify({sheets:S.sheets,ts:Date.now()}));}catch(e){} }
+function load(){ try{const c=JSON.parse(localStorage.getItem(LS_KEY)||"null"); if(c&&c.sheets&&c.sheets.length){S.sheets=c.sheets;return true;}}catch(e){} return false; }
 
-/* =================== INIT =================== */
-function init(){
-  if(loadLocal()){ S.hasData=true; showApp(); }
-  else { showImport(); }
-  $("loading").classList.add("hidden");
-}
-function showImport(){ $("app").style.display="none"; $("importView").classList.remove("hidden"); }
-function showApp(){
-  $("importView").classList.add("hidden"); $("app").style.display="block";
-  updateCountdowns(); renderActive();
-}
-function updateCountdowns(){
-  const k=daysTo(KEYS_DATE), mv=daysTo(MOVE_DATE);
-  $("countKeys").textContent = k>=0?k:"✓";
-  $("countMove").textContent = mv>=0?mv:"✓";
-}
+/* ---- init ---- */
+function init(){ if(load()){showApp();} else {showLanding();} }
+function showLanding(){ $("app").style.display="none"; $("landing").classList.remove("hidden"); }
+function showApp(){ $("landing").classList.add("hidden"); $("app").style.display="block"; updateCountdowns(); if(!S.sheets.find(s=>s.name===S.active))S.active="__overview"; renderTabs(); renderView(); }
+function updateCountdowns(){ const k=daysTo(KEYS_DATE),m=daysTo(MOVE_DATE); $("ckKeys").textContent=k>=0?k:"✓"; $("ckMove").textContent=m>=0?m:"✓"; }
 
-/* =================== IMPORT =================== */
-function sheetsFromWorkbook(wb){const s={};wb.SheetNames.forEach(n=>{s[n]=XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:false,defval:""});});return s;}
-async function importFiles(fileList){
-  const files=[...fileList]; if(!files.length)return;
-  $("loading").classList.remove("hidden");
-  let importedXlsx=false, importedPptx=false, scheduleItems=null, model=null;
+/* ---- import ---- */
+function pick(){ $("fileInput").click(); }
+async function importFiles(list){
+  const files=[...list].sort((a,b)=>(/\.xlsx$/i.test(b.name)?1:0)-(/\.xlsx$/i.test(a.name)?1:0)); // xlsx first
+  if(!files.length)return; $("loading").classList.remove("hidden");
   try{
     for(const f of files){
       const buf=await f.arrayBuffer();
       if(/\.xlsx$/i.test(f.name)){
         const wb=XLSX.read(buf,{type:"array"});
-        model=PIPE.buildModel(sheetsFromWorkbook(wb));
-        importedXlsx=true;
+        S.sheets=wb.SheetNames.map(n=>PIPE.sheetFromAoa(n, XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:false,defval:""})));
       } else if(/\.pptx$/i.test(f.name)){
-        const zip=await JSZip.loadAsync(buf);
-        const xmls=[];
-        for(const name of Object.keys(zip.files)) if(/ppt\/slides\/slide\d+\.xml$/.test(name)) xmls.push(await zip.files[name].async("string"));
-        scheduleItems=PIPE.scheduleFromTables(PIPE.pptxTablesFromXmls(xmls));
-        importedPptx=true;
+        const zip=await JSZip.loadAsync(buf); const xmls=[];
+        for(const n of Object.keys(zip.files)) if(/ppt\/slides\/slide\d+\.xml$/.test(n)) xmls.push(await zip.files[n].async("string"));
+        const sched=PIPE.scheduleSheet(PIPE.pptxTablesFromXmls(xmls));
+        const i=S.sheets.findIndex(s=>s.name===sched.name); if(i>=0)S.sheets[i]=sched; else S.sheets.push(sched);
       }
     }
-    // merge onto existing data (so importing xlsx then pptx, or adding to a session, works)
-    const base = S.hasData ? stateToModel() : {tasks:[],shop:[],install:[],grocery:[],boxes:[],contacts:[],timeline:[]};
-    if(model){ applyModel(model, S.hasData); }
-    if(scheduleItems && scheduleItems.length){ S.timeline = scheduleItems.map((x,i)=>Object.assign({id:uid()},x)); }
-    S.hasData=true; saveLocal();
-    showApp();
-    toast(`יובאו בהצלחה${importedXlsx?" · Excel":""}${importedPptx?" · לו״ז":""}`);
-  }catch(e){
-    console.error(e); toast("שגיאה בייבוא הקובץ — ודאו שזה xlsx/pptx תקין");
-  }finally{ $("loading").classList.add("hidden"); }
+    S.active="__overview"; save(); showApp(); toast("הקבצים יובאו בהצלחה");
+  }catch(e){ console.error(e); toast("שגיאה בייבוא — ודאו שהקובץ תקין (.xlsx / .pptx)"); }
+  finally{ $("loading").classList.add("hidden"); }
 }
 
-/* =================== EXPORT =================== */
+/* ---- export (exact round-trip) ---- */
 function exportXlsx(){
-  const sheets=PIPE.modelToSheets(stateToModel());
-  const wb=XLSX.utils.book_new();
-  Object.entries(sheets).forEach(([name,rows])=>{
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), name.slice(0,31));
-  });
-  const d=new Date(), stamp=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-  XLSX.writeFile(wb, `מעבר-דירה-${stamp}.xlsx`);
-  toast("הקובץ יוצא — כולל את הלו״ז כגיליון");
+  if(!S.sheets.length){toast("אין נתונים לייצוא");return;}
+  const wb=XLSX.utils.book_new(); const used={};
+  S.sheets.forEach(sh=>{ let nm=(sh.name||"גיליון").slice(0,31)||"גיליון"; while(used[nm])nm=(nm.slice(0,28)+"_"+(Math.random()*9|0)); used[nm]=1;
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(PIPE.sheetToAoa(sh)), nm); });
+  const d=new Date(),st=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  XLSX.writeFile(wb, `מעבר-דירה-${st}.xlsx`);
+  toast("יוצא בהצלחה — אותן עמודות וערכים כמו בקובץ המקורי");
 }
 
-/* =================== FILTERS =================== */
-function matchSearch(t){return !S.search || (t||"").toLowerCase().includes(S.search);}
-function isFiltering(){return !!S.search || S.fStatus!=="all" || S.fPrio!=="all";}
-function emptyHint(text){return `<div class="empty"><div class="big">📝</div><div>${text}</div></div>`;}
-function taskVisible(t){
-  if(S.fStatus!=="all" && t.status!==S.fStatus)return false;
-  if(S.fPrio!=="all" && t.priority!==S.fPrio)return false;
-  return matchSearch(t.title+" "+t.category+" "+(t.notes||""));
-}
-const SHOP_STATUS_MAP={done:"done",arrived:"done",ordered:"progress",pending:"pending"};
-function shopVisible(it){
-  if(S.fStatus!=="all" && SHOP_STATUS_MAP[it.status]!==S.fStatus)return false;
-  return matchSearch(it.item+" "+it.category+" "+(it.supplier||"")+" "+(it.notes||""));
-}
-const INST_STATUS_MAP={done:"done",transit:"progress",coordinated:"progress",pending:"pending"};
-function instVisible(it){
-  if(S.fStatus!=="all" && INST_STATUS_MAP[it.status]!==S.fStatus)return false;
-  return matchSearch(it.item+" "+(it.supplier||"")+" "+(it.notes||""));
-}
-function tlVisible(it){
-  if(S.fStatus==="done"&&!it.done)return false;
-  if((S.fStatus==="pending"||S.fStatus==="progress")&&it.done)return false;
-  return matchSearch(it.title+" "+it.week);
-}
-function groVisible(g){
-  if(S.fStatus==="done"&&!g.checked)return false;
-  if((S.fStatus==="pending"||S.fStatus==="progress")&&g.checked)return false;
-  return matchSearch(g.name+" "+g.category);
+/* ---- status helper (modular: any column whose header hints status) ---- */
+function isStatusHeader(h){return /סטטוס|ביצוע|בוצע\?/.test(h||"");}
+function statusClass(v){v=(v||"").trim(); if(!v)return"";
+  if(/לא בוצע|לא הוזמן|טרם/.test(v))return"v-pending";
+  if(/בוצע|תואם|הגיע|אצל|שולם|✓|^v$/i.test(v))return"v-done";
+  return"v-progress";}
+
+/* ---- tabs ---- */
+function renderTabs(){
+  let h=`<button class="tab ${S.active==="__overview"?"active":""}" data-go="__overview">📊 סקירה</button>`;
+  S.sheets.forEach(s=>{ h+=`<button class="tab ${S.active===s.name?"active":""}" data-go="${esc(s.name)}">${esc(s.name)}</button>`; });
+  h+=`<button class="tab addtab" id="addSheet">➕ גיליון</button>`;
+  $("tabs").innerHTML=h;
 }
 
-/* =================== RENDER =================== */
-function renderActive(){
-  ({dashboard:renderDashboard,tasks:renderTasks,install:renderInstall,shop:renderShop,
-    grocery:renderGrocery,budget:renderBudget,boxes:renderBoxes,timeline:renderTimeline}[S.tab]||renderDashboard)();
-}
-function progressBar(p){return `<div class="bar"><i style="width:${p}%"></i></div>`;}
-function topProgress(title,desc,pct){
-  return `<div class="section-head"><div><h3>${title}</h3><div class="desc">${desc}</div></div></div>
-    <div class="progress-top"><div class="lbl"><span>התקדמות</span><span>${pct}%</span></div>${progressBar(pct)}</div>`;
-}
-function emptyState(){return `<div class="empty"><div class="big">🔍</div><div>לא נמצאו תוצאות לחיפוש/סינון הנוכחי</div></div>`;}
+/* ---- view router ---- */
+function renderView(){ if(S.active==="__overview")renderOverview(); else renderSheet(); }
 
-/* ---------- Dashboard ---------- */
-function shopGot(it){return it.status==="arrived"||it.status==="done";}
-function renderDashboard(){
-  const tot=S.tasks.length, done=S.tasks.filter(t=>t.status==="done").length;
-  const taskPct=tot?Math.round(done/tot*100):0;
-  const got=S.shop.filter(shopGot).length, shopPct=S.shop.length?Math.round(got/S.shop.length*100):0;
-  const idn=S.install.filter(i=>i.status==="done"||i.status==="coordinated").length;
-  const instPct=S.install.length?Math.round(idn/S.install.length*100):0;
-  const b=budgetData();
-  const overall=Math.round((taskPct+shopPct+instPct)/3);
-  $("tab-dashboard").innerHTML=`
-    <div class="progress-top"><div class="lbl"><span>📊 התקדמות כללית</span><span>${overall}%</span></div>${progressBar(overall)}</div>
-    <div class="grid">
-      <div class="stat"><div class="ico">✅</div><div class="num">${taskPct}%</div><div class="cap">השלמת משימות (${done}/${tot})</div><div class="mini"><i style="width:${taskPct}%;background:var(--green)"></i></div></div>
-      <div class="stat"><div class="ico">📦</div><div class="num">${got}/${S.shop.length}</div><div class="cap">פריטים שהגיעו/הותקנו</div><div class="mini"><i style="width:${shopPct}%;background:var(--blue)"></i></div></div>
-      <div class="stat"><div class="ico">🚚</div><div class="num">${idn}/${S.install.length}</div><div class="cap">הובלות שתואמו/בוצעו</div><div class="mini"><i style="width:${instPct}%;background:var(--teal)"></i></div></div>
-      <div class="stat"><div class="ico">💰</div><div class="num">${ils(b.products+b.delivTotal)}</div><div class="cap">תקציב כולל (מוצרים + הובלות)</div><div class="mini"><i style="width:100%;background:var(--brand)"></i></div></div>
-    </div>
-    <div class="info-card"><h4>🗓️ ספירה לאחור</h4><div class="contacts">
-      <div class="contact"><span style="font-size:20px">🔑</span><div><b>${Math.max(0,daysTo(KEYS_DATE))} ימים</b><small>לקבלת המפתח — 30/07/2026</small></div></div>
-      <div class="contact"><span style="font-size:20px">🚚</span><div><b>${Math.max(0,daysTo(MOVE_DATE))} ימים</b><small>ליום המעבר — 13/08/2026</small></div></div>
-      <div class="contact"><span style="font-size:20px">🛒</span><div><b>${S.shop.length} פריטים · ${ils(b.products)}</b><small>${got} כבר אצלנו</small></div></div>
-    </div></div>
-    ${(()=>{
-      const cs=[...new Map(S.install.filter(i=>i.phone).map(i=>[i.phone.replace(/[^0-9+]/g,""),[i.supplier||i.item,i.phone]])).values()];
-      if(!cs.length)return "";
-      return `<div class="info-card"><h4>📞 אנשי קשר (מתוך ההובלות)</h4><div class="contacts">${cs.map(c=>`<div class="contact"><span style="font-size:18px">📱</span><div><b>${esc(c[0])}</b><a href="tel:${esc(c[1].replace(/[^0-9+]/g,""))}">${esc(c[1])}</a></div></div>`).join("")}</div></div>`;
-    })()}
-    ${(S.contacts&&S.contacts.length)?`<div class="info-card"><h4>ℹ️ אנשי קשר ומידע (מהקובץ)</h4>${S.contacts.map(c=>`<div style="font-size:13px;white-space:pre-line;padding:9px 0;border-top:1px solid var(--line);color:#374151">${esc(c)}</div>`).join("")}</div>`:""}`;
-}
-
-/* ---------- Tasks (old vs new) ---------- */
-function renderTasks(){
-  const tot=S.tasks.length, done=S.tasks.filter(t=>t.status==="done").length;
-  let html=topProgress("📋 משימות","מופרד לפי דירה ישנה (לעזוב) ודירה חדשה (להקים)", tot?Math.round(done/tot*100):0);
-  let any=false;
-  [["old",OLD_CATS],["new",NEW_CATS]].forEach(([apt,cats])=>{
-    const aptTasks=S.tasks.filter(t=>t.apartment===apt);
-    const aptVis=aptTasks.filter(taskVisible);
-    if(aptVis.length===0 && isFiltering())return;
-    any=true;
-    const adn=aptTasks.filter(t=>t.status==="done").length;
-    let inner="";
-    const allCats=[...new Set([...cats, ...aptTasks.map(t=>t.category)])];
-    allCats.forEach(cat=>{
-      const items=aptTasks.filter(t=>t.category===cat);
-      const vis=items.filter(taskVisible);
-      if(vis.length===0 && isFiltering())return;
-      const dn=items.filter(t=>t.status==="done").length, pct=items.length?Math.round(dn/items.length*100):0;
-      inner+=`<div class="acc open" data-acc>
-        <div class="acc-head" data-toggle><span class="chev">▼</span><span class="acc-title">${esc(cat)}</span>
-          <span class="acc-meta">${dn}/${items.length}</span><span class="acc-mini">${progressBar(pct)}</span></div>
-        <div class="acc-body"><div class="acc-inner">
-          ${vis.map(renderTaskRow).join("")}
-          ${canEdit()?`<button class="btn secondary sm add-row" data-addtask='${esc(JSON.stringify([apt,cat]))}'>➕ הוספת משימה</button>`:""}
-        </div></div></div>`;
-    });
-    html+=`<div class="apt ${APT[apt].cls}"><div class="apt-banner">${APT[apt].lbl}<span class="cnt">${adn}/${aptTasks.length}</span></div>${inner}</div>`;
-  });
-  if(!any)html+=emptyState();
-  $("tab-tasks").innerHTML=html;
-}
-function renderTaskRow(t){
-  const noteTip=t.notes?`<button class="note-btn" tabindex="-1">💬<span class="tip">${esc(t.notes)}</span></button>`:"";
-  const seg=TASK_ST_ORDER.map(k=>`<button class="${t.status===k?"on "+TASK_ST[k].cls:""}" data-status="${k}">${TASK_ST[k].lbl}</button>`).join("");
-  const prioSel=`<select class="prio" data-prio ${canEdit()?"":"disabled"}>${Object.keys(PRIO).map(p=>`<option value="${p}" ${t.priority===p?"selected":""}>${PRIO[p]}</option>`).join("")}</select>`;
-  const noteEditor=canEdit()?`<textarea class="note-input" data-note placeholder="הערה…">${esc(t.notes||"")}</textarea>`:"";
-  return `<div class="task ${t.status==="done"?"done":""}" data-task="${t.id}"><div class="body">
-    <div class="ttl">${esc(t.title)} ${noteTip}</div>
-    <div class="controls"><span class="seg" data-seg>${seg}</span>${prioSel}<span class="chip p-${t.priority}">${PRIO[t.priority]}</span></div>
-    ${noteEditor}</div></div>`;
-}
-
-/* ---------- Installations ---------- */
-function renderInstall(){
-  const vis=S.install.filter(instVisible);
-  const dn=S.install.filter(i=>i.status==="done").length;
-  let html=topProgress("🚚 הובלות והתקנות","מועדי הגעה, התקנות והרכבות — עדכון כאן מתעדכן גם בתקציב",
-    S.install.length?Math.round(dn/S.install.length*100):0);
-  if(vis.length===0 && isFiltering()){html+=emptyState();$("tab-install").innerHTML=html;return;}
-  const body = vis.length? vis.map(renderInstallRow).join("")
-    : `<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:20px">אין עדיין הובלות/התקנות — הוסיפו את הראשונה ⬇️</td></tr>`;
-  html+=`<div class="acc open"><div class="acc-inner" style="padding-top:14px">
-    <div class="tbl-wrap"><table class="tbl"><thead><tr>
-      <th>פריט</th><th>ספק</th><th>טלפון</th><th>תאריך</th><th>שעה</th><th>סטטוס</th><th>עלות הובלה</th><th>הערות</th>${canEdit()?"<th></th>":""}
-    </tr></thead><tbody>${body}</tbody></table></div>
-    ${canEdit()?`<button class="btn secondary sm add-row" id="addInstall">➕ הוספת הובלה/התקנה</button>`:""}
-  </div></div>`;
-  $("tab-install").innerHTML=html;
-}
-function instSelect(it){
-  return `<select class="st-select v-${it.status}" data-istatus>${Object.keys(INST_ST).map(k=>`<option value="${k}" ${it.status===k?"selected":""}>${INST_ST[k]}</option>`).join("")}</select>`;
-}
-function renderInstallRow(it){
-  const ed=canEdit();
-  const phone=it.phone?`<a href="tel:${esc(it.phone.replace(/[^0-9+]/g,''))}" style="text-decoration:none">${esc(it.phone)}</a>`:"—";
-  const date= ed?`<input class="mini-input" data-idate value="${esc(it.date||"")}" placeholder="תאריך" />`:(esc(it.date||"—"));
-  const note= ed?`<input class="mini-input" style="min-width:130px" data-inote value="${esc(it.notes||"")}" placeholder="הערה" />`:(it.notes?`<button class="note-btn" tabindex="-1">💬<span class="tip">${esc(it.notes)}</span></button>`:"—");
-  const cost= (Number(it.delivery)>0?ils(it.delivery):"") + (it.payment?`<div style="font-size:11px;color:var(--muted)">${esc(it.payment)}</div>`:"");
-  return `<tr data-inst="${it.id}">
-    <td class="item-name">${esc(it.item)}</td><td>${esc(it.supplier||"—")}</td><td>${phone}</td>
-    <td>${date}</td><td>${esc(it.time||"—")}</td><td>${instSelect(it)}</td>
-    <td class="price">${cost||"—"}</td><td>${note}</td>
-    ${ed?`<td><button class="del-row" data-delinst>🗑</button></td>`:""}</tr>`;
-}
-
-/* ---------- Shop ---------- */
-function renderShop(){
-  const cats=[...new Set([...(isFiltering()?[]:SHOP_CATS), ...S.shop.map(s=>s.category)])];
-  const got=S.shop.filter(shopGot).length;
-  let html=topProgress("🛒 קניות","פריטים לרכישה לפי קטגוריה — קישורים, מחירים, מספרי הזמנה וסטטוס",
-    S.shop.length?Math.round(got/S.shop.length*100):0);
-  let any=false;
-  cats.forEach(cat=>{
-    const items=S.shop.filter(s=>s.category===cat), vis=items.filter(shopVisible);
-    if(vis.length===0 && isFiltering())return; any=true;
-    const dn=items.filter(shopGot).length, pct=items.length?Math.round(dn/items.length*100):0;
-    const sum=items.reduce((a,s)=>a+(Number(s.price)||0),0);
-    html+=`<div class="acc open" data-acc>
-      <div class="acc-head" data-toggle><span class="chev">▼</span><span class="acc-title">${esc(cat)}</span>
-        <span class="acc-meta">${dn}/${items.length} · ${ils(sum)}</span><span class="acc-mini">${progressBar(pct)}</span></div>
-      <div class="acc-body"><div class="acc-inner">
-        <div class="tbl-wrap"><table class="tbl"><thead><tr>
-          <th>פריט</th><th>ספק</th><th>מחיר</th><th>סטטוס</th><th>הערות</th>${canEdit()?"<th></th>":""}
-        </tr></thead><tbody>${vis.map(renderShopRow).join("")}</tbody></table></div>
-        ${canEdit()?`<button class="btn secondary sm add-row" data-addshop="${esc(cat)}">➕ הוספת פריט</button>`:""}
-      </div></div></div>`;
-  });
-  if(!any)html+=emptyState();
-  $("tab-shop").innerHTML=html;
-}
-function shopSelect(it){
-  return `<select class="st-select v-${it.status}" data-sstatus>${Object.keys(SHOP_ST).map(k=>`<option value="${k}" ${it.status===k?"selected":""}>${SHOP_ST[k]}</option>`).join("")}</select>`;
-}
-function renderShopRow(it){
-  const ed=canEdit();
-  const link=it.link?`<a href="${esc(it.link)}" target="_blank" rel="noopener" class="link-ic" title="קישור">🔗</a>`:"";
-  const ord=it.order_number?`<span class="ord" title="מס׳ הזמנה">🧾 ${esc(it.order_number)}</span>`:"";
-  const note=ed?`<input class="mini-input" style="min-width:120px" data-snote value="${esc(it.notes||"")}" placeholder="הערה" />`:(it.notes?`<button class="note-btn" tabindex="-1">💬<span class="tip">${esc(it.notes)}</span></button>`:"—");
-  return `<tr data-shop="${it.id}">
-    <td><div class="item-name">${esc(it.item)}${link}${ord}</div></td>
-    <td>${esc(it.supplier||"—")}</td>
-    <td class="price">${Number(it.price)>0?ils(it.price):"—"}</td>
-    <td>${shopSelect(it)}</td><td>${note}</td>
-    ${ed?`<td><button class="del-row" data-delshop>🗑</button></td>`:""}</tr>`;
-}
-
-/* ---------- Grocery ---------- */
-function renderGrocery(){
-  const cats=[...new Set([...(isFiltering()?[]:GROCERY_CATS), ...S.grocery.map(g=>g.category)])];
-  const total=S.grocery.length, checked=S.grocery.filter(g=>g.checked).length;
-  let html=topProgress("🥦 קניות לסופר","רשימה לפי קטגוריות — לחיצה מסמנת שנקנה", total?Math.round(checked/total*100):0);
-  let any=false; html+=`<div class="gro-grid">`;
-  cats.forEach(cat=>{
-    const items=S.grocery.filter(g=>g.category===cat), vis=items.filter(groVisible);
-    if(vis.length===0 && isFiltering())return; any=true;
-    const dn=items.filter(g=>g.checked).length;
-    html+=`<div class="gro-cat"><h4>${esc(cat)} <span style="display:flex;gap:6px;align-items:center"><span class="c">${dn}/${items.length}</span>${canEdit()?`<button class="del-row" style="color:var(--brand);opacity:.8" data-addgro="${esc(cat)}" title="הוספת מוצר">➕</button>`:""}</span></h4>
-      <div class="gro-list">${vis.map(g=>`<div class="gro-item ${g.checked?"on":""}" data-gro="${g.id}"><div class="box">${g.checked?"✓":""}</div><div class="nm">${esc(g.name)}</div></div>`).join("")||`<div style="padding:10px 9px;color:var(--muted);font-size:13px">ריק — לחצו ➕ להוספה</div>`}</div></div>`;
-  });
-  html+=`</div>`; if(!any)html+=emptyState();
-  $("tab-grocery").innerHTML=html;
-}
-
-/* ---------- Budget ---------- */
-function budgetData(){
-  const cats={};
-  S.shop.forEach(s=>{ const c=s.budget_cat||"📦 שונות"; (cats[c]=cats[c]||{total:0,got:0,items:[]});
-    cats[c].total+=(Number(s.price)||0); if(shopGot(s))cats[c].got+=(Number(s.price)||0); cats[c].items.push(s); });
-  const delivTotal=S.install.reduce((a,x)=>a+(Number(x.delivery)||0),0);
-  const delivDone=S.install.filter(x=>x.status==="done").reduce((a,x)=>a+(Number(x.delivery)||0),0);
-  const products=Object.values(cats).reduce((a,c)=>a+c.total,0);
-  return {cats,delivTotal,delivDone,products};
-}
-function renderBudget(){
-  const b=budgetData();
-  const grand=b.products+b.delivTotal;
-  if(S.shop.length===0 && S.install.length===0){
-    $("tab-budget").innerHTML=`<div class="section-head"><div><h3>💰 תקציב</h3><div class="desc">מתעדכן אוטומטית לפי מחירי הקניות וההובלות</div></div></div>`+
-      emptyHint("התקציב יתמלא אוטומטית כשתוסיפו פריטים בלשונית הקניות ועלויות בלשונית ההובלות.");
-    return;
-  }
-  let cards="";
-  Object.keys(b.cats).sort((a,c)=>b.cats[c].total-b.cats[a].total).forEach(cat=>{
-    const c=b.cats[cat]; const pct=c.total?Math.round(c.got/c.total*100):0;
-    const det=c.items.filter(i=>Number(i.price)>0).sort((x,y)=>y.price-x.price)
-      .map(i=>`<div class="bud-line"><span class="nm">${shopGot(i)?"✅":"⏳"} ${esc(i.item)}</span><span class="pr">${ils(i.price)}</span></div>`).join("")||`<div class="bud-line"><span class="nm">אין פריטים עם מחיר</span></div>`;
-    cards+=`<div class="bud-card ${S.budOpen===cat?"open":""}" data-bud="${esc(cat)}">
-      <div class="ttl">${esc(cat)} <span style="font-size:12px;color:var(--muted)">${c.items.length}</span></div>
-      <div class="amt">${ils(c.total)}</div>
-      <div class="sub">שולם/הגיע: ${ils(c.got)} · ${pct}%</div>
-      <div class="bar"><i style="width:${pct}%;background:var(--green)"></i></div>
-      <div class="bud-detail">${det}</div></div>`;
-  });
-  // delivery card
-  const dpct=b.delivTotal?Math.round(b.delivDone/b.delivTotal*100):0;
-  const ddet=S.install.filter(i=>Number(i.delivery)>0).sort((x,y)=>y.delivery-x.delivery)
-    .map(i=>`<div class="bud-line"><span class="nm">${i.status==="done"?"✅":"⏳"} ${esc(i.item)}</span><span class="pr">${ils(i.delivery)}</span></div>`).join("")||"—";
-  cards+=`<div class="bud-card ${S.budOpen==="__deliv"?"open":""}" data-bud="__deliv">
-    <div class="ttl">🚚 הובלות והרכבות</div><div class="amt">${ils(b.delivTotal)}</div>
-    <div class="sub">בוצע: ${ils(b.delivDone)} · ${dpct}%</div>
-    <div class="bar"><i style="width:${dpct}%;background:var(--teal)"></i></div>
-    <div class="bud-detail">${ddet}</div></div>`;
-
-  $("tab-budget").innerHTML=`
-    <div class="section-head"><div><h3>💰 תקציב</h3><div class="desc">סיכום הוצאות לפי קטגוריה — לחיצה על כרטיס פותחת פירוט</div></div></div>
-    <div class="bud-hero">
-      <div class="tot"><b>${ils(grand)}</b><span>סך הוצאות מתוכננות</span></div>
-      <div class="bud-split">
-        <div><b>${ils(b.products)}</b><span>מוצרים (${S.shop.length} פריטים)</span></div>
-        <div><b>${ils(b.delivTotal)}</b><span>הובלות והרכבות</span></div>
-        <div><b>${ils(b.products? Math.round((b.cats&&Object.values(b.cats).reduce((a,c)=>a+c.got,0))+b.delivDone):0)}</b><span>כבר שולם/הגיע</span></div>
-      </div>
-    </div>
-    <div class="bud-grid">${cards}</div>`;
-}
-
-/* ---------- Timeline (vertical) ---------- */
-function tlBadge(t){
-  const map=[["מפתח","🔑 מפתח"],["ריסוס","🧹 ניקיון"],["ניקיון","🧹 ניקיון"],["ניקוי","🧹 ניקיון"],
-    ["מים","🏢 מוסדות"],["ארנונה","🏢 מוסדות"],["חשמל","🏢 מוסדות"],["גז","🏢 מוסדות"],
-    ["אינטרנט","📞 תקשורת"],["טלפון","📞 תקשורת"],["הובלה","🚚 הובלה"],["מעבר","🚚 הובלה"],
-    ["התקנ","🔧 התקנה"],["הרכב","🔧 התקנה"],["צ׳ק","💰 כספים"],["ביטוח","💰 כספים"],["תשלום","💰 כספים"],["העברה","💰 כספים"],
-    ["הזמנ","🛒 קניות"],["לקנות","🛒 קניות"],["קני","🛒 קניות"],
-    ["אריזה","📦 אריזה"],["מזוז","📦 אריזה"],["מחסן","📦 אריזה"],["פריקה","📦 פריקה"],
-    ["מנוי","🏋️ פנאי"],["כושר","🏋️ פנאי"]];
-  for(const[k,v]of map)if(t.includes(k))return v;
-  return "📌 כללי";
-}
-/* ---------- Boxes (packing table) ---------- */
-function renderBoxes(){
-  const vis=S.boxes.filter(b=>matchSearch([b.box,b.room,b.content,b.fragile].join(" ")));
-  const filled=S.boxes.filter(b=>b.content).length;
-  let html=topProgress("📦 טבלת ארגזים","מספור, חדר יעד ותוכן — לעריכה נוחה בזמן האריזה",
-    S.boxes.length?Math.round(filled/S.boxes.length*100):0);
-  html+=`<div class="acc open"><div class="acc-inner" style="padding-top:14px">
-    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>מס׳</th><th>שביר?</th><th>חדר יעד</th><th>תוכן</th><th></th></tr></thead>
-    <tbody>${vis.length?vis.map(renderBoxRow).join(""):`<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">אין ארגזים עדיין — הוסיפו את הראשון ⬇️</td></tr>`}</tbody></table></div>
-    <button class="btn secondary sm add-row" id="addBox">➕ הוספת ארגז</button>
-  </div></div>`;
-  $("tab-boxes").innerHTML=html;
-}
-function renderBoxRow(b){
-  const fr=v=>`<option value="${v}" ${(b.fragile||"")===v?"selected":""}>${v||"—"}</option>`;
-  return `<tr data-box="${b.id}">
-    <td style="width:64px"><input class="mini-input" style="min-width:52px" data-bfield="box" value="${esc(b.box||"")}" /></td>
-    <td><select class="st-select" style="min-width:90px" data-bfield="fragile">${fr("")}${fr("שביר")}${fr("לא שביר")}</select></td>
-    <td><input class="mini-input" style="min-width:120px" data-bfield="room" value="${esc(b.room||"")}" placeholder="חדר" /></td>
-    <td><input class="mini-input" style="min-width:240px;width:100%" data-bfield="content" value="${esc(b.content||"")}" placeholder="תוכן הארגז" /></td>
-    <td><button class="del-row" data-delbox>🗑</button></td></tr>`;
-}
-
-function renderTimeline(){
-  const weeks=[...new Set(S.timeline.map(t=>t.week))];
-  const dn=S.timeline.filter(t=>t.done).length;
-  let html=topProgress("🗓️ לוח זמנים","ציר זמן של המעבר — לחיצה על משימה מסמנת שבוצעה",
-    S.timeline.length?Math.round(dn/S.timeline.length*100):0);
-  if(canEdit())html+=`<button class="btn secondary sm" id="addTimeline" style="margin-bottom:14px">➕ הוספת שלב ללוח הזמנים</button>`;
-  let any=false; html+=`<div class="tl">`;
-  weeks.forEach(week=>{
-    const items=S.timeline.filter(t=>t.week===week), vis=items.filter(tlVisible);
-    if(vis.length===0)return; any=true;
-    const d=items.filter(t=>t.done).length, pct=Math.round(d/items.length*100);
-    const node=d===items.length?"full":(d>0?"part":"");
-    html+=`<div class="tl-week"><div class="tl-node ${node}"></div>
-      <div class="tl-card"><h4>${esc(week)} <span class="m">${d}/${items.length}</span></h4>
-        ${vis.map(t=>`<div class="tl-task ${t.done?"done":""}" data-tl="${t.id}">
-          <div class="tl-check">${t.done?"✓":""}</div>
-          <div class="tl-ttl">${esc(t.title)}</div>
-          <span class="tl-badge">${tlBadge(t.title)}</span>
-        </div>`).join("")}
+function renderOverview(){
+  $("search").parentElement.parentElement.style.display=""; // keep toolbar
+  const totalRows=S.sheets.reduce((a,s)=>a+s.rows.length,0);
+  let cards=S.sheets.map(s=>{
+    const sc=s.headers.findIndex(isStatusHeader);
+    let pct=null;
+    if(sc>=0){ const nonEmpty=s.rows.filter(r=>(r[sc]||"").trim()); const done=nonEmpty.filter(r=>statusClass(r[sc])==="v-done").length; pct=nonEmpty.length?Math.round(done/nonEmpty.length*100):0; }
+    return `<div class="ocard" data-go="${esc(s.name)}"><h4>${esc(s.name)}</h4>
+      <div class="m">${s.rows.length} שורות · ${s.headers.length} עמודות</div>
+      ${pct!=null?`<div class="bar"><i style="width:${pct}%"></i></div><div class="m" style="margin-top:5px">${pct}% בוצעו</div>`:""}</div>`;
+  }).join("");
+  if(!S.sheets.length)cards=`<div class="empty"><div class="big">📄</div><div>אין גיליונות — ייבאו קובץ או הוסיפו גיליון חדש</div></div>`;
+  $("view").innerHTML=`<div class="grid-cards">${cards}</div>
+    <div class="info-card"><h4>ℹ️ איך זה עובד</h4>
+      <div style="color:var(--muted);font-size:13.5px;line-height:1.7">
+        כל גיליון מהקובץ מופיע כלשונית לעריכה. אפשר לערוך כל תא, לשנות שמות עמודות, להוסיף/למחוק עמודות ושורות — והכול נשמר אוטומטית בדפדפן.
+        בסיום לחצו <b>ייצוא ל‑Excel</b> ותקבלו קובץ עם אותן עמודות וערכים (כולל הלו״ז כגיליון).<br>
+        סה״כ ${S.sheets.length} גיליונות · ${totalRows} שורות.
       </div></div>`;
-  });
-  html+=`</div>`; if(!any)html+=isFiltering()?emptyState():emptyHint("עדיין אין שלבים בלוח הזמנים — הוסיפו את הראשון עם הכפתור למעלה ⬆️");
-  $("tab-timeline").innerHTML=html;
 }
 
-/* =================== EVENTS =================== */
+function renderSheet(){
+  const sh=S.sheets.find(s=>s.name===S.active); if(!sh){S.active="__overview";return renderView();}
+  const q=S.search.toLowerCase();
+  const vis=sh.rows.map((r,i)=>[r,i]).filter(([r])=>!q||r.some(c=>String(c).toLowerCase().includes(q)));
+  const statusCols=sh.headers.map(isStatusHeader);
+  const thead=`<tr>${sh.headers.map((h,c)=>`<th><div class="colbar"><input class="hcell" data-hcol="${c}" value="${esc(h)}" placeholder="עמודה" /><button class="delcol" data-delcol="${c}" title="מחיקת עמודה">×</button></div></th>`).join("")}
+    <th class="addcol-th"><button class="addcol" id="addCol" title="הוספת עמודה">＋</button></th></tr>`;
+  const body=vis.length?vis.map(([r,ri])=>`<tr data-ri="${ri}">${sh.headers.map((_,c)=>{
+      const v=r[c]||""; const rows=Math.min(6,(v.match(/\n/g)||[]).length+1);
+      const cls=statusCols[c]?("st"):""; const vcls=statusCols[c]?(" "+statusClass(v)):"";
+      return `<td class="${cls}"><textarea class="cell${vcls}" data-c="${c}" rows="${rows}">${esc(v)}</textarea></td>`;
+    }).join("")}<td class="rowact"><button class="delrow" title="מחיקת שורה">🗑</button></td></tr>`).join("")
+    :`<tr><td colspan="${sh.headers.length+1}" style="text-align:center;color:var(--muted);padding:22px">${q?"אין תוצאות לחיפוש":"אין שורות — הוסיפו שורה למטה ⬇️"}</td></tr>`;
+  $("view").innerHTML=`
+    <div class="sheet-head">
+      <input class="sheet-name" id="sheetName" value="${esc(sh.name)}" title="שם הגיליון (ניתן לעריכה)" />
+      <span class="sheet-meta">${sh.rows.length} שורות · ${sh.headers.length} עמודות${q?` · מציג ${vis.length}`:""}</span>
+      <div class="sheet-actions"><button class="btn ghost sm" id="delSheet">🗑 מחיקת גיליון</button></div>
+    </div>
+    <div class="tbl-wrap"><table class="grid"><thead>${thead}</thead><tbody>${body}</tbody></table></div>
+    <div class="bar-actions">
+      <button class="btn secondary sm" id="addRow">➕ הוספת שורה</button>
+      <button class="btn ghost sm" id="addCol2">➕ הוספת עמודה</button>
+    </div>`;
+}
+
+/* ===================== EVENTS ===================== */
+$("pickLanding").onclick=pick; $("importBtn").onclick=pick; $("exportBtn").onclick=exportXlsx;
+$("fileInput").addEventListener("change",e=>{importFiles(e.target.files);e.target.value="";});
+$("clearBtn").onclick=()=>{ if(!confirm("לנקות את כל התוכן מהמסך? (לא נמחק שום קובץ — רק העבודה הנוכחית בדפדפן)"))return;
+  localStorage.removeItem(LS_KEY); S.sheets=[]; S.active="__overview"; showLanding(); };
+["dragover","drop"].forEach(ev=>document.addEventListener(ev,e=>e.preventDefault()));
+const dz=$("dropZone");
+dz.addEventListener("dragover",()=>dz.classList.add("over"));
+dz.addEventListener("dragleave",()=>dz.classList.remove("over"));
+$("landing").addEventListener("drop",e=>{ dz.classList.remove("over"); if(e.dataTransfer&&e.dataTransfer.files.length)importFiles(e.dataTransfer.files); });
+
+$("search").addEventListener("input",e=>{S.search=e.target.value.trim(); if(S.active!=="__overview")renderSheet();});
+
+/* tabs */
 $("tabs").addEventListener("click",e=>{
-  const b=e.target.closest(".tab"); if(!b)return;
-  S.tab=b.dataset.tab;
-  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t===b));
-  ["dashboard","tasks","install","shop","grocery","budget","boxes","timeline"].forEach(n=>$("tab-"+n).classList.toggle("hidden",n!==S.tab));
-  renderActive();
-});
-$("searchInput").addEventListener("input",e=>{S.search=e.target.value.trim().toLowerCase();renderActive();});
-$("statusFilter").addEventListener("change",e=>{S.fStatus=e.target.value;renderActive();});
-$("priorityFilter").addEventListener("change",e=>{S.fPrio=e.target.value;renderActive();});
-$("app").addEventListener("click",e=>{const tog=e.target.closest("[data-toggle]");if(tog)tog.closest("[data-acc]").classList.toggle("open");});
-
-/* tasks */
-$("tab-tasks").addEventListener("click",async e=>{
-  const seg=e.target.closest("[data-seg] button");
-  if(seg){const row=e.target.closest("[data-task]");await updateTask(row.dataset.task,{status:seg.dataset.status});return;}
-  const add=e.target.closest("[data-addtask]");
-  if(add){const [apt,cat]=JSON.parse(add.dataset.addtask);await addTask(apt,cat);}
-});
-$("tab-tasks").addEventListener("change",async e=>{const row=e.target.closest("[data-task]");if(row&&e.target.matches("[data-prio]"))await updateTask(row.dataset.task,{priority:e.target.value});});
-$("tab-tasks").addEventListener("blur",async e=>{
-  if(e.target.matches("[data-note]")){const row=e.target.closest("[data-task]");const t=S.tasks.find(x=>x.id===row.dataset.task);
-    if(t&&(t.notes||"")!==e.target.value)await updateTask(row.dataset.task,{notes:e.target.value});}
-},true);
-async function updateTask(id,patch){
-  const t=S.tasks.find(x=>x.id===id);if(!t)return;Object.assign(t,patch);saveCache();if(S.tab==="tasks")renderTasks();
-  const {error}=await sb.from("tasks").update(patch).eq("id",id);if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
-}
-async function addTask(apt,cat){
-  const title=prompt("שם המשימה החדשה:");if(!title)return;
-  const sort=Math.max(0,...S.tasks.map(t=>t.sort_order||0))+1;
-  const row={project_id:S.projectId,apartment:apt,category:cat,title,status:"pending",priority:"normal",notes:"",sort_order:sort};
-  const {data,error}=await sb.from("tasks").insert(row).select().single();
-  if(error){toast("הוספה נכשלה");return;}S.tasks.push(data);saveCache();renderTasks();
-}
-
-/* installations (sync to budget) */
-$("tab-install").addEventListener("change",async e=>{
-  const tr=e.target.closest("[data-inst]");if(!tr)return;const id=tr.dataset.inst;
-  if(e.target.matches("[data-istatus]"))await updateInstall(id,{status:e.target.value},true);
-});
-$("tab-install").addEventListener("blur",async e=>{
-  const tr=e.target.closest("[data-inst]");if(!tr)return;const id=tr.dataset.inst;const it=S.install.find(x=>x.id===id);
-  if(e.target.matches("[data-idate]")&&(it.date||"")!==e.target.value)await updateInstall(id,{date:e.target.value});
-  if(e.target.matches("[data-inote]")&&(it.notes||"")!==e.target.value)await updateInstall(id,{notes:e.target.value});
-},true);
-$("tab-install").addEventListener("click",async e=>{
-  const del=e.target.closest("[data-delinst]");
-  if(del){const tr=e.target.closest("[data-inst]");const id=tr.dataset.inst;const it=S.install.find(x=>x.id===id);
-    if(confirm(`למחוק את "${it.item}"?`)){S.install=S.install.filter(x=>x.id!==id);saveCache();renderInstall();
-      const {error}=await sb.from("installations").delete().eq("id",id);if(error){toast("מחיקה נכשלה");loadData();}}return;}
-  if(e.target.id==="addInstall")await addInstall();
-});
-async function updateInstall(id,patch,syncBudget){
-  const it=S.install.find(x=>x.id===id);if(!it)return;Object.assign(it,patch);saveCache();
-  if(S.tab==="install")renderInstall();
-  if(syncBudget)toast("💰 עודכן גם בלשונית התקציב");
-  const {error}=await sb.from("installations").update(patch).eq("id",id);if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
-}
-async function addInstall(){
-  const item=prompt("שם ההובלה/התקנה:");if(!item)return;
-  const sort=Math.max(0,...S.install.map(i=>i.sort_order||0))+1;
-  const row={project_id:S.projectId,item,supplier:"",phone:"",date:"",time:"",status:"pending",delivery:0,payment:"",notes:"",sort_order:sort};
-  const {data,error}=await sb.from("installations").insert(row).select().single();
-  if(error){toast("הוספה נכשלה");return;}S.install.push(data);saveCache();renderInstall();
-}
-
-/* shop */
-$("tab-shop").addEventListener("change",async e=>{const tr=e.target.closest("[data-shop]");if(tr&&e.target.matches("[data-sstatus]"))await updateShop(tr.dataset.shop,{status:e.target.value});});
-$("tab-shop").addEventListener("blur",async e=>{
-  const tr=e.target.closest("[data-shop]");if(!tr)return;const it=S.shop.find(x=>x.id===tr.dataset.shop);
-  if(e.target.matches("[data-snote]")&&(it.notes||"")!==e.target.value)await updateShop(tr.dataset.shop,{notes:e.target.value});
-},true);
-$("tab-shop").addEventListener("click",async e=>{
-  const del=e.target.closest("[data-delshop]");
-  if(del){const tr=e.target.closest("[data-shop]");const id=tr.dataset.shop;const it=S.shop.find(x=>x.id===id);
-    if(confirm(`למחוק את "${it.item}"?`)){S.shop=S.shop.filter(x=>x.id!==id);saveCache();renderShop();
-      const {error}=await sb.from("shop_items").delete().eq("id",id);if(error){toast("מחיקה נכשלה");loadData();}}return;}
-  const add=e.target.closest("[data-addshop]");if(add)await addShop(add.dataset.addshop);
-});
-async function updateShop(id,patch){
-  const it=S.shop.find(x=>x.id===id);if(!it)return;Object.assign(it,patch);saveCache();if(S.tab==="shop")renderShop();
-  const {error}=await sb.from("shop_items").update(patch).eq("id",id);if(error){toast("שמירה נכשלה — אין הרשאה?");loadData();}
-}
-async function addShop(cat){
-  const item=prompt("שם הפריט החדש:");if(!item)return;
-  const sort=Math.max(0,...S.shop.map(s=>s.sort_order||0))+1;
-  const row={project_id:S.projectId,category:cat,item,supplier:"",link:"",order_number:"",price:0,status:"pending",budget_cat:"📦 שונות",notes:"",sort_order:sort};
-  const {data,error}=await sb.from("shop_items").insert(row).select().single();
-  if(error){toast("הוספה נכשלה");return;}S.shop.push(data);saveCache();renderShop();
-}
-
-/* grocery */
-$("tab-grocery").addEventListener("click",async e=>{
-  const add=e.target.closest("[data-addgro]");
-  if(add){await addGrocery(add.dataset.addgro);return;}
-  const row=e.target.closest("[data-gro]");if(!row)return;const g=S.grocery.find(x=>x.id===row.dataset.gro);if(!g)return;
-  g.checked=!g.checked;saveCache();renderGrocery();
-  const {error}=await sb.from("grocery_items").update({checked:g.checked}).eq("id",g.id);if(error){toast("שמירה נכשלה");loadData();}
-});
-async function addGrocery(category){
-  const name=prompt(`מוצר חדש בקטגוריה "${category}":`);if(!name)return;
-  const sort=Math.max(0,...S.grocery.map(g=>g.sort_order||0))+1;
-  const row={project_id:S.projectId,category,name,checked:false,sort_order:sort};
-  const {data,error}=await sb.from("grocery_items").insert(row).select().single();
-  if(error){toast("הוספה נכשלה");return;}S.grocery.push(data);saveCache();renderGrocery();
-}
-
-/* budget */
-$("tab-budget").addEventListener("click",e=>{
-  const c=e.target.closest("[data-bud]");if(!c)return;
-  const cat=c.dataset.bud;S.budOpen=(S.budOpen===cat)?null:cat;renderBudget();
+  const add=e.target.closest("#addSheet"); if(add){ const name=(prompt("שם הגיליון החדש:")||"").trim(); if(!name)return;
+    if(S.sheets.find(s=>s.name===name)){toast("כבר קיים גיליון בשם הזה");return;}
+    S.sheets.push({name,headers:["עמודה 1","עמודה 2"],rows:[["",""]]}); S.active=name; S.search=""; $("search").value=""; save(); renderTabs(); renderView(); return; }
+  const b=e.target.closest("[data-go]"); if(b){ S.active=b.dataset.go; S.search=""; $("search").value=""; renderTabs(); renderView(); }
 });
 
-/* timeline */
-$("tab-timeline").addEventListener("click",async e=>{
-  if(e.target.closest("#addTimeline")){await addTimeline();return;}
-  const row=e.target.closest("[data-tl]");if(!row)return;const t=S.timeline.find(x=>x.id===row.dataset.tl);if(!t)return;
-  t.done=!t.done;saveCache();renderTimeline();
-  const {error}=await sb.from("timeline_items").update({done:t.done}).eq("id",t.id);if(error){toast("שמירה נכשלה");loadData();}
+/* overview card click */
+$("view").addEventListener("click",e=>{
+  const card=e.target.closest(".ocard"); if(card){ S.active=card.dataset.go; renderTabs(); renderView(); return; }
+  const id=e.target.id;
+  const sh=()=>S.sheets.find(s=>s.name===S.active);
+  if(id==="addRow"){ const s=sh(); s.rows.push(s.headers.map(()=>"")); save(); renderSheet(); return; }
+  if(id==="addCol"||id==="addCol2"){ const s=sh(); s.headers.push("עמודה "+(s.headers.length+1)); s.rows.forEach(r=>r.push("")); save(); renderSheet(); return; }
+  if(id==="delSheet"){ const s=sh(); if(!confirm(`למחוק את הגיליון "${s.name}"?`))return; S.sheets=S.sheets.filter(x=>x!==s); S.active="__overview"; save(); renderTabs(); renderView(); return; }
+  const dc=e.target.closest("[data-delcol]"); if(dc){ const s=sh(); const c=+dc.dataset.delcol;
+    if(!confirm(`למחוק את העמודה "${s.headers[c]||""}"?`))return; s.headers.splice(c,1); s.rows.forEach(r=>r.splice(c,1)); save(); renderSheet(); return; }
+  const dr=e.target.closest(".delrow"); if(dr){ const tr=e.target.closest("[data-ri]"); const s=sh(); s.rows.splice(+tr.dataset.ri,1); save(); renderSheet(); return; }
 });
 
-/* boxes */
-$("tab-boxes").addEventListener("input",e=>{
-  const tr=e.target.closest("[data-box]");if(!tr||!e.target.dataset.bfield)return;
-  const b=S.boxes.find(x=>x.id===tr.dataset.box);if(b){b[e.target.dataset.bfield]=e.target.value;saveLocal();}
+/* editing: cells, headers, sheet name (input = live save; no re-render to keep focus) */
+$("view").addEventListener("input",e=>{
+  const s=S.sheets.find(x=>x.name===S.active); if(!s)return;
+  if(e.target.classList.contains("cell")){ const tr=e.target.closest("[data-ri]"); const ri=+tr.dataset.ri, c=+e.target.dataset.c;
+    s.rows[ri][c]=e.target.value;
+    if(e.target.closest("td").classList.contains("st")){ e.target.className="cell "+statusClass(e.target.value); }
+    save(); return; }
+  if(e.target.classList.contains("hcell")){ s.headers[+e.target.dataset.hcol]=e.target.value; save(); return; }
+  if(e.target.id==="sheetName"){ const nn=e.target.value.trim(); if(nn && !S.sheets.some(x=>x!==s&&x.name===nn)){ s.name=nn; S.active=nn; save(); renderTabs(); } return; }
 });
-$("tab-boxes").addEventListener("change",e=>{
-  const tr=e.target.closest("[data-box]");if(!tr||!e.target.dataset.bfield)return;
-  const b=S.boxes.find(x=>x.id===tr.dataset.box);if(b){b[e.target.dataset.bfield]=e.target.value;saveLocal();}
-});
-$("tab-boxes").addEventListener("click",e=>{
-  if(e.target.id==="addBox"){S.boxes.push({id:uid(),box:String(S.boxes.length+1),fragile:"",room:"",content:"",sort_order:S.boxes.length});saveLocal();renderBoxes();return;}
-  const del=e.target.closest("[data-delbox]");
-  if(del){const tr=e.target.closest("[data-box]");S.boxes=S.boxes.filter(x=>x.id!==tr.dataset.box);saveLocal();renderBoxes();}
-});
-async function addTimeline(){
-  const week=prompt("שם השלב / השבוע (למשל: \"שבוע 1-7 ביולי\"):");if(!week)return;
-  const title=prompt("תיאור המשימה:");if(!title)return;
-  const sort=Math.max(0,...S.timeline.map(t=>t.sort_order||0))+1;
-  const row={project_id:S.projectId,week,title,done:false,sort_order:sort};
-  const {data,error}=await sb.from("timeline_items").insert(row).select().single();
-  if(error){toast("הוספה נכשלה");return;}S.timeline.push(data);saveCache();renderTimeline();
-}
 
-/* =================== IMPORT / EXPORT UI =================== */
-function pickFiles(){ $("fileInput").click(); }
-$("fileInput").addEventListener("change",e=>{ importFiles(e.target.files); e.target.value=""; });
-$("importBtn").onclick=pickFiles;
-$("importBtnLanding").onclick=pickFiles;
-$("exportBtn").onclick=exportXlsx;
-$("clearBtn").onclick=()=>{
-  if(!confirm("לנקות את כל הנתונים מהמסך? (לא נמחק שום קובץ — רק תוכן העבודה הנוכחי)"))return;
-  localStorage.removeItem(LS_KEY);
-  S.tasks=[];S.shop=[];S.install=[];S.grocery=[];S.timeline=[];S.boxes=[];S.contacts=[];S.hasData=false;
-  showImport(); toast("נוקה — אפשר לייבא קובץ חדש");
-};
-// drag & drop onto the landing
-["dragover","drop"].forEach(ev=>document.addEventListener(ev,e=>{e.preventDefault();}));
-$("importView").addEventListener("drop",e=>{ if(e.dataTransfer&&e.dataTransfer.files.length) importFiles(e.dataTransfer.files); });
-
-/* =================== START =================== */
 init();
 </script>
 </body>
