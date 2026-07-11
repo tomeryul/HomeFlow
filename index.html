@@ -44,6 +44,8 @@
   .btn.sm{padding:8px 12px;font-size:13px;width:auto}
   .switch-line{text-align:center;margin-top:16px;font-size:14px;color:var(--muted)}
   .switch-line a{cursor:pointer;font-weight:600}
+  .drop{border:2px dashed #c7d2fe;background:#fafbff;border-radius:16px;padding:26px 18px;margin-top:8px;transition:.15s}
+  .drop:hover{border-color:var(--brand);background:var(--brand-soft)}
   .msg{margin-top:14px;padding:11px 13px;border-radius:10px;font-size:13.5px;display:none}
   .msg.err{background:var(--red-soft);color:#991b1b;display:block}
   .msg.ok{background:var(--green-soft);color:#166534;display:block}
@@ -248,17 +250,21 @@
 
 <div class="loading" id="loading"><div class="spinner"></div><div style="color:var(--muted);font-size:14px">טוען…</div></div>
 
-<!-- AUTH -->
-<div class="auth-wrap hidden" id="authView">
-  <div class="auth-card">
+<input type="file" id="fileInput" accept=".xlsx,.pptx" multiple style="display:none" />
+
+<!-- IMPORT LANDING -->
+<div class="auth-wrap hidden" id="importView">
+  <div class="auth-card" style="max-width:520px;text-align:center">
     <div class="auth-logo">🏠</div>
-    <h1 id="authTitle">התחברות</h1>
-    <p class="sub">ניהול מעבר הדירה שלכם — במקום אחד</p>
-    <div class="field"><label>אימייל</label><input type="email" id="authEmail" placeholder="name@example.com" autocomplete="email" /></div>
-    <div class="field"><label>סיסמה</label><input type="password" id="authPass" placeholder="לפחות 6 תווים" autocomplete="current-password" /></div>
-    <button class="btn" id="authBtn">התחברות</button>
-    <div class="msg" id="authMsg"></div>
-    <div class="switch-line" id="authSwitch">אין לכם חשבון? <a id="toSignup">הרשמה</a></div>
+    <h1>מעבר דירה — HomeFlow</h1>
+    <p class="sub">התחילו כל ישיבה בייבוא הקבצים שלכם. עובדים בנוחות — ובסוף מייצאים חזרה ל‑Excel.</p>
+    <div class="drop" id="dropZone">
+      <div style="font-size:34px">📥</div>
+      <div style="font-weight:700;margin-top:6px">גררו לכאן קובץ Excel והלו״ז (PowerPoint)</div>
+      <div style="color:var(--muted);font-size:13px;margin-top:4px">או לחצו לבחירה — אפשר לבחור את שני הקבצים יחד (.xlsx ו‑.pptx)</div>
+      <button class="btn" id="importBtnLanding" style="margin-top:16px">בחירת קבצים לייבוא</button>
+    </div>
+    <p style="color:var(--muted);font-size:12.5px;margin-top:16px">אין צורך בהתחברות. הנתונים נשמרים רק בדפדפן שלכם עד לייצוא. 🔒</p>
   </div>
 </div>
 
@@ -270,10 +276,9 @@
         <div class="brand">🏠 HomeFlow</div>
         <div class="spacer"></div>
         <div class="who">
-          <span class="pill" id="roleBadge">—</span>
-          <span id="userEmailLbl"></span>
-          <button class="icon-btn" id="membersBtn">👥 חברים</button>
-          <button class="icon-btn" id="logoutBtn">יציאה ⏏</button>
+          <button class="icon-btn" id="importBtn">📥 ייבוא</button>
+          <button class="icon-btn" id="exportBtn">📤 ייצוא ל‑Excel</button>
+          <button class="icon-btn" id="clearBtn">🗑 ניקוי</button>
         </div>
       </div>
       <div class="hero">
@@ -293,6 +298,7 @@
         <button class="tab" data-tab="shop">🛒 קניות</button>
         <button class="tab" data-tab="grocery">🥦 קניות לסופר</button>
         <button class="tab" data-tab="budget">💰 תקציב</button>
+        <button class="tab" data-tab="boxes">📦 ארגזים</button>
         <button class="tab" data-tab="timeline">🗓️ לוח זמנים</button>
       </div>
     </div>
@@ -320,26 +326,250 @@
     <div id="tab-shop" class="hidden"></div>
     <div id="tab-grocery" class="hidden"></div>
     <div id="tab-budget" class="hidden"></div>
+    <div id="tab-boxes" class="hidden"></div>
     <div id="tab-timeline" class="hidden"></div>
-  </div>
-</div>
-
-<div class="modal-bg" id="memberModal">
-  <div class="modal">
-    <div class="modal-head"><h3>👥 חברי הפרויקט</h3><button class="x" id="closeMembers">×</button></div>
-    <div class="modal-body" id="memberBody"></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
+/* ============================================================
+   HomeFlow import/export pipeline — library-agnostic core.
+   Works on `sheets` = { sheetName: rows[][] } (array of rows, each row an array of string cells).
+   Runs in both Node (module.exports) and the browser (window.PIPE).
+   ============================================================ */
+(function(root){
+"use strict";
+const S=v=>v==null?"":String(v).trim();
+const numOf=s=>{const m=S(s).replace(/,/g,"").match(/\d+(\.\d+)?/);return m?parseFloat(m[0]):0;};
+const isHeaderRow=(r)=>S(r[0])&&!S(r[1])&&!S(r[2])&&!S(r[3])&&!S(r[4]); // only first cell filled
+
+/* ---------- status helpers ---------- */
+function shopStatus(t){t=S(t);
+  if(/אצל ההורים|אצלנו|אצל רמי/.test(t))return"arrived";
+  if(/הוזמן|שולם|בטיפול|יגיע|נקנה בהמשך|ארלה/.test(t))return"ordered";
+  return"pending";}
+function taskStatus(t){t=S(t);
+  if(t==="בוצע"||t==="V"||t==="בביצוע")return"done";
+  if(!t||t==="לא בוצע")return"pending";
+  if(/תואם/.test(t))return"progress";
+  return"progress";}
+function instStatus(done,date){ if(S(done)==="V")return"done"; if(S(date))return"coordinated"; return"pending"; }
+const budgetCat=n=>{n=S(n);
+  if(/תנור|מקרר|מדיח|טלוויז|מנגל|מסך מחשב|אי למטבח|הליכון/.test(n))return"🔌 מוצרי חשמל";
+  if(/מנורה|מנורות|מנורת|לדים|תאור/.test(n))return"💡 תאורה";
+  if(/וילון|כרית|מילוי|כיסוי|שטיח|מצע/.test(n))return"🪟 טקסטיל ווילונות";
+  if(/בידה|טוש|מושב אסלה|מוט|מקלחת|אמבט/.test(n))return"🚿 אמבטיה";
+  if(/מצלמ|מגני ברק|טלפון לבית|זרוע|מתקן מתלה|switcher|סוויצ/i.test(n))return"🔧 אלקטרוניקה ובית חכם";
+  if(/ארון|מיטה|שיד|כורס|קונסול|מזנון|שולחן|כיסא|ריהוט|ויטרינה|מקפיא/.test(n))return"🛋️ ריהוט";
+  if(/צלחות|סכום|דיספנסר|מגבות|ייבוש כלים|כפות|תבני|קלף|קנקן|מפה|פלפליה|מתקן ל/.test(n))return"🍽️ מטבח וכלים";
+  return"📦 שונות";};
+const prioOf=t=>/ריסוס|צילום מונים|צילום דירה|סשה|קריאת מונה|ביטוח|מפתח|הובלה|מנעולן/.test(S(t))?"urgent":"normal";
+
+/* ---------- rows-of-a-sheet accessor ---------- */
+function rowsOf(sheets,name){ return sheets[name]||[]; }
+function findSheet(sheets,keyword){ return Object.keys(sheets).find(k=>k.includes(keyword)); }
+
+/* ================= IMPORT: sheets -> model ================= */
+function importShopping(rows){
+  const out=[]; let cat="כללי";
+  for(let i=1;i<rows.length;i++){const r=rows[i]; const name=S(r[0]); if(!name)continue;
+    if(isHeaderRow(r)){cat=name;continue;}
+    // canonical export layout: [קטגוריה,מוצר,ספק,מחיר,סטטוס,קישור,מס' הזמנה,הערות]
+    out.push({category:cat,item:name,supplier:S(r[1]),link:S(r[4]),order_number:S(r[5]),
+      price:numOf(r[2]),status:shopStatus(r[3]),budget_cat:budgetCat(name),
+      notes:[S(r[6]),S(r[7])].filter(Boolean).join(" · ")});}
+  return out;
+}
+function importInstallations(rows){
+  const out=[];
+  for(let i=1;i<rows.length;i++){const r=rows[i];const item=S(r[0]);if(!item||isHeaderRow(r))continue;
+    out.push({item,supplier:S(r[1]),phone:S(r[2]),date:fmtDate(r[3]),time:S(r[4]),
+      status:instStatus(r[7],r[3]),delivery:numOf(r[5]),
+      payment:[S(r[6]),(S(r[5])&&isNaN(numOf(r[5]))?S(r[5]):"")].filter(Boolean).join(" · "),
+      notes:S(r[8])});}
+  return out;
+}
+function importGrocery(rows){
+  const out=[];const headers=(rows[0]||[]).map(S);
+  headers.forEach((h,c)=>{ if(!h)return;
+    for(let i=1;i<rows.length;i++){const v=S((rows[i]||[])[c]);if(v)out.push({category:h,name:v,checked:false});}});
+  return out;
+}
+function importBoxes(rows){
+  const out=[];
+  for(let i=1;i<rows.length;i++){const r=rows[i];const num=S(r[0]);if(!num)continue;
+    out.push({box:num,fragile:S(r[1]),room:S(r[2]),content:S(r[3])});}
+  return out;
+}
+function importContacts(rows){
+  return rows.map(r=>S(r[0])).filter(Boolean);
+}
+// tasks: multiple source layouts -> unified {apartment,category,title,status,priority,owner,date,notes}
+function importTasksFrom(sheets){
+  const tasks=[];
+  const push=(t)=>{ if(S(t.title))tasks.push(Object.assign({priority:prioOf(t.title),owner:"",date:"",notes:""},t)); };
+
+  // 1) canonical 'משימות' export: header includes 'דירה' & 'קטגוריה'
+  const mName=findSheet(sheets,"משימות")&&!findSheet(sheets,"משימות- חדש") ? "משימות" : "משימות";
+  const m=rowsOf(sheets,"משימות");
+  if(m.length && /דירה/.test(S((m[0]||[])[0]))){
+    for(let i=1;i<m.length;i++){const r=m[i];if(!S(r[2]))continue;
+      push({apartment:S(r[0])==="ישנה"?"old":"new",category:S(r[1])||"כללי",title:S(r[2]),
+        status:taskStatus(r[3]),priority:S(r[4])||prioOf(r[2]),owner:S(r[5]),date:S(r[6]),notes:S(r[7])});}
+  } else if(m.length){
+    // 2) original 'משימות': three (משימה,סטטוס) column pairs
+    for(let i=1;i<m.length;i++){const r=m[i];[0,4,8].forEach(ci=>{const t=S(r[ci]);if(!t)return;
+      push({apartment:apt(t),category:catOf(t),title:t,status:taskStatus(r[ci+1]),notes:S(r[ci+1])&&taskStatus(r[ci+1])==="progress"?S(r[ci+1]):""});});}
+  }
+  // 3) 'משימות- חדש': משימה,אחריות,תאריך,סטטוס,הערות with section headers (כללי / דירה ישנה...)
+  const mc=findSheet(sheets,"חדש"); if(mc){const rs=rowsOf(sheets,mc);let ap="new",cat="כללי";
+    for(let i=1;i<rs.length;i++){const r=rs[i];const t=S(r[0]);if(!t)continue;
+      if(isHeaderRow(r)||(!S(r[1])&&!S(r[3])&&!S(r[2]))){ ap=/ישנ/.test(t)?"old":"new"; cat=t; continue; }
+      push({apartment:ap,category:cat,title:t,status:taskStatus(r[3]),owner:S(r[1]),date:fmtDate(r[2]),notes:S(r[4])});}}
+  // 4) 'אחרי המעבר'
+  const am=findSheet(sheets,"אחרי המעבר"); if(am){const rs=rowsOf(sheets,am);
+    for(let i=1;i<rs.length;i++){const r=rs[i];const t=S(r[0]);if(!t)continue;
+      push({apartment:"new",category:"אחרי המעבר",title:t,status:taskStatus(r[3]),owner:S(r[1]),date:fmtDate(r[2]),priority:"low"});}}
+  // 5) 'סידור והרכבת רהיטים בבית': room-grouped assembly
+  const fr=findSheet(sheets,"רהיטים"); if(fr){const rs=rowsOf(sheets,fr);let cat="הרכבות";
+    for(let i=1;i<rs.length;i++){const r=rs[i];const t=S(r[0]);if(!t)continue;
+      if(isHeaderRow(r)){cat=t;continue;}
+      push({apartment:"new",category:"🔧 "+cat,title:t,status:taskStatus(r[4]),owner:S(r[2]),date:fmtDate(r[3]),
+        notes:[S(r[1])&&S(r[1])!=="X"?"ספק: "+S(r[1]):"",S(r[5])].filter(Boolean).join(" · ")});}}
+  // de-dupe by title
+  const seen=new Set(),dd=[];
+  for(const t of tasks){if(seen.has(t.title))continue;seen.add(t.title);dd.push(t);}
+  return dd;
+}
+function apt(t){return /שרון|פיקדון|חוזה|יוסף חנני|מונה חשמל|צילנד|אריזה|לורד|מזוז|מחסן|סולם|ארגז/.test(S(t))?"old":"new";}
+function catOf(t){t=S(t);
+  if(/שרון|פיקדון|חוזה/.test(t))return"🏠 שרון (בעל הבית)";
+  if(/יוסף חנני|חורים|תיקונ/.test(t))return"🔧 תיקונים";
+  if(/מונה חשמל|חשמל אחרון/.test(t))return"⚡ חשמל (דירה ישנה)";
+  if(/אריזה|לורד|מדבק|מזוז|סולם|מחסן|ארגז/.test(t))return"📦 אריזה";
+  if(/מים|ארנונה|גז|קופת חולים|כללית|מכבי|בנק|חניה|בניין|שעון חכם|סלקום|דניאלה|גו אקטיב|מנוי/.test(t))return"🏢 בירוקרטיה ושירותים";
+  if(/העברה|צ.ק|צ.יק|לירון|אורטל|ביטוח|פוליסה|תשלום/.test(t))return"💰 כספים וביטוח";
+  if(/פרטנר|ליז|אינטרנט|ממיר/.test(t))return"📞 תקשורת";
+  if(/ריסוס|לנקות|פילטר|סיפונ|ניקיון|ניקוי/.test(t))return"🧹 ניקיון והכנה";
+  if(/צילנד|מנעול|מפתח|לשכפל|גלאי/.test(t))return"🔒 ביטחון ובטיחות";
+  return"🛠️ התקנות ומשימות אבא";}
+
+function fmtDate(v){ v=S(v); if(!v)return"";
+  const m=v.match(/^(\d{4})-(\d{2})-(\d{2})/); if(m)return m[3]+"/"+m[2]+"/"+m[1].slice(2);
+  return v; }
+
+/* ================= IMPORT: pptx tables -> schedule -> timeline ================= */
+function scheduleFromTables(tables){
+  const items=[]; let order=0;
+  const DAY=/(ראשון|שני|שלישי|רביעי|חמישי|שישי|שבת)\s*(\d{2}\/\d{2})/;
+  tables.forEach(tbl=>{
+    for(let r=0;r+1<tbl.length;r+=2){
+      const head=tbl[r]||[], body=tbl[r+1]||[];
+      const dates=head.map(c=>{const m=S(c).match(DAY);return m?{day:m[1],date:m[2]}:null;});
+      const valid=dates.filter(Boolean);
+      if(valid.length<3)continue; // not a calendar row
+      const first=valid[valid.length-1], last=valid[0]; // RTL: last col is earliest
+      const week=`${first?first.date:""}–${last?last.date:""}`;
+      head.forEach((_,c)=>{
+        const d=dates[c]; const txt=S(body[c]); if(!d||!txt)return;
+        txt.split(/\n|\s\/\s/).map(x=>x.trim()).filter(Boolean).forEach(line=>{
+          items.push({week:`שבוע ${week}`,title:`${d.date} (${d.day}) — ${line}`,done:false,sort_order:order++});
+        });
+      });
+    }
+  });
+  return items;
+}
+
+/* ================= MODEL -> sheets (for export) ================= */
+function modelToSheets(m){
+  const sheets={};
+  // משימות (canonical)
+  const T=[["דירה","קטגוריה","משימה","סטטוס","עדיפות","אחריות","תאריך","הערות"]];
+  (m.tasks||[]).forEach(t=>T.push([t.apartment==="old"?"ישנה":"חדשה",t.category,t.title,statTxt(t.status),t.priority||"",t.owner||"",t.date||"",t.notes||""]));
+  sheets["משימות"]=T;
+  // קניות (with category header rows so re-import works)
+  const K=[["מוצר","ספק","תשלום (₪)","סטטוס","קישור","מספר הזמנה","הערות","הערות"]];
+  groupBy(m.shop||[],"category").forEach(([cat,items])=>{ K.push([cat,"","","","","","",""]);
+    items.forEach(s=>K.push([s.item,s.supplier||"",s.price||"",shopTxt(s.status),s.link||"",s.order_number||"",s.notes||"",""]));});
+  sheets["קניות"]=K;
+  // תיאום התקנות והרכבות
+  const I=[["מוצר","ספק","טלפון","תאריך הגעה","שעת הגעה","תשלום (₪)","סטטוס תשלום","סטטוס ביצוע/הגעה","הערות"]];
+  (m.install||[]).forEach(x=>I.push([x.item,x.supplier||"",x.phone||"",x.date||"",x.time||"",x.delivery||"",x.payment||"",x.status==="done"?"V":"",x.notes||""]));
+  sheets["תיאום התקנות והרכבות"]=I;
+  // רשימת קניות לסופר (grid by category)
+  const gcats=[...new Set((m.grocery||[]).map(g=>g.category))];
+  const gcols=gcats.map(c=>(m.grocery||[]).filter(g=>g.category===c).map(g=>g.name));
+  const gmax=Math.max(0,...gcols.map(a=>a.length));
+  const G=[gcats];
+  for(let i=0;i<gmax;i++)G.push(gcols.map(a=>a[i]||""));
+  sheets["רשימת קניות לסופר"]=G;
+  // טבלת אריזה
+  const B=[["מספר ארגז","שביר/לא שביר","חדר ייעודי","תוכן"]];
+  (m.boxes||[]).forEach(b=>B.push([b.box,b.fragile||"",b.room||"",b.content||""]));
+  sheets["טבלת אריזה של ארזים"]=B;
+  // לוח זמנים (schedule)
+  const Z=[["שבוע","משימה","בוצע"]];
+  (m.timeline||[]).forEach(t=>Z.push([t.week,t.title,t.done?"בוצע":""]));
+  sheets["לוח זמנים"]=Z;
+  // אנשי קשר
+  sheets["אנשי קשר"]=(m.contacts||[]).map(c=>[c]);
+  return sheets;
+}
+const statTxt=s=>({done:"בוצע",progress:"בתהליך",pending:"לא בוצע"}[s]||"");
+const shopTxt=s=>({done:"בוצע, אצל ההורים",arrived:"בוצע, אצל ההורים",ordered:"הוזמן",pending:""}[s]||"");
+function groupBy(arr,key){const m=new Map();arr.forEach(x=>{const k=x[key]||"";if(!m.has(k))m.set(k,[]);m.get(k).push(x);});return[...m.entries()];}
+
+/* ================= top-level ================= */
+function buildModel(sheets){
+  const shopName=findSheet(sheets,"קניות")&&!findSheet(sheets,"לסופר")?findSheet(sheets,"קניות"):Object.keys(sheets).find(k=>k==="קניות");
+  return {
+    tasks: importTasksFrom(sheets),
+    shop: importShopping(rowsOf(sheets,"קניות")),
+    install: importInstallations(rowsOf(sheets, findSheet(sheets,"התקנות")||"תיאום התקנות והרכבות")),
+    grocery: importGrocery(rowsOf(sheets, findSheet(sheets,"לסופר")||"רשימת קניות לסופר")),
+    boxes: importBoxes(rowsOf(sheets, findSheet(sheets,"אריזה")||"טבלת אריזה של ארזים")),
+    contacts: importContacts(rowsOf(sheets, findSheet(sheets,"אנשי קשר")||"אנשי קשר")),
+    timeline: (rowsOf(sheets,"לוח זמנים").length>1)? importCanonTimeline(rowsOf(sheets,"לוח זמנים")) : []
+  };
+}
+function importCanonTimeline(rows){const out=[];for(let i=1;i<rows.length;i++){const r=rows[i];if(!S(r[1]))continue;out.push({week:S(r[0]),title:S(r[1]),done:S(r[2])==="בוצע",sort_order:i});}return out;}
+
+/* ================= pptx slide XML -> tables ================= */
+function xmlDecode(s){return S(s).replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&#10;/g,"\n").replace(/&apos;/g,"'");}
+function pptxTablesFromXmls(xmls){
+  const tables=[];
+  xmls.forEach(xml=>{
+    (xml.match(/<a:tbl>[\s\S]*?<\/a:tbl>/g)||[]).forEach(tblXml=>{
+      const rows=[];
+      (tblXml.match(/<a:tr[\s\S]*?<\/a:tr>/g)||[]).forEach(trXml=>{
+        const cells=[];
+        (trXml.match(/<a:tc[ >][\s\S]*?<\/a:tc>/g)||[]).forEach(tcXml=>{
+          const paras=(tcXml.match(/<a:p>[\s\S]*?<\/a:p>|<a:p\/>/g)||[]).map(p=>
+            (p.match(/<a:t>([\s\S]*?)<\/a:t>/g)||[]).map(t=>xmlDecode(t.replace(/<\/?a:t>/g,""))).join(""));
+          cells.push(paras.filter(x=>x!=="").join("\n"));
+        });
+        if(cells.length)rows.push(cells);
+      });
+      if(rows.length)tables.push(rows);
+    });
+  });
+  return tables;
+}
+
+const API={buildModel,scheduleFromTables,modelToSheets,pptxTablesFromXmls,importTasksFrom,importShopping,importInstallations,importGrocery,importBoxes,importContacts};
+if(typeof module!=="undefined"&&module.exports)module.exports=API; else root.PIPE=API;
+})(typeof window!=="undefined"?window:globalThis);
+
+</script>
 <script>
 /* =================== CONFIG =================== */
-const SUPABASE_URL = "https://zaikfsmkogejrtqdmbll.supabase.co";
-const SUPABASE_KEY = "sb_publishable_DJ332mc6g_ue0C3ZbxNZCQ_gjciJXqd";
 const MOVE_DATE = "2026-08-13";
 const KEYS_DATE = "2026-07-30";
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const LS_KEY = "homeflow_local_v1";
 
 /* =================== DICTIONARIES =================== */
 const TASK_ST = {done:{lbl:"✅ הושלם",cls:"s-done"},progress:{lbl:"🔄 בתהליך",cls:"s-progress"},pending:{lbl:"⏳ ממתין",cls:"s-pending"}};
@@ -360,131 +590,124 @@ const GROCERY_CATS = ["בסיסי","מוצרי ניקיון","קטניות","מ�
 
 /* =================== STATE =================== */
 const S = {
-  user:null, projectId:null, project:null, role:"limited",
-  members:[], tasks:[], shop:[], install:[], grocery:[], timeline:[], myProjects:[],
-  tab:"dashboard", search:"", fStatus:"all", fPrio:"all", budOpen:null,
-  authMode:"login", channel:null
+  tasks:[], shop:[], install:[], grocery:[], timeline:[], boxes:[], contacts:[],
+  tab:"dashboard", search:"", fStatus:"all", fPrio:"all", budOpen:null, hasData:false
 };
 const $ = id => document.getElementById(id);
 const esc = s => (s==null?"":String(s)).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2400);}
-const cacheKey = ()=>`homeflow_cache_${S.projectId}`;
-function canEdit(){return S.role==="manager"||S.role==="full";}
-function isManager(){return S.role==="manager";}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2600);}
+function canEdit(){return true;}
+function isManager(){return false;}
 const ils = n => "₪"+Math.round(n).toLocaleString("en-US");
 function daysTo(d){const t=new Date(d+"T00:00:00");const n=new Date();n.setHours(0,0,0,0);return Math.round((t-n)/86400000);}
+let _uid=0; const uid=()=>"loc"+Date.now().toString(36)+(_uid++);
 
-/* =================== AUTH =================== */
-async function init(){
-  const {data:{session}} = await sb.auth.getSession();
-  if(session){ await afterLogin(session); } else { showAuth(); }
+/* =================== LOCAL PERSISTENCE (no database) =================== */
+function saveCache(){ // kept name so existing handlers persist unchanged
+  try{localStorage.setItem(LS_KEY,JSON.stringify({
+    tasks:S.tasks,shop:S.shop,install:S.install,grocery:S.grocery,timeline:S.timeline,
+    boxes:S.boxes,contacts:S.contacts,ts:Date.now()}));}catch(e){}
+}
+const saveLocal = saveCache;
+function loadLocal(){
+  try{const c=JSON.parse(localStorage.getItem(LS_KEY)||"null");
+    if(c && (c.tasks||c.shop||c.timeline)){ Object.assign(S,{tasks:c.tasks||[],shop:c.shop||[],install:c.install||[],
+      grocery:c.grocery||[],timeline:c.timeline||[],boxes:c.boxes||[],contacts:c.contacts||[]}); return true; }
+  }catch(e){}
+  return false;
+}
+// in-memory shim so the existing edit/add/delete handlers keep working without a backend
+async function loadData(){ renderActive(); } // used by handlers as a fallback — just re-render
+const sb = { from(){ return {
+  update(){ return { eq(){ saveLocal(); return Promise.resolve({error:null}); } }; },
+  delete(){ return { eq(){ saveLocal(); return Promise.resolve({error:null}); } }; },
+  insert(row){ if(row&&!Array.isArray(row)&&!row.id) row.id=uid();
+    const res={data:row,error:null};
+    return { select(){ return { single(){ saveLocal(); return Promise.resolve(res); } }; },
+             then(r){ saveLocal(); r({error:null}); } };
+  }
+};}};
+
+/* =================== MODEL <-> STATE =================== */
+function applyModel(model, merge){
+  const withIds=(arr)=>(arr||[]).map((x,i)=>Object.assign({id:uid(),sort_order:i},x));
+  if(merge){
+    if(model.tasks&&model.tasks.length)   S.tasks=withIds(model.tasks);
+    if(model.shop&&model.shop.length)     S.shop=withIds(model.shop);
+    if(model.install&&model.install.length)S.install=withIds(model.install);
+    if(model.grocery&&model.grocery.length)S.grocery=withIds(model.grocery);
+    if(model.boxes&&model.boxes.length)   S.boxes=withIds(model.boxes);
+    if(model.contacts&&model.contacts.length)S.contacts=model.contacts;
+    if(model.timeline&&model.timeline.length)S.timeline=withIds(model.timeline);
+  }else{
+    S.tasks=withIds(model.tasks); S.shop=withIds(model.shop); S.install=withIds(model.install);
+    S.grocery=withIds(model.grocery); S.boxes=withIds(model.boxes); S.contacts=model.contacts||[];
+    S.timeline=withIds(model.timeline);
+  }
+}
+function stateToModel(){ return {tasks:S.tasks,shop:S.shop,install:S.install,grocery:S.grocery,
+  boxes:S.boxes,contacts:S.contacts,timeline:S.timeline}; }
+
+/* =================== INIT =================== */
+function init(){
+  if(loadLocal()){ S.hasData=true; showApp(); }
+  else { showImport(); }
   $("loading").classList.add("hidden");
 }
-function showAuth(){ $("app").style.display="none"; $("authView").classList.remove("hidden"); }
-function setAuthMode(mode){
-  S.authMode=mode;
-  $("authTitle").textContent = mode==="login"?"התחברות":"הרשמה";
-  $("authBtn").textContent = mode==="login"?"התחברות":"יצירת חשבון";
-  $("authSwitch").innerHTML = mode==="login" ? `אין לכם חשבון? <a id="toSignup">הרשמה</a>` : `כבר רשומים? <a id="toLogin">התחברות</a>`;
-  $("authPass").setAttribute("autocomplete", mode==="login"?"current-password":"new-password");
-  wireAuthSwitch(); $("authMsg").className="msg";
+function showImport(){ $("app").style.display="none"; $("importView").classList.remove("hidden"); }
+function showApp(){
+  $("importView").classList.add("hidden"); $("app").style.display="block";
+  updateCountdowns(); renderActive();
 }
-function wireAuthSwitch(){const su=$("toSignup"),li=$("toLogin");if(su)su.onclick=()=>setAuthMode("signup");if(li)li.onclick=()=>setAuthMode("login");}
-function authMsg(t,k){const m=$("authMsg");m.textContent=t;m.className="msg "+k;}
-$("authBtn").onclick = async ()=>{
-  const email=$("authEmail").value.trim().toLowerCase(), pass=$("authPass").value;
-  if(!email||!pass){authMsg("יש למלא אימייל וסיסמה","err");return;}
-  $("authBtn").disabled=true;
-  try{
-    if(S.authMode==="login"){
-      const {data,error}=await sb.auth.signInWithPassword({email,password:pass});
-      if(error)throw error; await afterLogin(data.session);
-    }else{
-      if(pass.length<6){authMsg("הסיסמה חייבת להכיל לפחות 6 תווים","err");$("authBtn").disabled=false;return;}
-      const {data,error}=await sb.auth.signUp({email,password:pass});
-      if(error)throw error;
-      if(data.session){ await afterLogin(data.session); }
-      else { authMsg("נשלח אליכם אימייל לאימות החשבון. לאחר האישור — התחברו כאן.","ok"); setAuthMode("login"); }
-    }
-  }catch(e){ authMsg(translateAuthErr(e.message),"err"); }
-  finally{$("authBtn").disabled=false;}
-};
-function translateAuthErr(m){m=m||"";
-  if(/Invalid login/i.test(m))return"אימייל או סיסמה שגויים";
-  if(/already registered/i.test(m))return"האימייל כבר רשום — נסו להתחבר";
-  if(/Email not confirmed/i.test(m))return"החשבון טרם אומת — בדקו את תיבת המייל";
-  if(/rate limit/i.test(m))return"יותר מדי ניסיונות — נסו שוב בעוד רגע";
-  return m;}
-async function afterLogin(session){
-  S.user=session.user;
-  try{ await sb.rpc("claim_memberships"); }catch(e){}
-  $("authView").classList.add("hidden"); $("app").style.display="block";
-  $("userEmailLbl").textContent=S.user.email;
-  await loadProjects();
-}
-$("logoutBtn").onclick = async ()=>{ if(S.channel){sb.removeChannel(S.channel);S.channel=null;} await sb.auth.signOut(); location.reload(); };
-
-/* =================== PROJECTS =================== */
-async function loadProjects(){
-  const {data,error}=await sb.from("project_members").select("project_id, role, projects(id,name,move_date)").eq("user_id",S.user.id);
-  if(error){toast("שגיאה בטעינת פרויקטים");console.error(error);return;}
-  S.myProjects=(data||[]).filter(r=>r.projects);
-  if(S.myProjects.length===0){ await createDefaultProject(); return; }
-  const row=S.myProjects[0]; S.projectId=row.project_id; S.role=row.role; S.project=row.projects;
-  await enterProject();
-}
-async function createDefaultProject(){
-  // New projects start empty — the user fills them in.
-  const {data,error}=await sb.rpc("create_project",{p_name:"מעבר דירה",p_move_date:MOVE_DATE});
-  if(error){toast("שגיאה ביצירת פרויקט");console.error(error);return;}
-  S.projectId=data; S.role="manager"; S.project={id:data,name:"מעבר דירה",move_date:MOVE_DATE};
-  await enterProject();
-}
-async function enterProject(){
-  S.project=S.project||{};
-  $("projTitle").textContent=(S.project.name||"מעבר דירה");
-  renderRoleBadge(); loadFromCache(); await loadData();
-  subscribeRealtime();
-  updateCountdowns();
-}
-function renderRoleBadge(){const m={manager:"מנהל הפרויקט",full:"הרשאה מלאה",limited:"הרשאה מוגבלת"};$("roleBadge").textContent="🔑 "+(m[S.role]||S.role);}
-
-/* =================== DATA =================== */
-function loadFromCache(){
-  try{const c=JSON.parse(localStorage.getItem(cacheKey())||"null");
-    if(c){S.tasks=c.tasks||[];S.shop=c.shop||[];S.install=c.install||[];S.timeline=c.timeline||[];S.grocery=c.grocery||[];renderActive();}}catch(e){}
-}
-function saveCache(){
-  try{localStorage.setItem(cacheKey(),JSON.stringify({tasks:S.tasks,shop:S.shop,install:S.install,timeline:S.timeline,grocery:S.grocery,ts:Date.now()}));}catch(e){}
-}
-async function loadData(){
-  const pid=S.projectId;
-  const [t,s,n,tl,m,g]=await Promise.all([
-    sb.from("tasks").select("*").eq("project_id",pid).order("sort_order"),
-    sb.from("shop_items").select("*").eq("project_id",pid).order("sort_order"),
-    sb.from("installations").select("*").eq("project_id",pid).order("sort_order"),
-    sb.from("timeline_items").select("*").eq("project_id",pid).order("sort_order"),
-    sb.from("project_members").select("*").eq("project_id",pid).order("created_at"),
-    sb.from("grocery_items").select("*").eq("project_id",pid).order("sort_order")
-  ]);
-  if(t.data)S.tasks=t.data; if(s.data)S.shop=s.data; if(n.data)S.install=n.data;
-  if(tl.data)S.timeline=tl.data; if(m.data)S.members=m.data; if(g.data)S.grocery=g.data;
-  $("membersBtn").textContent=`👥 חברים (${S.members.length})`;
-  saveCache(); renderActive();
-}
-function subscribeRealtime(){
-  if(S.channel)sb.removeChannel(S.channel);
-  const tbls=["tasks","shop_items","installations","timeline_items","grocery_items"];
-  let ch=sb.channel("proj-"+S.projectId);
-  tbls.forEach(tb=>ch=ch.on("postgres_changes",{event:"*",schema:"public",filter:`project_id=eq.${S.projectId}`,table:tb},debouncedReload));
-  S.channel=ch.subscribe();
-}
-let _rt; function debouncedReload(){clearTimeout(_rt);_rt=setTimeout(loadData,400);}
-
 function updateCountdowns(){
   const k=daysTo(KEYS_DATE), mv=daysTo(MOVE_DATE);
   $("countKeys").textContent = k>=0?k:"✓";
   $("countMove").textContent = mv>=0?mv:"✓";
+}
+
+/* =================== IMPORT =================== */
+function sheetsFromWorkbook(wb){const s={};wb.SheetNames.forEach(n=>{s[n]=XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:false,defval:""});});return s;}
+async function importFiles(fileList){
+  const files=[...fileList]; if(!files.length)return;
+  $("loading").classList.remove("hidden");
+  let importedXlsx=false, importedPptx=false, scheduleItems=null, model=null;
+  try{
+    for(const f of files){
+      const buf=await f.arrayBuffer();
+      if(/\.xlsx$/i.test(f.name)){
+        const wb=XLSX.read(buf,{type:"array"});
+        model=PIPE.buildModel(sheetsFromWorkbook(wb));
+        importedXlsx=true;
+      } else if(/\.pptx$/i.test(f.name)){
+        const zip=await JSZip.loadAsync(buf);
+        const xmls=[];
+        for(const name of Object.keys(zip.files)) if(/ppt\/slides\/slide\d+\.xml$/.test(name)) xmls.push(await zip.files[name].async("string"));
+        scheduleItems=PIPE.scheduleFromTables(PIPE.pptxTablesFromXmls(xmls));
+        importedPptx=true;
+      }
+    }
+    // merge onto existing data (so importing xlsx then pptx, or adding to a session, works)
+    const base = S.hasData ? stateToModel() : {tasks:[],shop:[],install:[],grocery:[],boxes:[],contacts:[],timeline:[]};
+    if(model){ applyModel(model, S.hasData); }
+    if(scheduleItems && scheduleItems.length){ S.timeline = scheduleItems.map((x,i)=>Object.assign({id:uid()},x)); }
+    S.hasData=true; saveLocal();
+    showApp();
+    toast(`יובאו בהצלחה${importedXlsx?" · Excel":""}${importedPptx?" · לו״ז":""}`);
+  }catch(e){
+    console.error(e); toast("שגיאה בייבוא הקובץ — ודאו שזה xlsx/pptx תקין");
+  }finally{ $("loading").classList.add("hidden"); }
+}
+
+/* =================== EXPORT =================== */
+function exportXlsx(){
+  const sheets=PIPE.modelToSheets(stateToModel());
+  const wb=XLSX.utils.book_new();
+  Object.entries(sheets).forEach(([name,rows])=>{
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), name.slice(0,31));
+  });
+  const d=new Date(), stamp=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  XLSX.writeFile(wb, `מעבר-דירה-${stamp}.xlsx`);
+  toast("הקובץ יוצא — כולל את הלו״ז כגיליון");
 }
 
 /* =================== FILTERS =================== */
@@ -520,7 +743,7 @@ function groVisible(g){
 /* =================== RENDER =================== */
 function renderActive(){
   ({dashboard:renderDashboard,tasks:renderTasks,install:renderInstall,shop:renderShop,
-    grocery:renderGrocery,budget:renderBudget,timeline:renderTimeline}[S.tab]||renderDashboard)();
+    grocery:renderGrocery,budget:renderBudget,boxes:renderBoxes,timeline:renderTimeline}[S.tab]||renderDashboard)();
 }
 function progressBar(p){return `<div class="bar"><i style="width:${p}%"></i></div>`;}
 function topProgress(title,desc,pct){
@@ -557,11 +780,7 @@ function renderDashboard(){
       if(!cs.length)return "";
       return `<div class="info-card"><h4>📞 אנשי קשר (מתוך ההובלות)</h4><div class="contacts">${cs.map(c=>`<div class="contact"><span style="font-size:18px">📱</span><div><b>${esc(c[0])}</b><a href="tel:${esc(c[1].replace(/[^0-9+]/g,""))}">${esc(c[1])}</a></div></div>`).join("")}</div></div>`;
     })()}
-    ${isManager()?`<div class="info-card"><h4>👥 חברי הפרויקט (${S.members.length})</h4>
-      <p style="color:var(--muted);font-size:13.5px;margin:0 0 12px">${S.members.map(m=>esc(m.email)+(m.user_id?"":" (ממתין)")).join(" · ")}</p>
-      <button class="btn secondary sm" id="dashInvite">➕ הזמנת חבר לפרויקט</button>
-      <p style="color:var(--muted);font-size:12.5px;margin-top:10px">הזינו אימייל של מי שתרצו לשתף. הוא יקבל גישה לאחר שיירשם עם אותו אימייל. אפשר לתת <b>הרשאה מלאה</b> (עריכה) או <b>מוגבלת</b> (עדכון סטטוסים בלבד).</p>
-    </div>`:""}`;
+    ${(S.contacts&&S.contacts.length)?`<div class="info-card"><h4>ℹ️ אנשי קשר ומידע (מהקובץ)</h4>${S.contacts.map(c=>`<div style="font-size:13px;white-space:pre-line;padding:9px 0;border-top:1px solid var(--line);color:#374151">${esc(c)}</div>`).join("")}</div>`:""}`;
 }
 
 /* ---------- Tasks (old vs new) ---------- */
@@ -762,6 +981,29 @@ function tlBadge(t){
   for(const[k,v]of map)if(t.includes(k))return v;
   return "📌 כללי";
 }
+/* ---------- Boxes (packing table) ---------- */
+function renderBoxes(){
+  const vis=S.boxes.filter(b=>matchSearch([b.box,b.room,b.content,b.fragile].join(" ")));
+  const filled=S.boxes.filter(b=>b.content).length;
+  let html=topProgress("📦 טבלת ארגזים","מספור, חדר יעד ותוכן — לעריכה נוחה בזמן האריזה",
+    S.boxes.length?Math.round(filled/S.boxes.length*100):0);
+  html+=`<div class="acc open"><div class="acc-inner" style="padding-top:14px">
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>מס׳</th><th>שביר?</th><th>חדר יעד</th><th>תוכן</th><th></th></tr></thead>
+    <tbody>${vis.length?vis.map(renderBoxRow).join(""):`<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">אין ארגזים עדיין — הוסיפו את הראשון ⬇️</td></tr>`}</tbody></table></div>
+    <button class="btn secondary sm add-row" id="addBox">➕ הוספת ארגז</button>
+  </div></div>`;
+  $("tab-boxes").innerHTML=html;
+}
+function renderBoxRow(b){
+  const fr=v=>`<option value="${v}" ${(b.fragile||"")===v?"selected":""}>${v||"—"}</option>`;
+  return `<tr data-box="${b.id}">
+    <td style="width:64px"><input class="mini-input" style="min-width:52px" data-bfield="box" value="${esc(b.box||"")}" /></td>
+    <td><select class="st-select" style="min-width:90px" data-bfield="fragile">${fr("")}${fr("שביר")}${fr("לא שביר")}</select></td>
+    <td><input class="mini-input" style="min-width:120px" data-bfield="room" value="${esc(b.room||"")}" placeholder="חדר" /></td>
+    <td><input class="mini-input" style="min-width:240px;width:100%" data-bfield="content" value="${esc(b.content||"")}" placeholder="תוכן הארגז" /></td>
+    <td><button class="del-row" data-delbox>🗑</button></td></tr>`;
+}
+
 function renderTimeline(){
   const weeks=[...new Set(S.timeline.map(t=>t.week))];
   const dn=S.timeline.filter(t=>t.done).length;
@@ -792,7 +1034,7 @@ $("tabs").addEventListener("click",e=>{
   const b=e.target.closest(".tab"); if(!b)return;
   S.tab=b.dataset.tab;
   document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t===b));
-  ["dashboard","tasks","install","shop","grocery","budget","timeline"].forEach(n=>$("tab-"+n).classList.toggle("hidden",n!==S.tab));
+  ["dashboard","tasks","install","shop","grocery","budget","boxes","timeline"].forEach(n=>$("tab-"+n).classList.toggle("hidden",n!==S.tab));
   renderActive();
 });
 $("searchInput").addEventListener("input",e=>{S.search=e.target.value.trim().toLowerCase();renderActive();});
@@ -909,6 +1151,21 @@ $("tab-timeline").addEventListener("click",async e=>{
   t.done=!t.done;saveCache();renderTimeline();
   const {error}=await sb.from("timeline_items").update({done:t.done}).eq("id",t.id);if(error){toast("שמירה נכשלה");loadData();}
 });
+
+/* boxes */
+$("tab-boxes").addEventListener("input",e=>{
+  const tr=e.target.closest("[data-box]");if(!tr||!e.target.dataset.bfield)return;
+  const b=S.boxes.find(x=>x.id===tr.dataset.box);if(b){b[e.target.dataset.bfield]=e.target.value;saveLocal();}
+});
+$("tab-boxes").addEventListener("change",e=>{
+  const tr=e.target.closest("[data-box]");if(!tr||!e.target.dataset.bfield)return;
+  const b=S.boxes.find(x=>x.id===tr.dataset.box);if(b){b[e.target.dataset.bfield]=e.target.value;saveLocal();}
+});
+$("tab-boxes").addEventListener("click",e=>{
+  if(e.target.id==="addBox"){S.boxes.push({id:uid(),box:String(S.boxes.length+1),fragile:"",room:"",content:"",sort_order:S.boxes.length});saveLocal();renderBoxes();return;}
+  const del=e.target.closest("[data-delbox]");
+  if(del){const tr=e.target.closest("[data-box]");S.boxes=S.boxes.filter(x=>x.id!==tr.dataset.box);saveLocal();renderBoxes();}
+});
 async function addTimeline(){
   const week=prompt("שם השלב / השבוע (למשל: \"שבוע 1-7 ביולי\"):");if(!week)return;
   const title=prompt("תיאור המשימה:");if(!title)return;
@@ -918,53 +1175,23 @@ async function addTimeline(){
   if(error){toast("הוספה נכשלה");return;}S.timeline.push(data);saveCache();renderTimeline();
 }
 
-/* =================== MEMBERS =================== */
-$("membersBtn").onclick=()=>{renderMembers();$("memberModal").classList.add("show");};
-$("tab-dashboard").addEventListener("click",e=>{if(e.target.closest("#dashInvite")){renderMembers();$("memberModal").classList.add("show");}});
-$("closeMembers").onclick=()=>$("memberModal").classList.remove("show");
-$("memberModal").addEventListener("click",e=>{if(e.target===$("memberModal"))$("memberModal").classList.remove("show");});
-function renderMembers(){
-  const roleMap={manager:["מנהל","role-manager"],full:["מלא","role-full"],limited:["מוגבל","role-limited"]};
-  let html=S.members.map(m=>{
-    const r=roleMap[m.role]||["—","role-limited"];const initial=(m.email||"?").charAt(0).toUpperCase();
-    const pending=m.user_id?"":`<span class="pending-tag">· ממתין להרשמה</span>`;
-    const canRemove=isManager()&&m.role!=="manager";
-    const roleControl=isManager()&&m.role!=="manager"
-      ? `<select class="st-select" data-memrole="${m.id}"><option value="full" ${m.role==="full"?"selected":""}>הרשאה מלאה</option><option value="limited" ${m.role==="limited"?"selected":""}>הרשאה מוגבלת</option></select>`
-      : `<span class="role-tag ${r[1]}">${r[0]}</span>`;
-    return `<div class="mem"><div class="av">${esc(initial)}</div>
-      <div class="info"><b>${esc(m.email)}</b> ${pending}<br><small>${m.role==="manager"?"מנהל הפרויקט":""}</small></div>
-      ${roleControl}${canRemove?`<button class="del-row" data-memdel="${m.id}">🗑</button>`:""}</div>`;
-  }).join("");
-  if(isManager()){
-    html+=`<div class="add-mem"><input type="email" id="newMemEmail" placeholder="אימייל של חבר חדש" />
-      <select id="newMemRole"><option value="limited">הרשאה מוגבלת</option><option value="full">הרשאה מלאה</option></select>
-      <button class="btn sm" id="addMemBtn">➕ הוספה</button></div>
-      <p style="color:var(--muted);font-size:12.5px;margin-top:10px">המוזמן יקבל גישה לאחר שיירשם עם אותו אימייל. <b>הרשאה מוגבלת</b> = עדכון סטטוסים בלבד · <b>הרשאה מלאה</b> = הוספה ועריכה.</p>`;
-  }else{ html+=`<p style="color:var(--muted);font-size:13px;margin-top:12px">רק מנהל הפרויקט יכול להוסיף או להסיר חברים.</p>`; }
-  $("memberBody").innerHTML=html;
-  if(isManager()){
-    $("addMemBtn").onclick=addMember;
-    $("memberBody").querySelectorAll("[data-memrole]").forEach(sel=>sel.onchange=async()=>{
-      const {error}=await sb.from("project_members").update({role:sel.value}).eq("id",sel.dataset.memrole);
-      if(error)toast("עדכון נכשל");else{toast("עודכן");await loadData();renderMembers();}});
-    $("memberBody").querySelectorAll("[data-memdel]").forEach(btn=>btn.onclick=async()=>{
-      if(!confirm("להסיר חבר זה מהפרויקט?"))return;
-      const {error}=await sb.from("project_members").delete().eq("id",btn.dataset.memdel);
-      if(error)toast("הסרה נכשלה");else{toast("הוסר");await loadData();renderMembers();}});
-  }
-}
-async function addMember(){
-  const email=$("newMemEmail").value.trim().toLowerCase(),role=$("newMemRole").value;
-  if(!email){toast("יש להזין אימייל");return;}
-  const {error}=await sb.from("project_members").insert({project_id:S.projectId,email,role,user_id:null});
-  if(error){toast(/duplicate/i.test(error.message)?"החבר כבר קיים":"הוספה נכשלה");return;}
-  $("newMemEmail").value="";toast("נוסף בהצלחה");await loadData();renderMembers();
-}
+/* =================== IMPORT / EXPORT UI =================== */
+function pickFiles(){ $("fileInput").click(); }
+$("fileInput").addEventListener("change",e=>{ importFiles(e.target.files); e.target.value=""; });
+$("importBtn").onclick=pickFiles;
+$("importBtnLanding").onclick=pickFiles;
+$("exportBtn").onclick=exportXlsx;
+$("clearBtn").onclick=()=>{
+  if(!confirm("לנקות את כל הנתונים מהמסך? (לא נמחק שום קובץ — רק תוכן העבודה הנוכחי)"))return;
+  localStorage.removeItem(LS_KEY);
+  S.tasks=[];S.shop=[];S.install=[];S.grocery=[];S.timeline=[];S.boxes=[];S.contacts=[];S.hasData=false;
+  showImport(); toast("נוקה — אפשר לייבא קובץ חדש");
+};
+// drag & drop onto the landing
+["dragover","drop"].forEach(ev=>document.addEventListener(ev,e=>{e.preventDefault();}));
+$("importView").addEventListener("drop",e=>{ if(e.dataTransfer&&e.dataTransfer.files.length) importFiles(e.dataTransfer.files); });
 
 /* =================== START =================== */
-setAuthMode("login"); wireAuthSwitch();
-sb.auth.onAuthStateChange((event)=>{ if(event==="SIGNED_OUT")showAuth(); });
 init();
 </script>
 </body>
